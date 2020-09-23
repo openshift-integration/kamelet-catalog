@@ -33,4 +33,4 @@ spec:
       steps:
       - marshal:
           json: {}
-      - to: "direct:#property:routeId"
+      - to: "direct:{{routeId}}"
