@@ -11,16 +11,32 @@ spec:
     title: "Salesforce Source"
     description: |-
       Receive updates from Salesforce.
-
-      ## TODO
-      Bind credentials to Kamelet properties
-    
     properties:
       query:
         title: Query
         description: The query to execute on Salesforce
         type: string
         example: SELECT Id, Name, Email, Phone FROM Contact
+      clientId:
+        title: Consumer Key
+        description: The Salesforce application consumer key
+        type: string
+      clientSecret:
+        title: Consumer Secret
+        description: The Salesforce application consumer secret
+        type: string
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:password
+      userName:
+        title: Username
+        description: The Salesforce username
+        type: string
+      password:
+        title: Password
+        description: The Salesforce user password
+        type: string
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:password
   types:
     out:
       mediaType: application/json
@@ -28,8 +44,12 @@ spec:
   - "camel:jackson"
   flow:
     from:
-      uri: "salesforce:camelTestTopic"
+      uri: "wrap:salesforce:camelTestTopic"
       parameters:
+        clientId: {{clientId}}
+        clientSecret: {{clientSecret}}
+        userName: {{userName}}
+        password: {{password}}
         notifyForFields: "ALL"
         updateTopic: "true"
         notifyForOperationCreate: "true"
@@ -40,4 +60,4 @@ spec:
       steps:
       - marshal:
           json: {}
-      - to: "direct:{{routeId}}"
+      - to: "kamelet:sink"

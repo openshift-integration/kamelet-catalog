@@ -54,4 +54,4 @@ spec:
       steps:
       - marshal:
           json: {}
-      - to: "direct:{{routeId}}"
+      - to: "kamelet:sink"
