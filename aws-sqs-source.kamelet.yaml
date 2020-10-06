@@ -52,12 +52,12 @@ spec:
   - "camel:jackson"
   flow:
     from:
-      uri: "aws2-sqs:#property:queueNameOrArn"
+      uri: "aws2-sqs:{{queueNameOrArn}}"
       parameters:
-        secretKey: "#property:secretKey"
-        accessKey: "#property:accessKey"
-        region: "#property:region"
-        deleteAfterRead: "#property:deleteAfterRead"
+        secretKey: "{{secretKey}}"
+        accessKey: "{{accessKey}}"
+        region: "{{region}}"
+        deleteAfterRead: "{{deleteAfterRead}}"
       steps:
       - marshal:
           json: {}

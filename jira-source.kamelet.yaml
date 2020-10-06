@@ -54,10 +54,10 @@ spec:
     from:
       uri: "jira:newIssues"
       parameters:
-        jiraUrl: "#property:jiraUrl"
-        username: "#property:username"
-        password: "#property:password"
-        jql: "#property:jql"
+        jiraUrl: "{{jiraUrl}}"
+        username: "{{username}}"
+        password: "{{password}}"
+        jql: "{{jql}}"
       steps:
       - marshal:
           json: {}

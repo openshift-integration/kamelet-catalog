@@ -33,9 +33,9 @@ spec:
   - "camel:jackson"
   flow:
     from:
-      uri: "slack:#property:channel"
+      uri: "slack:{{channel}}"
       parameters:
-        token: "#property:token"
+        token: "{{token}}"
       steps:
       - marshal:
           json: {}

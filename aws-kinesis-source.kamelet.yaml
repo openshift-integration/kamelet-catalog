@@ -43,14 +43,14 @@ spec:
       mediaType: application/json
   dependencies:
   - "camel:jackson"
-  - "mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-cbor/2.10.5"
+  - "camel:cbor"
   flow:
     from:
-      uri: aws-kinesis:#property:stream
+      uri: aws-kinesis:{{stream}}
       parameters:
-        secretKey: "#property:secretKey"
-        accessKey: "#property:accessKey"
-        region: "#property:region"
+        secretKey: "{{secretKey}}"
+        accessKey: "{{accessKey}}"
+        region: "{{region}}"
       steps:
       - marshal:
           json: {}

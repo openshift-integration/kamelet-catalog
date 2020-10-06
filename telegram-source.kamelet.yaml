@@ -29,7 +29,7 @@ spec:
     from:
       uri: telegram:bots
       parameters:
-        authorizationToken: "#property:authorizationToken"
+        authorizationToken: "{{authorizationToken}}"
       steps:
       - marshal:
           json: {}

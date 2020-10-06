@@ -56,7 +56,7 @@ spec:
         notifyForOperationUpdate: "false"
         notifyForOperationDelete: "false"
         notifyForOperationUndelete: "false"
-        sObjectQuery: "#property:query"
+        sObjectQuery: "{{query}}"
       steps:
       - marshal:
           json: {}
