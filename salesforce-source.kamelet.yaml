@@ -46,10 +46,10 @@ spec:
     from:
       uri: "wrap:salesforce:camelTestTopic"
       parameters:
-        clientId: {{clientId}}
-        clientSecret: {{clientSecret}}
-        userName: {{userName}}
-        password: {{password}}
+        clientId: "{{clientId}}"
+        clientSecret: "{{clientSecret}}"
+        userName: "{{userName}}"
+        password: "{{password}}"
         notifyForFields: "ALL"
         updateTopic: "true"
         notifyForOperationCreate: "true"
