@@ -17,6 +17,16 @@ spec:
         description: The query to execute on Salesforce
         type: string
         example: SELECT Id, Name, Email, Phone FROM Contact
+      topicName:
+        title: Topic Name
+        description: The name of the topic/channel to use
+        type: string
+        default: sampleTopic
+      loginUrl:
+        title: Login URL
+        description: The Salesforce instance login URL
+        type: string
+        default: https://login.salesforce.com
       clientId:
         title: Consumer Key
         description: The Salesforce application consumer key
@@ -42,9 +52,10 @@ spec:
       mediaType: application/json
   dependencies:
   - "camel:jackson"
+  - "camel:salesforce"
   flow:
     from:
-      uri: "wrap:salesforce:camelTestTopic"
+      uri: "wrap:salesforce:{{topicName}}"
       parameters:
         clientId: "{{clientId}}"
         clientSecret: "{{clientSecret}}"
@@ -57,6 +68,7 @@ spec:
         notifyForOperationDelete: "false"
         notifyForOperationUndelete: "false"
         sObjectQuery: "{{query}}"
+        loginUrl: "{{loginUrl}}"
       steps:
       - marshal:
           json: {}
