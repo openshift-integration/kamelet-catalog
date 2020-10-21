@@ -42,9 +42,9 @@ spec:
         - urn:alm:descriptor:com.tectonic.ui:password
       region:
         title: AWS Region
-        description: The AWS region to connect to (capitalized name)
+        description: The AWS region to connect to
         type: string
-        example: EU_WEST_1
+        example: eu-west-1
   types:
     out:
       mediaType: application/json
