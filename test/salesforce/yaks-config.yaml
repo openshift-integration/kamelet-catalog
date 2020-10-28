@@ -19,6 +19,7 @@ config:
   runtime:
     resources:
       - ../../salesforce-source.kamelet.yaml
+      - salesforce-to-uri.yaml
       - salesforce-to-log.groovy
 pre:
   - script: prepare-secret.sh

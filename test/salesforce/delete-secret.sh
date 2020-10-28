@@ -17,3 +17,4 @@
 
 # delete secret
 kubectl delete secret salesforce-credentials
+kubectl delete secret salesforce-binding-credentials

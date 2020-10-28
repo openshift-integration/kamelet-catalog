@@ -1,0 +1,20 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: salesforce-to-uri
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: salesforce-source
+    properties:
+      topicName: "${topicName}"
+      query: "${query}"
+      clientId: "${salesforce.clientId}"
+      clientSecret: "${salesforce.clientSecret}"
+      userName: "${salesforce.userName}"
+      password: "${salesforce.password}"
+      loginUrl: "${salesforce.loginUrl}"
+  sink:
+    uri: http://salesforce-case-service.${YAKS_NAMESPACE}/case

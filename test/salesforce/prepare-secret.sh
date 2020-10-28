@@ -17,6 +17,8 @@
 
 # create secret from properties file
 kubectl create secret generic salesforce-credentials --from-file=salesforce-credentials.properties
+kubectl create secret generic salesforce-binding-credentials --from-file=salesforce-credentials.properties
 
 # bind secret to test by name
 kubectl label secret salesforce-credentials yaks.citrusframework.org/test=salesforce-source
+kubectl label secret salesforce-binding-credentials yaks.citrusframework.org/test=salesforce-binding
