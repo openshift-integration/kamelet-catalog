@@ -11,6 +11,13 @@ spec:
     title: "Salesforce Source"
     description: |-
       Receive updates from Salesforce.
+    required:
+      - query
+      - topicName
+      - clientId
+      - clientSecret
+      - userName
+      - password
     properties:
       query:
         title: Query
