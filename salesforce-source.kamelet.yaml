@@ -21,7 +21,7 @@ spec:
         title: Topic Name
         description: The name of the topic/channel to use
         type: string
-        default: sampleTopic
+        example: ContactTopic
       loginUrl:
         title: Login URL
         description: The Salesforce instance login URL
