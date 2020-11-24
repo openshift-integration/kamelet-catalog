@@ -7,6 +7,8 @@ This test verifies the Salesforce Kamelet source defined in [salesforce-source.k
 The test verifies the Salesforce Kamelet source by creating a Camel-K integration that uses the Kamelet and listens for Case objects on the
 Salesforce account.
 
+### Test Kamelet source
+
 The test performs the following high level steps:
 
 *Preparation*
@@ -19,11 +21,34 @@ The test performs the following high level steps:
 - Create the Kamelet in the current namespace in the cluster
 - Create the Camel-K integration that uses the Kamelet
 - Wait for the Camel-K integration to start and listen for Case objects
-- Create an new Case object
+- Create a new Case object on the Salesforce API
 - Verify that the integration has received the Case object event
 
 *Cleanup*
 - Delete the Camel-K integration
+- Delete the secret from the current namespacce
+
+### Test KameletBinding
+
+The test performs the following high level steps:
+
+*Preparation*
+- Create a secret on the current namespace holding the Salesforce credentials
+- Link the secret to the test
+
+*Scenario* 
+- Obtain an authorization token from Salesforce login
+- Obtain the account id for the Salesforce account
+- Create the Kamelet in the current namespace in the cluster
+- Create the KameletBinding that binds the Salesforce source to a Http URI
+- Create a new Http service that exposes the URI endpoint
+- Wait for services to start properly
+- Create a new Case object on the Salesforce API
+- Verify that the Http URI service endpoint has received the Case object event
+
+*Cleanup*
+- Delete the KameletBinding
+- Delete the Http URI service endpoint
 - Delete the secret from the current namespacce
 
 ## Installation
@@ -62,6 +87,7 @@ Now you should be ready to run the test!
 
 ```shell script
 $ yaks test salesforce-source.feature
+$ yaks test salesforce-binding.feature
 ```
 
 You will be provided with the test log output and the test results.
