@@ -5,9 +5,7 @@ Feature: Slack Kamelet
     Given Disable auto removal of Kamelet resources
 
   Scenario: Create Camel-K resources
-    When load Kamelet slack-source.kamelet.yaml
     And load Camel-K integration slack-to-log.groovy
-    Then Kamelet slack-source is available
 
   Scenario: Verify Kamelet source
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
