@@ -5,7 +5,7 @@ Feature: Slack Kamelet
     Given Disable auto removal of Kamelet resources
 
   Scenario: Create Camel-K resources
-    And load Camel-K integration slack-to-log.groovy
+    Given load Camel-K integration slack-to-log.groovy
 
   Scenario: Verify Kamelet source
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
