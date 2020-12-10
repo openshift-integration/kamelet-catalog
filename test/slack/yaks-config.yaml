@@ -18,7 +18,6 @@
 config:
   runtime:
     resources:
-      - ../../slack-source.kamelet.yaml
       - slack-to-log.groovy
 pre:
   - script: prepare-secret.sh
