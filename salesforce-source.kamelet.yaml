@@ -63,7 +63,7 @@ spec:
   - "camel:salesforce"
   flow:
     from:
-      uri: "wrap:salesforce:{{topicName}}"
+      uri: "kamelet-reify:salesforce:{{topicName}}"
       parameters:
         clientId: "{{clientId}}"
         clientSecret: "{{clientSecret}}"
