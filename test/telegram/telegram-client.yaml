@@ -1,0 +1,29 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: telegram-client
+  generateName: telegram-client-
+  labels:
+    app: yaks
+    name: telegram-client
+spec:
+  containers:
+    - name: telegram-client
+      image: 'yaks/telegram-client:0.1.0'
+      env:
+        - name: TELEGRAM_DC_ID
+          value: "${telegram.dcId}"
+        - name: TELEGRAM_DC_IP
+          value: "${telegram.dcIp}"
+        - name: TELEGRAM_USERNAME
+          value: "${telegram.username}"
+        - name: TELEGRAM_API_ID
+          value: "${telegram.appId}"
+        - name: TELEGRAM_API_HASH
+          value: "${telegram.appHash}"
+        - name: TELEGRAM_SESSION
+          value: "${telegram.sessionString}"
+        - name: TELEGRAM_TEXT
+          value: "${message}"
+      imagePullPolicy: IfNotPresent
+  restartPolicy: Never
