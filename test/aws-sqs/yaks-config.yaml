@@ -1,0 +1,9 @@
+config:
+  runtime:
+    resources:
+      - ../../aws-sqs-source.kamelet.yaml
+      - aws-sqs-client.yaml
+pre:
+  - script: prepare-secret.sh
+post:
+  - script: delete-secret.sh
