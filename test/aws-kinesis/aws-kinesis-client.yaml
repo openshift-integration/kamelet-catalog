@@ -1,0 +1,23 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ${aws.kinesis.clientName}
+  generateName: aws-kinesis-client-
+  labels:
+    app: yaks
+    name: aws-kinesis-client
+spec:
+  containers:
+    - name: aws-kinesis-client
+      image: 'amazon/aws-cli:2.1.10'
+      command: ["aws", "kinesis", ${aws.kinesis.command}]
+      volumeMounts:
+        - name: config
+          mountPath: "/root/.aws"
+          readOnly: true
+      imagePullPolicy: IfNotPresent
+  restartPolicy: Never
+  volumes:
+    - name: config
+      secret:
+        secretName: aws-client-config
