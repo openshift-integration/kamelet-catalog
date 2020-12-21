@@ -23,5 +23,3 @@ pre:
     run: |
       kamel install -w -n ${YAKS_NAMESPACE}
   - script: prepare-structure.sh
-post:
-  - script: delete-secret.sh

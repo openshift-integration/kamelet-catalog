@@ -11,8 +11,8 @@ Feature: Jira Kamelet
 
   Scenario: Verify new jira issue is created
     Given variable summary is "New bug, citrus:randomString(10)"
-    Given URL: ${url}
-    And HTTP request header Authorization="Basic ${base64encoded}"
+    Given URL: ${camel.kamelet.jira-source.jiraUrl}
+    And HTTP request header Authorization="Basic citrus:encodeBase64(${camel.kamelet.jira-source.username}:${camel.kamelet.jira-source.password})"
     And HTTP request header Content-Type="application/json"
     And HTTP request body
     """
@@ -20,7 +20,7 @@ Feature: Jira Kamelet
          "fields": {
                "project":
                {
-                  "key": "${project}"
+                  "key": "citrus:substring(${camel.kamelet.jira-source.jql}, 8)"
                },
                "summary": "${summary}",
                "description": "Yaks test of jira-source kamelet",
