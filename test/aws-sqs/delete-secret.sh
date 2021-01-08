@@ -16,4 +16,4 @@
 # limitations under the License.
 
 # delete secret
-kubectl delete secret aws-sqs-credentials
+oc delete secret aws-sqs-credentials -n ${YAKS_NAMESPACE}

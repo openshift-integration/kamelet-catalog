@@ -16,12 +16,16 @@
 # ---------------------------------------------------------------------------
 
 config:
+  namespace:
+    temporary: true
   runtime:
     resources:
-      - ../../telegram-source.kamelet.yaml
       - telegram-to-log.groovy
       - telegram-client.yaml
 pre:
+  - name: Install kamel
+    run: |
+      kamel install -w -n ${YAKS_NAMESPACE} --maven-repository=http://nexus.fuse-qe.eng.rdu2.redhat.com/repository/fuse-all --olm=false
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh

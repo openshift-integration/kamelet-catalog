@@ -16,7 +16,7 @@
 # limitations under the License.
 
 # create secret from properties file
-kubectl create secret generic telegram-credentials --from-file=telegram-credentials.properties
+oc create secret generic telegram-credentials --from-file=telegram-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-kubectl label secret telegram-credentials yaks.citrusframework.org/test=telegram-source
+oc label secret telegram-credentials yaks.citrusframework.org/test=telegram-source -n ${YAKS_NAMESPACE}

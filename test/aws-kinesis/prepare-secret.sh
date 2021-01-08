@@ -16,8 +16,8 @@
 # limitations under the License.
 
 # create secret from properties file
-kubectl create secret generic aws-kinesis-credentials --from-file=aws-kinesis-credentials.properties
-kubectl create secret generic aws-client-config --from-file=.aws/config --from-file=.aws/credentials
+oc create secret generic aws-kinesis-credentials --from-file=aws-kinesis-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic aws-client-config --from-file=.aws/config --from-file=.aws/credentials -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-kubectl label secret aws-kinesis-credentials yaks.citrusframework.org/test=aws-kinesis-source
+oc label secret aws-kinesis-credentials yaks.citrusframework.org/test=aws-kinesis-source -n ${YAKS_NAMESPACE}

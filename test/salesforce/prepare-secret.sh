@@ -16,9 +16,9 @@
 # limitations under the License.
 
 # create secret from properties file
-kubectl create secret generic salesforce-credentials --from-file=salesforce-credentials.properties
-kubectl create secret generic salesforce-binding-credentials --from-file=salesforce-credentials.properties
+oc create secret generic salesforce-credentials --from-file=salesforce-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic salesforce-binding-credentials --from-file=salesforce-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-kubectl label secret salesforce-credentials yaks.citrusframework.org/test=salesforce-source
-kubectl label secret salesforce-binding-credentials yaks.citrusframework.org/test=salesforce-binding
+oc label secret salesforce-credentials yaks.citrusframework.org/test=salesforce-source -n ${YAKS_NAMESPACE}
+oc label secret salesforce-binding-credentials yaks.citrusframework.org/test=salesforce-binding -n ${YAKS_NAMESPACE}

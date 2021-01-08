@@ -6,8 +6,7 @@ Feature: Telegram Kamelet
     Given Disable auto removal of Kamelet resources
 
   Scenario: Create Camel-K resources
-    When load Kamelet telegram-source.kamelet.yaml
-    And load Camel-K integration telegram-to-log.groovy
+    When load Camel-K integration telegram-to-log.groovy
     Then Kamelet telegram-source is available
 
   Scenario: Verify Kamelet source
