@@ -24,7 +24,7 @@ config:
 pre:
   - name: Install kamel
     run: |
-      kamel install -w -n ${YAKS_NAMESPACE} --maven-repository=http://nexus.fuse-qe.eng.rdu2.redhat.com/repository/fuse-all --olm=false
+      kamel install -w -n ${YAKS_NAMESPACE}
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh
