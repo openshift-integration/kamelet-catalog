@@ -1,4 +1,5 @@
-# ---------------------------------------------------------------------------
+#!/bin/sh
+
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -6,27 +7,17 @@
 # (the "License"); you may not use this file except in compliance with
 # the License.  You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ---------------------------------------------------------------------------
 
-config:
-  namespace:
-    temporary: true
-  runtime:
-    resources:
-      - jira-to-log-uri-based.groovy
-      - jira-to-log-secret-based.groovy
-      - logger-sink.kamelet.yaml
-pre:
-  - name: Install kamel
-    run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
-  - script: prepare-structure.sh
-post:
-  - script: delete-structure.sh
+# delete secret
+oc delete secret jira-credentials -n ${YAKS_NAMESPACE}
+oc delete secret jira-source.jira-credentials -n ${YAKS_NAMESPACE}
+
+# delete InMemoryChannel
+oc delete InMemoryChannel messages -n ${YAKS_NAMESPACE}
