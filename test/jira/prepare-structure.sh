@@ -16,10 +16,10 @@
 # limitations under the License.
 
 # create secret from properties file
-kubectl create secret generic jira-credentials --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic jira-credentials --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to jira-source test
-kubectl label secret jira-credentials yaks.citrusframework.org/test=jira-source -n ${YAKS_NAMESPACE}
+oc label secret jira-credentials yaks.citrusframework.org/test=jira-source -n ${YAKS_NAMESPACE}
 
 # create InMemoryChannel messages
 oc apply -f inmem.yaml -n ${YAKS_NAMESPACE}
