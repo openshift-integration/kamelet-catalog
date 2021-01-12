@@ -16,4 +16,4 @@
 # limitations under the License.
 
 # delete secret
-kubectl delete secret telegram-credentials
+oc delete secret telegram-credentials -n ${YAKS_NAMESPACE}

@@ -16,5 +16,5 @@
 # limitations under the License.
 
 # delete secret
-kubectl delete secret aws-kinesis-credentials
-kubectl delete secret aws-client-config
+oc delete secret aws-kinesis-credentials -n ${YAKS_NAMESPACE}
+oc delete secret aws-client-config -n ${YAKS_NAMESPACE}

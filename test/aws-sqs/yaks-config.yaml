@@ -1,9 +1,13 @@
 config:
+  namespace:
+    temporary: true
   runtime:
     resources:
-      - ../../aws-sqs-source.kamelet.yaml
       - aws-sqs-client.yaml
 pre:
+  - name: Install kamel
+    run: |
+      kamel install -w -n ${YAKS_NAMESPACE}
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh

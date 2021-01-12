@@ -22,7 +22,6 @@ Feature: Salesforce Kamelet
   Scenario: Create Camel-K resources
     Given variable query is "SELECT Id, Subject FROM Case"
     And variable topicName is "CamelTestTopic"
-    When load Kamelet salesforce-source.kamelet.yaml
     And load Camel-K integration salesforce-to-log.groovy
     Then Kamelet salesforce-source is available
 

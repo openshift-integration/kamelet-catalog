@@ -16,10 +16,15 @@
 # ---------------------------------------------------------------------------
 
 config:
+  namespace:
+    temporary: true
   runtime:
     resources:
       - slack-to-log.groovy
 pre:
+  - name: Install kamel
+    run: |
+      kamel install -w -n ${YAKS_NAMESPACE}
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh

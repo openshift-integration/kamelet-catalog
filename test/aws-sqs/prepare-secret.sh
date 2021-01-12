@@ -16,7 +16,7 @@
 # limitations under the License.
 
 # create secret from properties file
-kubectl create secret generic aws-sqs-credentials --from-file=aws-sqs-credentials.properties
+oc create secret generic aws-sqs-credentials --from-file=aws-sqs-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-kubectl label secret aws-sqs-credentials yaks.citrusframework.org/test=aws-sqs-source
+oc label secret aws-sqs-credentials yaks.citrusframework.org/test=aws-sqs-source -n ${YAKS_NAMESPACE}

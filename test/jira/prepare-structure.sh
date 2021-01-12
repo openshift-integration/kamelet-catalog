@@ -15,5 +15,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# delete secret
-oc delete secret aws-sqs-credentials -n ${YAKS_NAMESPACE}
+# create secret from properties file
+oc create secret generic jira-credentials --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
+
+# bind secret to jira-source test
+oc label secret jira-credentials yaks.citrusframework.org/test=jira-source -n ${YAKS_NAMESPACE}
+
+# create InMemoryChannel messages
+oc apply -f inmem.yaml -n ${YAKS_NAMESPACE}
+
+# create logger-sink Kamelet
+oc apply -f logger-sink.kamelet.yaml -n ${YAKS_NAMESPACE}
+
+# create KameletBinding inmem-to-log from InMemoryChannel messages to logger-sink Kamelet
+oc apply -f inmem-to-log.binding.yaml -n ${YAKS_NAMESPACE}
+
+# create integration jira-source kamelet to InMemoryChannel messages, with property based configuration
+kamel run jira-to-inmem.groovy --property-file=jira-credentials.properties -w -n ${YAKS_NAMESPACE}

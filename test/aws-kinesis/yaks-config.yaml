@@ -16,9 +16,10 @@
 # ---------------------------------------------------------------------------
 
 config:
+  namespace:
+    temporary: true
   runtime:
     resources:
-      - ../../aws-kinesis-source.kamelet.yaml
       - aws-kinesis-to-log.groovy
       - aws-kinesis-client.yaml
     settings:
@@ -33,6 +34,9 @@ config:
           artifactId: camel-cbor
           version: "@camel.version@"
 pre:
+  - name: Install kamel
+    run: |
+      kamel install -w -n ${YAKS_NAMESPACE}
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh

@@ -12,7 +12,6 @@ Feature: AWS Kinesis Kamelet
     When load Kubernetes resource aws-kinesis-client.yaml
 
   Scenario: Create Camel-K resources
-    And load Kamelet aws-kinesis-source.kamelet.yaml
     And load Camel-K integration aws-kinesis-to-log.groovy
     Then Kamelet aws-kinesis-source is available
 

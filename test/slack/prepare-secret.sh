@@ -16,7 +16,7 @@
 # limitations under the License.
 
 # create secret from properties file
-kubectl create secret generic slack-credentials --from-file=slack-credentials.properties
+oc create secret generic slack-credentials --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-kubectl label secret slack-credentials yaks.citrusframework.org/test=slack-source
+oc label secret slack-credentials yaks.citrusframework.org/test=slack-source -n ${YAKS_NAMESPACE}

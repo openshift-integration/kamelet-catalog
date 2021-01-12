@@ -23,7 +23,6 @@ Feature: Salesforce Kamelet binding
   Scenario: Create KameletBinding
     Given variable query is "SELECT Id, Subject FROM Case"
     And variable topicName is "CamelTestTopic"
-    When load Kamelet salesforce-source.kamelet.yaml
     And load KameletBinding salesforce-to-uri.yaml
     Then Kamelet salesforce-source is available
     And KameletBinding salesforce-to-uri is available
