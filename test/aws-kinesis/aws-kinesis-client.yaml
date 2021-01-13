@@ -10,10 +10,15 @@ spec:
   containers:
     - name: aws-kinesis-client
       image: 'amazon/aws-cli:2.1.10'
+      env:
+      - name: AWS_SHARED_CREDENTIALS_FILE
+        value: /aws/.aws/credentials
+      - name: AWS_CONFIG_FILE
+        value: /aws/.aws/config
       command: ["aws", "kinesis", ${aws.kinesis.command}]
       volumeMounts:
         - name: config
-          mountPath: "/root/.aws"
+          mountPath: "/aws/.aws"
           readOnly: true
       imagePullPolicy: IfNotPresent
   restartPolicy: Never
