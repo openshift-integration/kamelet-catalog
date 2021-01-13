@@ -17,9 +17,13 @@
 
 # create secret from properties file
 oc create secret generic jira-credentials --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic jira-source.jira-credentials --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to jira-source test
 oc label secret jira-credentials yaks.citrusframework.org/test=jira-source -n ${YAKS_NAMESPACE}
+
+# bind secret to jira-source kamelet
+oc label secret jira-source.jira-credentials camel.apache.org/kamelet=jira-source camel.apache.org/kamelet.configuration=jira-credentials -n ${YAKS_NAMESPACE}
 
 # create InMemoryChannel messages
 oc apply -f inmem.yaml -n ${YAKS_NAMESPACE}

@@ -17,5 +17,5 @@
 
 // camel-k: language=groovy
 
-from('kamelet:jira-source')
+from('kamelet:jira-source/jira-credentials')
     .to("knative:channel/messages")
