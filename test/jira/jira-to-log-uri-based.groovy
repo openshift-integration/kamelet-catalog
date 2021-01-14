@@ -17,7 +17,10 @@
 
 // camel-k: language=groovy
 
-def parameters = 'channel=${slack.channel}&token=${slack.token}'
+def parameters = 'jiraUrl=${camel.kamelet.jira-source.jira-credentials.jiraUrl}' +
+        '&username=${camel.kamelet.jira-source.jira-credentials.username}' +
+        '&password=${camel.kamelet.jira-source.jira-credentials.password}' +
+        '&jql=${camel.kamelet.jira-source.jira-credentials.jql}'
 
-from("kamelet:slack-source?$parameters")
-    .to('log:info')
+from("kamelet:jira-source?$parameters")
+        .to('log:info')

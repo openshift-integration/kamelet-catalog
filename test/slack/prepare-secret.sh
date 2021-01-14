@@ -17,6 +17,10 @@
 
 # create secret from properties file
 oc create secret generic slack-credentials --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic slack-source.slack-credentials --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
 oc label secret slack-credentials yaks.citrusframework.org/test=slack-source -n ${YAKS_NAMESPACE}
+
+# bind secret to slack-source kamelet
+oc label secret slack-source.slack-credentials camel.apache.org/kamelet=slack-source camel.apache.org/kamelet.configuration=slack-credentials -n ${YAKS_NAMESPACE}
