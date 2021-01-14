@@ -17,7 +17,7 @@
 
 // camel-k: language=groovy
 
-def parameters = 'channel=${slack.channel}&token=${slack.token}'
+def parameters = 'channel=${camel.kamelet.slack-source.slack-credentials.channel}&token=${camel.kamelet.slack-source.slack-credentials.token}'
 
 from("kamelet:slack-source?$parameters")
     .to('log:info')

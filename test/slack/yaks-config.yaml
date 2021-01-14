@@ -20,7 +20,7 @@ config:
     temporary: true
   runtime:
     resources:
-      - slack-to-log.groovy
+      - slack-to-log-uri-based.groovy
 pre:
   - name: Install kamel
     run: |
