@@ -17,11 +17,5 @@
 
 // camel-k: language=groovy
 
-def parameters = 'queueNameOrArn=${aws-sqs.queueNameOrArn}&'+ 
-                 'accessKey=${aws-sqs.accessKey}&' +
-                 'secretKey=RAW(${aws-sqs.secretKey})&'+
-                 'region=${aws-sqs.region}&'+
-                 'deleteAfterRead=${aws-sqs.deleteAfterRead}'
-
-from("kamelet:aws-sqs-source?$parameters")
+from("kamelet:aws-sqs-source/aws-sqs-credentials")
   .to("log:info")
