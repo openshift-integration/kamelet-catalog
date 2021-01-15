@@ -16,4 +16,7 @@
 # limitations under the License.
 
 # delete secret
-oc delete secret aws-sqs-credentials -n ${YAKS_NAMESPACE}
+oc delete secret aws-sqs-credentials-uri -n ${YAKS_NAMESPACE}
+oc delete secret aws-sqs-credentials-secret -n ${YAKS_NAMESPACE}
+oc delete secret aws-sqs-source.aws-sqs-credentials -n ${YAKS_NAMESPACE}
+oc delete secret aws-client-config -n ${YAKS_NAMESPACE}

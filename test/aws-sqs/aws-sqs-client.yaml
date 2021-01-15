@@ -1,7 +1,7 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: aws-sqs-client
+  name: ${aws.sqs.clientName}
   generateName: aws-sqs-client-
   labels:
     app: yaks
@@ -9,19 +9,20 @@ metadata:
 spec:
   containers:
     - name: aws-sqs-client
-      image: 'tplevko/aws-sqs-client:0.1.0'
+      image: 'amazon/aws-cli:2.1.10'
       env:
-        - name: AWS_ACCOUNT_ID
-          value: "${aws-sqs.accountId}"
-        - name: AWS_SQS_QUEUE_NAME
-          value: "${aws-sqs.queueNameOrArn}"
-        - name: AWS_REGION
-          value: "${aws-sqs.region}"
-        - name: AWS_ACCESS_KEY_ID
-          value: "${aws-sqs.accessKey}"
-        - name: AWS_SECRET_ACCESS_KEY
-          value: "${aws-sqs.secretKey}"
-        - name: AWS_SQS_TEXT
-          value: "${message}"
+      - name: AWS_SHARED_CREDENTIALS_FILE
+        value: /aws/.aws/credentials
+      - name: AWS_CONFIG_FILE
+        value: /aws/.aws/config
+      command: ["aws", "sqs", ${aws.sqs.command}]
+      volumeMounts:
+        - name: config
+          mountPath: "/aws/.aws"
+          readOnly: true
       imagePullPolicy: IfNotPresent
   restartPolicy: Never
+  volumes:
+    - name: config
+      secret:
+        secretName: aws-client-config

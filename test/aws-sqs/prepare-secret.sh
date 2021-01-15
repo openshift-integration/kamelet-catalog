@@ -16,7 +16,14 @@
 # limitations under the License.
 
 # create secret from properties file
-oc create secret generic aws-sqs-credentials --from-file=aws-sqs-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic aws-sqs-credentials-secret --from-file=aws-sqs-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic aws-sqs-credentials-uri --from-file=aws-sqs-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic aws-sqs-credentials-kamelet --from-file=aws-sqs-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic aws-client-config --from-file=.aws/config --from-file=.aws/credentials -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-oc label secret aws-sqs-credentials yaks.citrusframework.org/test=aws-sqs-source -n ${YAKS_NAMESPACE}
+oc label secret aws-sqs-credentials-uri yaks.citrusframework.org/test=aws-sqs-source-uri-conf -n ${YAKS_NAMESPACE}
+oc label secret aws-sqs-credentials-secret yaks.citrusframework.org/test=aws-sqs-source-secret-conf -n ${YAKS_NAMESPACE}
+
+# bind secret to aws-sqs kamelet
+oc label secret aws-sqs-credentials-kamelet camel.apache.org/kamelet=aws-sqs-source camel.apache.org/kamelet.configuration=aws-sqs-credentials -n ${YAKS_NAMESPACE}

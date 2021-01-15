@@ -7,11 +7,11 @@ This test verifies the AWS SQS Kamelet source defined in [aws-sqs-source.kamelet
 The test verifies the AWS SQS Kamelet source by creating a Camel-K integration that uses the Kamelet and listens for messages on the
 AWS SQS channel.
 
-This test uses [aws-sqs-docker-image](https://github.com/tplevko/aws-sqs-docker-image) as a test client for extecution of validation steps.
+This test uses [aws-cli](https://github.com/aws/aws-cli) image as a test client for extecution of validation steps.
 
 ### Test Kamelet source
 
-The test performs the following high level steps:
+The test performs the following high level steps for configs - URI and secret based:
 
 *Preparation*
 - Create a secret on the current namespace holding the AWS SQS credentials
@@ -45,24 +45,21 @@ Before you can run the test you have to provide AWS SQS account credentials into
 When the test is executed the credentials will be automatically added as a secret in the current Kubernetes namespace. The secret is automatically created before the test using
 the shell script [prepare-secret.sh](prepare-secret.sh).
 
-*prepare-secret.sh*
-```shell script
-# create secret from properties file
-kubectl create secret generic aws-sqs-credentials --from-file=aws-sqs-credentials.properties
-
-# bind secret to test by name
-kubectl label secret aws-sqs-credentials yaks.citrusframework.org/test=aws-sqs-source 
-```  
-
 If for any reason this script execution does not work for your OS or environment you may need to run this step manually on your cluster and
 remove the prepare script from the [yaks-config.yaml](yaks-config.yaml).
 
 Now you should be ready to run the test!
 
-## Run the test
+## Run the tests
+To run tests with URI based configuration: 
 
 ```shell script
-$ yaks test aws-sqs-source.feature
+$ yaks test aws-sqs-source-uri-conf.feature
+```
+To run tests with secret based configuration:
+
+```shell script
+$ yaks test aws-sqs-source-secret-conf.feature
 ```
 
 You will be provided with the test log output and the test results.
