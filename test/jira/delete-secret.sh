@@ -16,8 +16,8 @@
 # limitations under the License.
 
 # delete secret
-oc delete secret jira-credentials -n ${YAKS_NAMESPACE}
-oc delete secret jira-source.jira-credentials -n ${YAKS_NAMESPACE}
+oc delete secret jira-credentials-uri-based -n ${YAKS_NAMESPACE}
+oc delete secret jira-credentials-secret-based -n ${YAKS_NAMESPACE}
+oc delete secret jira-credentials-prop-based -n ${YAKS_NAMESPACE}
 
-# delete InMemoryChannel
-oc delete InMemoryChannel messages -n ${YAKS_NAMESPACE}
+oc delete secret jira-source.jira-credentials -n ${YAKS_NAMESPACE}

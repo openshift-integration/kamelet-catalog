@@ -49,15 +49,6 @@ The test will use the account credentials to connect to your Telegram chat bot.
 When the test is executed the credentials will be automatically added as a secret in the current Kubernetes namespace. The secret is automatically created before the test using
 the shell script [prepare-secret.sh](prepare-secret.sh).
 
-*prepare-secret.sh*
-```shell script
-# create secret from properties file
-kubectl create secret generic telegram-credentials --from-file=telegram-credentials.properties
-
-# bind secret to test by name
-kubectl label secret telegram-credentials yaks.citrusframework.org/test=telegram-source 
-```  
-
 If for any reason this script execution does not work for your OS or environment you may need to run this step manually on your cluster and
 remove the prepare script from the [yaks-config.yaml](yaks-config.yaml).
 
@@ -141,7 +132,9 @@ Now you should be ready to run the test!
 ## Run the test
 
 ```shell script
-$ yaks test telegram-source.feature
+$ yaks test telegram-source-uri-based.feature
+$ yaks test telegram-source-prop-based.feature
+$ yaks test telegram-source-secret-based.feature
 ```
 
 You will be provided with the test log output and the test results.

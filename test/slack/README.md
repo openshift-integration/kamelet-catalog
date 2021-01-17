@@ -44,15 +44,6 @@ test will use these credentials to connect to your Slack channel.
 When the test is executed the credentials will be automatically added as a secret in the current Kubernetes namespace. The secret is automatically created before the test using
 the shell script [prepare-secret.sh](prepare-secret.sh).
 
-*prepare-secret.sh*
-```shell script
-# create secret from properties file
-kubectl create secret generic slack-credentials --from-file=slack-credentials.properties
-
-# bind secret to test by name
-kubectl label secret slack-credentials yaks.citrusframework.org/test=slack-source 
-```  
-
 If for any reason this script execution does not work for your OS or environment you may need to run this step manually on your cluster and
 remove the prepare script from the [yaks-config.yaml](yaks-config.yaml).
 
@@ -61,7 +52,9 @@ Now you should be ready to run the test!
 ## Run the test
 
 ```shell script
-$ yaks test slack-source.feature
+$ yaks test slack-source-uri-based.feature
+$ yaks test slack-source-secret-based.feature
+$ yaks test slack-source-prop-based.feature
 ```
 
 You will be provided with the test log output and the test results.

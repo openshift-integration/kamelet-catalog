@@ -23,10 +23,11 @@ config:
       - jira-to-log-uri-based.groovy
       - jira-to-log-secret-based.groovy
       - logger-sink.kamelet.yaml
+      - jira-credentials.properties
 pre:
   - name: Install kamel
     run: |
       kamel install -w -n ${YAKS_NAMESPACE}
-  - script: prepare-structure.sh
+  - script: prepare-secret.sh
 post:
-  - script: delete-structure.sh
+  - script: delete-secret.sh
