@@ -11,7 +11,7 @@ This test uses [aws-cli](https://github.com/aws/aws-cli) image as a test client 
 
 ### Test Kamelet source
 
-The test performs the following high level steps for configs - URI and secret based:
+The test performs the following high level steps for configs - URI, secret and property based:
 
 *Preparation*
 - Create a secret on the current namespace holding the AWS SQS credentials
@@ -60,6 +60,11 @@ To run tests with secret based configuration:
 
 ```shell script
 $ yaks test aws-sqs-source-secret-conf.feature
+```
+To run tests with property based configuration:
+
+```shell script
+$ yaks test aws-sqs-source-property-conf.feature
 ```
 
 You will be provided with the test log output and the test results.
