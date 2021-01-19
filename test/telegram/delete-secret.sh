@@ -16,4 +16,8 @@
 # limitations under the License.
 
 # delete secret
-oc delete secret telegram-credentials -n ${YAKS_NAMESPACE}
+oc delete secret telegram-credentials-uri-based -n ${YAKS_NAMESPACE}
+oc delete secret telegram-credentials-prop-based -n ${YAKS_NAMESPACE}
+oc delete secret telegram-credentials-secret-based -n ${YAKS_NAMESPACE}
+
+oc delete secret telegram-source.telegram-credentials -n ${YAKS_NAMESPACE}

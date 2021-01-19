@@ -20,8 +20,9 @@ config:
     temporary: true
   runtime:
     resources:
-      - telegram-to-log.groovy
+      - telegram-to-log-uri-based.groovy
       - telegram-client.yaml
+      - telegram-credentials.properties
 pre:
   - name: Install kamel
     run: |

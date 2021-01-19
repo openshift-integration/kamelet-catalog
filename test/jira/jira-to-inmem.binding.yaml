@@ -15,17 +15,23 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-config:
-  namespace:
-    temporary: true
-  runtime:
-    resources:
-      - slack-to-log-uri-based.groovy
-      - slack-credentials.properties
-pre:
-  - name: Install kamel
-    run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
-  - script: prepare-secret.sh
-post:
-  - script: delete-secret.sh
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: jira-to-inmem
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: jira-source
+    properties:
+      jql: ${camel.kamelet.jira-source.jira-credentials.jql}
+      jiraUrl: ${camel.kamelet.jira-source.jira-credentials.jiraUrl}
+      username: ${camel.kamelet.jira-source.jira-credentials.username}
+      password: ${camel.kamelet.jira-source.jira-credentials.password}
+  sink:
+    ref:
+      kind: InMemoryChannel
+      apiVersion: messaging.knative.dev/v1beta1
+      name: messages

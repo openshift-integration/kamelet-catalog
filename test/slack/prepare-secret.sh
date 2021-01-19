@@ -16,11 +16,16 @@
 # limitations under the License.
 
 # create secret from properties file
-oc create secret generic slack-credentials --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic slack-credentials-prop-based --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic slack-credentials-uri-based --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic slack-credentials-secret-based --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
+
 oc create secret generic slack-source.slack-credentials --from-file=slack-credentials.properties -n ${YAKS_NAMESPACE}
 
 # bind secret to test by name
-oc label secret slack-credentials yaks.citrusframework.org/test=slack-source -n ${YAKS_NAMESPACE}
+oc label secret slack-credentials-prop-based yaks.citrusframework.org/test=slack-source-prop-based -n ${YAKS_NAMESPACE}
+oc label secret slack-credentials-uri-based yaks.citrusframework.org/test=slack-source-uri-based -n ${YAKS_NAMESPACE}
+oc label secret slack-credentials-secret-based yaks.citrusframework.org/test=slack-source-secret-based -n ${YAKS_NAMESPACE}
 
 # bind secret to slack-source kamelet
 oc label secret slack-source.slack-credentials camel.apache.org/kamelet=slack-source camel.apache.org/kamelet.configuration=slack-credentials -n ${YAKS_NAMESPACE}

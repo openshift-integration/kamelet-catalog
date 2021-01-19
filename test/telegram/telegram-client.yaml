@@ -12,17 +12,17 @@ spec:
       image: 'yaks/telegram-client:0.1.0'
       env:
         - name: TELEGRAM_DC_ID
-          value: "${telegram.dcId}"
+          value: "${camel.kamelet.telegram-source.telegram-credentials.dcId}"
         - name: TELEGRAM_DC_IP
-          value: "${telegram.dcIp}"
+          value: "${camel.kamelet.telegram-source.telegram-credentials.dcIp}"
         - name: TELEGRAM_USERNAME
-          value: "${telegram.username}"
+          value: "${camel.kamelet.telegram-source.telegram-credentials.username}"
         - name: TELEGRAM_API_ID
-          value: "${telegram.appId}"
+          value: "${camel.kamelet.telegram-source.telegram-credentials.appId}"
         - name: TELEGRAM_API_HASH
-          value: "${telegram.appHash}"
+          value: "${camel.kamelet.telegram-source.telegram-credentials.appHash}"
         - name: TELEGRAM_SESSION
-          value: "${telegram.sessionString}"
+          value: "${camel.kamelet.telegram-source.telegram-credentials.sessionString}"
         - name: TELEGRAM_TEXT
           value: "${message}"
       imagePullPolicy: IfNotPresent

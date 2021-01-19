@@ -16,5 +16,8 @@
 # limitations under the License.
 
 # delete secrets
-oc delete secret slack-credentials -n ${YAKS_NAMESPACE}
+oc delete secret slack-credentials-uri-based -n ${YAKS_NAMESPACE}
+oc delete secret slack-credentials-prop-based -n ${YAKS_NAMESPACE}
+oc delete secret slack-credentials-secret-based -n ${YAKS_NAMESPACE}
+
 oc delete secret slack-source.slack-credentials -n ${YAKS_NAMESPACE}

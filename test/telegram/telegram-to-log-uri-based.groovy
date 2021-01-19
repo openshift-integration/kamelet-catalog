@@ -17,7 +17,7 @@
 
 // camel-k: language=groovy
 
-def parameters = 'authorizationToken=${telegram.authorizationToken}'
+def parameters = 'authorizationToken=${camel.kamelet.telegram-source.telegram-credentials.authorizationToken}'
 
 from("kamelet:telegram-source?$parameters")
     .to('log:info')
