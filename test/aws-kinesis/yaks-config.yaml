@@ -20,8 +20,9 @@ config:
     temporary: true
   runtime:
     resources:
-      - aws-kinesis-to-log.groovy
+      - aws-kinesis-to-log-uri-based.groovy
       - aws-kinesis-client.yaml
+      - aws-kinesis-credentials.properties
     settings:
       dependencies:
         - groupId: org.apache.camel
