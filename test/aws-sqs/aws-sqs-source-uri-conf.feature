@@ -1,4 +1,4 @@
-Feature: AWS SQS Kamelet
+Feature: AWS SQS Kamelet - URI based config
 
   Background:
     Given Disable auto removal of Camel resources
