@@ -21,7 +21,8 @@ config:
   runtime:
     resources:
       - salesforce-to-uri.yaml
-      - salesforce-to-log.groovy
+      - salesforce-to-log-uri-based.groovy
+      - salesforce-credentials.properties
 pre:
   - name: Install kamel
     run: |
