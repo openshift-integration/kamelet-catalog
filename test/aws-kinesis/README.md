@@ -54,10 +54,10 @@ the shell script [prepare-secret.sh](prepare-secret.sh).
 *prepare-secret.sh*
 ```shell script
 # create secret from properties file
-kubectl create secret generic aws-kinesis-credentials --from-file=aws-kinesis-credentials.properties
+kubectl create secret generic aws-kinesis-credentials-uri-based --from-file=aws-kinesis-credentials.properties
 
 # bind secret to test by name
-kubectl label secret aws-kinesis-credentials yaks.citrusframework.org/test=aws-kinesis-source 
+kubectl label secret aws-kinesis-credentials-uri-based yaks.citrusframework.org/test=aws-kinesis-source-uri-based 
 ```  
 
 If for any reason this script execution does not work for your OS or environment you may need to run this step manually on your cluster and
@@ -68,7 +68,9 @@ Now you should be ready to run the test!
 ## Run the test
 
 ```shell script
-$ yaks test aws-kinesis-source.feature
+$ yaks test aws-kinesis-source-uri-based.feature
+$ yaks test aws-kinesis-source-secret-based.feature
+$ yaks test aws-kinesis-source-prop-based.feature
 ```
 
 You will be provided with the test log output and the test results.

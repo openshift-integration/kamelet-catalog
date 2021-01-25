@@ -17,7 +17,10 @@
 
 // camel-k: language=groovy
 
-def parameters = 'stream=${aws.kinesis.stream}&accessKey=${aws.kinesis.accessKey}&secretKey=${aws.kinesis.secretKey}&region=${aws.kinesis.region}'
+def parameters = 'stream=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}' +
+        '&accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}' +
+        '&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})' +
+        '&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}'
 
 from("kamelet:aws-kinesis-source?$parameters")
     .to('log:info')
