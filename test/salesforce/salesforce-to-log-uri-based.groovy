@@ -17,13 +17,13 @@
 
 // camel-k: language=groovy
 
-def parameters = 'topicName=${topicName}&' +
-        'query=${query}&' +
-        'clientId=${salesforce.clientId}&' +
-        'clientSecret=${salesforce.clientSecret}&' +
-        'userName=${salesforce.userName}&' +
-        'password=${salesforce.password}&' +
-        'loginUrl=${salesforce.loginUrl}'
+def parameters = 'topicName=${camel.kamelet.salesforce-source.salesforce-credentials.topicName}&' +
+        'query=${camel.kamelet.salesforce-source.salesforce-credentials.query}&' +
+        'clientId=${camel.kamelet.salesforce-source.salesforce-credentials.clientId}&' +
+        'clientSecret=${camel.kamelet.salesforce-source.salesforce-credentials.clientSecret}&' +
+        'userName=${camel.kamelet.salesforce-source.salesforce-credentials.userName}&' +
+        'password=${camel.kamelet.salesforce-source.salesforce-credentials.password}&' +
+        'loginUrl=${camel.kamelet.salesforce-source.salesforce-credentials.loginUrl}'
 
 from("kamelet:salesforce-source?$parameters")
     .to('log:info')

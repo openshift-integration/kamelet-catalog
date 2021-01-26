@@ -1,9 +1,8 @@
-Feature: Salesforce Kamelet binding
+Feature: Salesforce Kamelet
 
   Background:
     Given Disable auto removal of Camel-K resources
     Given Disable auto removal of Kamelet resources
-    Given Disable auto removal of Kubernetes resources
     Given variable token_request is "grant_type=password&client_id=${camel.kamelet.salesforce-source.salesforce-credentials.clientId}&client_secret=${camel.kamelet.salesforce-source.salesforce-credentials.clientSecret}&username=${camel.kamelet.salesforce-source.salesforce-credentials.userName}&password=${camel.kamelet.salesforce-source.salesforce-credentials.password}"
     Given URL: ${camel.kamelet.salesforce-source.salesforce-credentials.loginUrl}
     And HTTP request header Content-Type="application/x-www-form-urlencoded"
@@ -20,24 +19,20 @@ Feature: Salesforce Kamelet binding
     Then verify HTTP response expression: $.records[0].Id="@variable(account_id)@"
     And receive HTTP 200 OK
 
-  Scenario: Create KameletBinding
-    Given variable query is "SELECT Id, Subject FROM Case"
-    And variable topicName is "CamelTestTopic"
-    And load KameletBinding salesforce-to-uri.yaml
+  Scenario: Create Camel-K resources
+    Given create Camel-K integration salesforce-to-log-secret-based.groovy
+    """
+    from("kamelet:salesforce-source/salesforce-credentials")
+    .to('log:info')
+    """
     Then Kamelet salesforce-source is available
-    And KameletBinding salesforce-to-uri is available
 
-  Scenario: Create Http service
-    Given HTTP server "salesforce-case-service"
-    Given HTTP server timeout is 15000 ms
-    Given create Kubernetes service salesforce-case-service with target port 8080
-
-  Scenario: Verify Kamelet binding
+  Scenario: Verify Kamelet source
     Given variable subject is "Case regarding citrus:randomString(10)"
     Given variable description is "Test for Salesforce Kamelet source"
-    Given Camel-K integration salesforce-to-uri is running
-    And Camel-K integration salesforce-to-uri should print Login successful
-    And Camel-K integration salesforce-to-uri should print Subscribed to channel /topic/CamelTestTopic
+    Given Camel-K integration salesforce-to-log-secret-based is running
+    And Camel-K integration salesforce-to-log-secret-based should print Login successful
+    And Camel-K integration salesforce-to-log-secret-based should print Subscribed to channel /topic/
     And HTTP request header Authorization="Bearer ${access_token}"
     And HTTP request header Content-Type="application/json"
     And HTTP request body
@@ -50,15 +45,7 @@ Feature: Salesforce Kamelet binding
     """
     When send POST /services/data/v${camel.kamelet.salesforce-source.salesforce-credentials.apiVersion}/sobjects/Case
     Then receive HTTP 201 Created
-    And expect HTTP request body
-    """
-    {
-      "Id": "@ignore@",
-      "Subject": "${subject}"
-    }
-    """
-    And receive POST /case
+    And Camel-K integration salesforce-to-log-secret-based should print "Subject":"${subject}"
 
-  Scenario: Remove KameletBinding
-    Given delete KameletBinding salesforce-to-uri
-    And delete Kubernetes service salesforce-case-service
+  Scenario: Remove Camel-K resources
+    Given delete Camel-K integration salesforce-to-log-secret-based

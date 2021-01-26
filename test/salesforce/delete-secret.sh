@@ -16,5 +16,8 @@
 # limitations under the License.
 
 # delete secret
-oc delete secret salesforce-credentials -n ${YAKS_NAMESPACE}
+oc delete secret salesforce-credentials-uri -n ${YAKS_NAMESPACE}
+oc delete secret salesforce-credentials-property -n ${YAKS_NAMESPACE}
+oc delete secret salesforce-credentials-secret -n ${YAKS_NAMESPACE}
+oc delete secret salesforce-credentials-kamelet -n ${YAKS_NAMESPACE}
 oc delete secret salesforce-binding-credentials -n ${YAKS_NAMESPACE}
