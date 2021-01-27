@@ -1,17 +1,20 @@
-Feature: Jira Kamelet - secret based config
+Feature: Jira Kamelet Binding
 
   Background:
     Given Disable auto removal of Kamelet resources
     Given Disable auto removal of Camel-K resources
-    Given Kamelet jira-source is available
+    Given Disable auto removal of Kubernetes resources
 
-  Scenario: Verify resources, secret based config
-    Given load Camel-K integration jira-to-log-secret-based.groovy
-    Given Camel-K integration jira-to-log-secret-based is running
-    Given variable loginfo is "started and consuming from: kamelet://jira-source"
-    Then Camel-K integration jira-to-log-secret-based should print ${loginfo}
+  Scenario: Verify resources
+    Given Kamelet logger-sink is available
+    Given load KameletBinding jira-to-inmem.yaml
+    Given load KameletBinding inmem-to-log.yaml
+    Given KameletBinding jira-to-inmem is available
+    Given KameletBinding inmem-to-log is available
+    Given variable loginfo is "started and consuming from: knative://channel/messages"
+    Then Camel-K integration inmem-to-log should print ${loginfo}
 
-  Scenario: Verify new jira issue is created, secret based config
+  Scenario: Verify new jira issue is created
     Given variable summary is "New bug, citrus:randomString(10)"
     Given URL: ${camel.kamelet.jira-source.jira-credentials.jiraUrl}
     And HTTP request header Authorization="Basic citrus:encodeBase64(${camel.kamelet.jira-source.jira-credentials.username}:${camel.kamelet.jira-source.jira-credentials.password})"
@@ -35,7 +38,7 @@ Feature: Jira Kamelet - secret based config
     When send POST /rest/api/2/issue/
     Then verify HTTP response expression: $.key="@variable(key)@"
     Then receive HTTP 201 CREATED
-    And Camel-K integration jira-to-log-secret-based should print ${summary}
+    And Camel-K integration inmem-to-log should print ${summary}
     Given URL: ${camel.kamelet.jira-source.jira-credentials.jiraUrl}
     And HTTP request header Authorization="Basic citrus:encodeBase64(${camel.kamelet.jira-source.jira-credentials.username}:${camel.kamelet.jira-source.jira-credentials.password})"
     And HTTP request header Content-Type="application/json"
@@ -43,4 +46,7 @@ Feature: Jira Kamelet - secret based config
     Then receive HTTP 204 NO_CONTENT
 
   Scenario: Remove Camel-K resources
-    Given delete Camel-K integration jira-to-log-secret-based
+    Given delete Camel-K integration jira-to-inmem
+    Given delete Camel-K integration inmem-to-log
+    Given delete KameletBinding jira-to-inmem
+    Given delete KameletBinding inmem-to-log

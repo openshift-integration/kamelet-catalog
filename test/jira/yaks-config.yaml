@@ -24,10 +24,15 @@ config:
       - jira-to-log-secret-based.groovy
       - logger-sink.kamelet.yaml
       - jira-credentials.properties
+      - inmem.yaml
+      - inmem-to-log.yaml
+      - jira-to-inmem.yaml
 pre:
   - name: Install kamel
     run: |
       kamel install -w -n ${YAKS_NAMESPACE}
+      oc apply -f inmem.yaml -n ${YAKS_NAMESPACE}
+      oc apply -f logger-sink.kamelet.yaml -n ${YAKS_NAMESPACE}
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh
