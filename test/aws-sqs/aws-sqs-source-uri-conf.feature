@@ -4,6 +4,7 @@ Feature: AWS SQS Kamelet - URI based config
     Given Disable auto removal of Camel resources
     Given Disable auto removal of Camel-K resources
     Given Disable auto removal of Kamelet resources
+    Given Disable auto removal of Kubernetes resources
 
   Scenario: Create AWS SQS queue
     Given variables
@@ -28,5 +29,5 @@ Feature: AWS SQS Kamelet - URI based config
   Scenario: Remove AWS SQS queue
     Given variables
       | aws.sqs.clientName | aws-sqs-client-citrus:randomString(10, LOWERCASE) |
-      | aws.sqs.command    | "delete-queue", "--queue-name", "${aws.sqs.queueUrl}" |
+      | aws.sqs.command    | "delete-queue", "--queue-url", "${aws.sqs.queueUrl}" |
     Then load Kubernetes resource aws-sqs-client.yaml
