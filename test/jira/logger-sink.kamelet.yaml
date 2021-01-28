@@ -40,4 +40,4 @@ spec:
     from:
       uri: "kamelet:source"
       steps:
-        - log: "${body}"
+        - to: "log:sink"

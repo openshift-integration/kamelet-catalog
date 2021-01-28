@@ -19,5 +19,6 @@
 oc delete secret jira-credentials-uri-based -n ${YAKS_NAMESPACE}
 oc delete secret jira-credentials-secret-based -n ${YAKS_NAMESPACE}
 oc delete secret jira-credentials-prop-based -n ${YAKS_NAMESPACE}
+oc delete secret jira-credentials-binding -n ${YAKS_NAMESPACE}
 
 oc delete secret jira-source.jira-credentials -n ${YAKS_NAMESPACE}
