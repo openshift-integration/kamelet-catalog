@@ -24,6 +24,9 @@ config:
       - aws-sqs-to-log-uri-based.groovy
       - aws-sqs-to-log-secret-based.groovy
       - aws-sqs-credentials.properties
+    cucumber:
+      tags:
+        - "not @ignored"
     settings:
       dependencies:
         - groupId: org.apache.camel

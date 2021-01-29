@@ -23,6 +23,9 @@ config:
       - aws-kinesis-to-log-uri-based.groovy
       - aws-kinesis-client.yaml
       - aws-kinesis-credentials.properties
+    cucumber:
+      tags:
+        - "not @ignored"
     settings:
       dependencies:
         - groupId: org.apache.camel
