@@ -1,4 +1,4 @@
-Feature: AWS Kinesis Kamelet
+Feature: AWS Kinesis Kamelet - binding to URI
 
   Background:
     Given Disable auto removal of Camel resources
@@ -12,24 +12,23 @@ Feature: AWS Kinesis Kamelet
     | aws.kinesis.command    | "create-stream", "--stream-name", "${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}", "--shard-count", "1" |
     When load Kubernetes resource aws-kinesis-client.yaml
 
-  Scenario: Create Camel-K resources - secret based config
-    Given create Camel-K integration aws-kinesis-to-log-secret-based.groovy
-    """
-    from("kamelet:aws-kinesis-source/aws-kinesis-credentials")
-    .to('log:info')
-    """
-    Then Kamelet aws-kinesis-source is available
+  Scenario: Create Camel-K resources
+    Given Kamelet aws-kinesis-source is available
+    Given load KameletBinding aws-kinesis-uri-binding.yaml
+    Given KameletBinding aws-kinesis-uri-binding is available
+    Given variable loginfo is "started and consuming from: aws-kinesis://${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}"
+    Then Camel-K integration aws-kinesis-uri-binding should print ${loginfo}
 
-  Scenario: Verify Kamelet source - secret based config
+  Scenario: Verify Kamelet source - binding to URI
     Given variable aws.kinesis.streamData is "Hello Kinesis"
     Given Camel exchange message header CamelAwsKinesisPartitionKey="${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.partitionKey}"
     Given Camel exchange body: ${aws.kinesis.streamData}
-    When Camel-K integration aws-kinesis-to-log-secret-based is running
+    When Camel-K integration aws-kinesis-uri-binding is running
     And send Camel exchange to("aws-kinesis:${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}?accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}")
-    Then Camel-K integration aws-kinesis-to-log-secret-based should print "citrus:encodeBase64(${aws.kinesis.streamData})"
+    Then Camel-K integration aws-kinesis-uri-binding should print "citrus:encodeBase64(${aws.kinesis.streamData})"
 
   Scenario: Remove Camel-K resources
-    Given delete Camel-K integration aws-kinesis-to-log-secret-based
+    Given delete Camel-K integration aws-kinesis-uri-binding
 
   Scenario: Remove AWS Kinesis data stream
     Given variables

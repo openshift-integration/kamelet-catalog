@@ -23,6 +23,7 @@ config:
       - telegram-to-log-uri-based.groovy
       - telegram-client.yaml
       - telegram-credentials.properties
+      - telegram-uri-binding.yaml
 pre:
   - name: Install kamel
     run: |

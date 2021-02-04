@@ -22,6 +22,7 @@ config:
     resources:
       - slack-to-log-uri-based.groovy
       - slack-credentials.properties
+      - slack-uri-binding.yaml
 pre:
   - name: Install kamel
     run: |

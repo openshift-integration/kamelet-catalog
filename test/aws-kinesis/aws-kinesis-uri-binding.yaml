@@ -15,25 +15,20 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-config:
-  namespace:
-    temporary: true
-  runtime:
-    resources:
-      - jira-to-log-uri-based.groovy
-      - jira-to-log-secret-based.groovy
-      - logger-sink.kamelet.yaml
-      - jira-credentials.properties
-      - inmem.yaml
-      - inmem-to-log.yaml
-      - jira-to-inmem.yaml
-      - jira-uri-binding.yaml
-pre:
-  - name: Install kamel
-    run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
-      oc apply -f inmem.yaml -n ${YAKS_NAMESPACE}
-      oc apply -f logger-sink.kamelet.yaml -n ${YAKS_NAMESPACE}
-  - script: prepare-secret.sh
-post:
-  - script: delete-secret.sh
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: aws-kinesis-uri-binding
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: aws-kinesis-source
+    properties:
+      stream: ${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}
+      accessKey: ${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}
+      secretKey: ${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey}
+      region: ${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}
+  sink:
+    uri: log:info

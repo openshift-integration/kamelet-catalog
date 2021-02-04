@@ -20,6 +20,7 @@ oc create secret generic jira-credentials-uri-based --from-file=jira-credentials
 oc create secret generic jira-credentials-prop-based --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
 oc create secret generic jira-credentials-secret-based --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
 oc create secret generic jira-credentials-binding --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic jira-uri-binding --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
 
 oc create secret generic jira-source.jira-credentials --from-file=jira-credentials.properties -n ${YAKS_NAMESPACE}
 
@@ -28,6 +29,7 @@ oc label secret jira-credentials-uri-based yaks.citrusframework.org/test=jira-so
 oc label secret jira-credentials-prop-based yaks.citrusframework.org/test=jira-source-prop-based -n ${YAKS_NAMESPACE}
 oc label secret jira-credentials-secret-based yaks.citrusframework.org/test=jira-source-secret-based -n ${YAKS_NAMESPACE}
 oc label secret jira-credentials-binding yaks.citrusframework.org/test=jira-binding -n ${YAKS_NAMESPACE}
+oc label secret jira-uri-binding yaks.citrusframework.org/test=jira-uri-binding -n ${YAKS_NAMESPACE}
 
 # bind secret to jira-source kamelet
 oc label secret jira-source.jira-credentials camel.apache.org/kamelet=jira-source camel.apache.org/kamelet.configuration=jira-credentials -n ${YAKS_NAMESPACE}
