@@ -25,7 +25,7 @@ Feature: AWS SQS Kamelet - property based config
     Given variable aws.sqs.message is "Hello from SQS Kamelet"
     Given Camel exchange body: ${aws.sqs.message}
     When Camel-K integration aws-sqs-to-log-prop-based is running
-    And send Camel exchange to("aws2-sqs:${camel.kamelet.aws-sqs-source.aws-sqs-credentials.queueNameOrArn}?accessKey=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.accessKey}&secretKey=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.secretKey}&region=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.region}")
+    And send Camel exchange to("aws2-sqs:${camel.kamelet.aws-sqs-source.aws-sqs-credentials.queueNameOrArn}?accessKey=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-sqs-source.aws-sqs-credentials.secretKey})&region=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.region}")
     Then Camel-K integration aws-sqs-to-log-prop-based should print "${aws.sqs.message}"
 
   Scenario: Remove Camel-K resources
@@ -36,3 +36,4 @@ Feature: AWS SQS Kamelet - property based config
       | aws.sqs.clientName | aws-sqs-client-citrus:randomString(10, LOWERCASE) |
       | aws.sqs.command    | "delete-queue", "--queue-url", "${aws.sqs.queueUrl}" |
     Then load Kubernetes resource aws-sqs-client.yaml
+    Then sleep 60000 ms
