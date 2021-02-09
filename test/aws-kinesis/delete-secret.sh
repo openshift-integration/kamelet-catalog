@@ -20,6 +20,7 @@ oc delete secret aws-kinesis-credentials -n ${YAKS_NAMESPACE}
 oc delete secret aws-kinesis-credentials-uri-based -n ${YAKS_NAMESPACE}
 oc delete secret aws-kinesis-credentials-secret-based -n ${YAKS_NAMESPACE}
 oc delete secret aws-kinesis-credentials-prop-based -n ${YAKS_NAMESPACE}
+oc delete secret aws-kinesis-credentials-uri-binding -n ${YAKS_NAMESPACE}
 
 oc delete secret aws-client-config -n ${YAKS_NAMESPACE}
 oc delete secret aws-kinesis-source.aws-kinesis-credentials -n ${YAKS_NAMESPACE}

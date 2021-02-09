@@ -23,6 +23,7 @@ config:
       - aws-kinesis-to-log-uri-based.groovy
       - aws-kinesis-client.yaml
       - aws-kinesis-credentials.properties
+      - aws-kinesis-uri-binding.yaml
     cucumber:
       tags:
         - "not @ignored"

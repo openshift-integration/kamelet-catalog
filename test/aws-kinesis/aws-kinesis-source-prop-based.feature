@@ -4,6 +4,7 @@ Feature: AWS Kinesis Kamelet
     Given Disable auto removal of Camel resources
     Given Disable auto removal of Camel-K resources
     Given Disable auto removal of Kamelet resources
+    Given Disable auto removal of Kubernetes resources
 
   Scenario: Create AWS Kinesis data stream
     Given variables
@@ -35,4 +36,4 @@ Feature: AWS Kinesis Kamelet
     Given variables
       | aws.kinesis.clientName | aws-kinesis-client-citrus:randomString(10, LOWERCASE) |
       | aws.kinesis.command    | "delete-stream", "--stream-name", "${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}" |
-    Then delete Kubernetes resource aws-kinesis-client.yaml
+    Then load Kubernetes resource aws-kinesis-client.yaml
