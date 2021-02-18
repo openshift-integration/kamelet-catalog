@@ -15,22 +15,21 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-config:
-  namespace:
-    temporary: true
-  runtime:
-    resources:
-      - slack-to-log-uri-based.groovy
-      - slack-credentials.properties
-      - slack-uri-binding.yaml
-      - ../utils/inmem-to-log.yaml
-      - ../utils/broker-to-log.yaml
-      - slack-to-inmem.yaml
-      - slack-to-broker.yaml
-pre:
-  - name: Install kamel
-    run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
-  - script: prepare-secret.sh
-post:
-  - script: delete-secret.sh
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: broker-to-log
+spec:
+  source:
+    ref:
+      kind: Broker
+      apiVersion: eventing.knative.dev/v1
+      name: default
+    properties:
+      type: custom-type
+  sink:
+    uri: log:info
+  template:
+    metadata:
+      autoscaling.knative.dev/minScale: "1"
+      autoscaling.knative.dev/maxScale: "3"

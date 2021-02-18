@@ -24,6 +24,8 @@ config:
       - aws-kinesis-client.yaml
       - aws-kinesis-credentials.properties
       - aws-kinesis-uri-binding.yaml
+      - aws-kinesis-to-inmem.yaml
+      - ../utils/inmem-to-log.yaml
     cucumber:
       tags:
         - "not @ignored"

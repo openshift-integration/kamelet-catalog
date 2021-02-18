@@ -21,6 +21,7 @@ oc create secret generic aws-kinesis-credentials-uri-based --from-file=aws-kines
 oc create secret generic aws-kinesis-credentials-secret-based --from-file=aws-kinesis-credentials.properties -n ${YAKS_NAMESPACE}
 oc create secret generic aws-kinesis-credentials-prop-based --from-file=aws-kinesis-credentials.properties -n ${YAKS_NAMESPACE}
 oc create secret generic aws-kinesis-credentials-uri-binding --from-file=aws-kinesis-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic aws-kinesis-inmem-binding --from-file=aws-kinesis-credentials.properties -n ${YAKS_NAMESPACE}
 
 oc create secret generic aws-client-config --from-file=.aws/config --from-file=.aws/credentials -n ${YAKS_NAMESPACE}
 
@@ -33,6 +34,7 @@ oc label secret aws-kinesis-credentials-uri-based yaks.citrusframework.org/test=
 oc label secret aws-kinesis-credentials-secret-based yaks.citrusframework.org/test=aws-kinesis-source-secret-based -n ${YAKS_NAMESPACE}
 oc label secret aws-kinesis-credentials-prop-based yaks.citrusframework.org/test=aws-kinesis-source-prop-based -n ${YAKS_NAMESPACE}
 oc label secret aws-kinesis-credentials-uri-binding yaks.citrusframework.org/test=aws-kinesis-uri-binding -n ${YAKS_NAMESPACE}
+oc label secret aws-kinesis-inmem-binding yaks.citrusframework.org/test=aws-kinesis-inmem-binding -n ${YAKS_NAMESPACE}
 
 # bind secret to Kamelet by name
 oc label secret aws-kinesis-source.aws-kinesis-credentials camel.apache.org/kamelet=aws-kinesis-source camel.apache.org/kamelet.configuration=aws-kinesis-credentials -n ${YAKS_NAMESPACE}

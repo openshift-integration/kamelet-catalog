@@ -15,22 +15,21 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-config:
-  namespace:
-    temporary: true
-  runtime:
-    resources:
-      - slack-to-log-uri-based.groovy
-      - slack-credentials.properties
-      - slack-uri-binding.yaml
-      - ../utils/inmem-to-log.yaml
-      - ../utils/broker-to-log.yaml
-      - slack-to-inmem.yaml
-      - slack-to-broker.yaml
-pre:
-  - name: Install kamel
-    run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
-  - script: prepare-secret.sh
-post:
-  - script: delete-secret.sh
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: slack-to-inmem
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: slack-source
+    properties:
+      channel: ${camel.kamelet.slack-source.slack-credentials.channel}
+      token: ${camel.kamelet.slack-source.slack-credentials.token}
+  sink:
+    ref:
+      kind: InMemoryChannel
+      apiVersion: messaging.knative.dev/v1
+      name: messages
