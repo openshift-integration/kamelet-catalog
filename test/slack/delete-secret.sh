@@ -20,5 +20,7 @@ oc delete secret slack-credentials-uri-based -n ${YAKS_NAMESPACE}
 oc delete secret slack-credentials-prop-based -n ${YAKS_NAMESPACE}
 oc delete secret slack-credentials-secret-based -n ${YAKS_NAMESPACE}
 oc delete secret slack-uri-binding -n ${YAKS_NAMESPACE}
+oc delete secret slack-inmem-binding -n ${YAKS_NAMESPACE}
+oc delete secret slack-broker-binding -n ${YAKS_NAMESPACE}
 
 oc delete secret slack-source.slack-credentials -n ${YAKS_NAMESPACE}
