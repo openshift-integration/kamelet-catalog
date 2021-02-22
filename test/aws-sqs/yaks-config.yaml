@@ -25,6 +25,8 @@ config:
       - aws-sqs-to-log-secret-based.groovy
       - aws-sqs-credentials.properties
       - aws-sqs-uri-binding.yaml
+      - aws-sqs-to-inmem.yaml
+      - ../utils/inmem-to-log.yaml
     cucumber:
       tags:
         - "not @ignored"

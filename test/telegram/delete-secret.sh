@@ -20,5 +20,6 @@ oc delete secret telegram-credentials-uri-based -n ${YAKS_NAMESPACE}
 oc delete secret telegram-credentials-prop-based -n ${YAKS_NAMESPACE}
 oc delete secret telegram-credentials-secret-based -n ${YAKS_NAMESPACE}
 oc delete secret telegram-uri-binding -n ${YAKS_NAMESPACE}
+oc delete secret telegram-inmem-binding -n ${YAKS_NAMESPACE}
 
 oc delete secret telegram-source.telegram-credentials -n ${YAKS_NAMESPACE}
