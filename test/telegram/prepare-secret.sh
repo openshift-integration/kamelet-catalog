@@ -20,6 +20,7 @@ oc create secret generic telegram-credentials-uri-based --from-file=telegram-cre
 oc create secret generic telegram-credentials-secret-based --from-file=telegram-credentials.properties -n ${YAKS_NAMESPACE}
 oc create secret generic telegram-credentials-prop-based --from-file=telegram-credentials.properties -n ${YAKS_NAMESPACE}
 oc create secret generic telegram-uri-binding --from-file=telegram-credentials.properties -n ${YAKS_NAMESPACE}
+oc create secret generic telegram-inmem-binding --from-file=telegram-credentials.properties -n ${YAKS_NAMESPACE}
 
 oc create secret generic telegram-source.telegram-credentials --from-file=telegram-credentials.properties -n ${YAKS_NAMESPACE}
 
@@ -28,6 +29,7 @@ oc label secret telegram-credentials-uri-based yaks.citrusframework.org/test=tel
 oc label secret telegram-credentials-secret-based yaks.citrusframework.org/test=telegram-source-secret-based -n ${YAKS_NAMESPACE}
 oc label secret telegram-credentials-prop-based yaks.citrusframework.org/test=telegram-source-prop-based -n ${YAKS_NAMESPACE}
 oc label secret telegram-uri-binding yaks.citrusframework.org/test=telegram-uri-binding -n ${YAKS_NAMESPACE}
+oc label secret telegram-inmem-binding yaks.citrusframework.org/test=telegram-inmem-binding -n ${YAKS_NAMESPACE}
 
 # bind secret to kamelet
 oc label secret telegram-source.telegram-credentials camel.apache.org/kamelet=telegram-source camel.apache.org/kamelet.configuration=telegram-credentials -n ${YAKS_NAMESPACE}

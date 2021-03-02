@@ -23,6 +23,8 @@ config:
       - salesforce-to-uri.yaml
       - salesforce-to-log-uri-based.groovy
       - salesforce-credentials.properties
+      - salesforce-to-inmem.yaml
+      - ../utils/inmem-to-log.yaml
 pre:
   - name: Install kamel
     run: |

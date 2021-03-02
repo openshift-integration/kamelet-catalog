@@ -22,3 +22,4 @@ oc delete secret aws-sqs-credentials-secret -n ${YAKS_NAMESPACE}
 oc delete secret aws-client-config -n ${YAKS_NAMESPACE}
 oc delete secret aws-sqs-credentials-kamelet -n ${YAKS_NAMESPACE}
 oc delete secret aws-sqs-uri-binding -n ${YAKS_NAMESPACE}
+oc delete secret aws-sqs-inmem-binding -n ${YAKS_NAMESPACE}
