@@ -46,3 +46,4 @@ post:
       oc delete pod kafka-producer -n ${YAKS_NAMESPACE}
       oc delete pod kafka-consumer -n ${YAKS_NAMESPACE}
       oc delete kafkatopic --all -n ${YAKS_NAMESPACE}
+      

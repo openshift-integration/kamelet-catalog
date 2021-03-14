@@ -33,3 +33,4 @@ spec:
       kind: KafkaTopic
       apiVersion: kafka.strimzi.io/v1beta1
       name: my-topic
+      

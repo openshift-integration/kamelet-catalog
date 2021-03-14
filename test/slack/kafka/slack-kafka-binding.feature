@@ -63,3 +63,4 @@ Feature: Slack Kamelet
 
   Scenario: Remove Camel-K resources
     Given delete KameletBinding slack-to-kafka
+    
