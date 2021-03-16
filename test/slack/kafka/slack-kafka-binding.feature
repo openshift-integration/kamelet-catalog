@@ -1,3 +1,4 @@
+# Uses configuration from https://strimzi.io/quickstarts/, distributed under https://creativecommons.org/licenses/by/4.0, adapted for yaks test
 Feature: Slack Kamelet
 
   Background:

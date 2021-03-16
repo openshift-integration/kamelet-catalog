@@ -1,3 +1,4 @@
+# https://strimzi.io/quickstarts/, distributed under https://creativecommons.org/licenses/by/4.0, no changes
 apiVersion: kafka.strimzi.io/v1beta1
 kind: Kafka
 metadata:
