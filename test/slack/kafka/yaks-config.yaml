@@ -1,0 +1,50 @@
+# ---------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ---------------------------------------------------------------------------
+
+# Uses configuration from https://strimzi.io/quickstarts/, distributed under https://creativecommons.org/licenses/by/4.0, adapted for use in yaks test
+
+config:
+  namespace:
+    temporary: true
+  runtime:
+    resources:
+      - ../slack-credentials.properties
+      - strimzi-myproject.yaml
+      - kafka-persistent-single.yaml
+      - slack-to-kafka.yaml
+pre:
+  - name: Install kamel
+    run: |
+      kamel install -w -n ${YAKS_NAMESPACE}
+  - script: prepare-secret.sh
+  - name: "Install Kafka - Strimzi CR, CRDs, create strimzi operator, cluster, create topic with producer and consumer"
+    run: |
+      cat strimzi-myproject.yaml | sed 's/myproject/'"${YAKS_NAMESPACE}"'/' | oc apply -n $YAKS_NAMESPACE -f -
+      oc apply -f kafka-persistent-single.yaml -n ${YAKS_NAMESPACE}
+      oc wait kafka/my-cluster --for=condition=Ready --timeout=300s -n ${YAKS_NAMESPACE}
+      oc -n ${YAKS_NAMESPACE} run kafka-producer --image=quay.io/strimzi/kafka:0.21.1-kafka-2.7.0 --restart=Never -- bin/kafka-console-producer.sh --broker-list my-cluster-kafka-bootstrap:9092 --topic my-topic
+      oc wait --for=condition=Ready pod/kafka-producer --timeout=300s -n ${YAKS_NAMESPACE}
+      oc -n ${YAKS_NAMESPACE} run kafka-consumer --image=quay.io/strimzi/kafka:0.21.1-kafka-2.7.0 --restart=Never -- bin/kafka-console-consumer.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic my-topic
+      oc wait --for=condition=Ready pod/kafka-consumer --timeout=300s -n ${YAKS_NAMESPACE}
+post:
+  - script: delete-secret.sh
+  - name: "Delete cluster, producer, consumer, topic"
+    run: |-
+      kubectl delete $(kubectl get strimzi -o name -n ${YAKS_NAMESPACE}) -n ${YAKS_NAMESPACE}
+      oc delete pod kafka-producer -n ${YAKS_NAMESPACE}
+      oc delete pod kafka-consumer -n ${YAKS_NAMESPACE}
+      oc delete kafkatopic --all -n ${YAKS_NAMESPACE}
