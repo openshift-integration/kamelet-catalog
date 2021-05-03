@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -75,15 +76,15 @@ public class KameletsCatalogTest {
     @Test
     void testGetKameletsByProvider() throws Exception {
         List<Kamelet> c = catalog.getKameletByProvider("Apache Software Foundation");
-        assertTrue(!c.isEmpty());
-        c = catalog.getKameletByProvider("Eclipse");
         assertTrue(c.isEmpty());
+        c = catalog.getKameletByProvider("Red Hat");
+        assertFalse(c.isEmpty());
     }
 
     @Test
     void testGetKameletsDependencies() throws Exception {
         List<String> deps = catalog.getKameletDependencies("aws-sqs-source");
-        assertEquals(0, deps.size());
+        assertEquals(1, deps.size());
         deps = catalog.getKameletDependencies("cassandra-sink");
         assertEquals(1, deps.size());
         assertEquals("camel:jackson", deps.get(0));
