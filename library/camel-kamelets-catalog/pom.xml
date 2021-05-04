@@ -85,6 +85,12 @@
             <scope>test</scope>
             <version>${junit.jupiter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>${classgraph.version}</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -103,7 +109,7 @@
 
                         <configuration>
                             <overwrite>true</overwrite>
-                            <outputDirectory>src/main/resources/kamelets</outputDirectory>
+                            <outputDirectory>${project.basedir}/src/main/resources/kamelets</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>./../../</directory>

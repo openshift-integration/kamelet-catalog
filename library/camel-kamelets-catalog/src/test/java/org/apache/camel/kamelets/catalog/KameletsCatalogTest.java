@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -75,10 +74,10 @@ public class KameletsCatalogTest {
 
     @Test
     void testGetKameletsByProvider() throws Exception {
-        List<Kamelet> c = catalog.getKameletByProvider("Apache Software Foundation");
+        List<Kamelet> c = catalog.getKameletByProvider("Red Hat");
+        assertTrue(!c.isEmpty());
+        c = catalog.getKameletByProvider("Eclipse");
         assertTrue(c.isEmpty());
-        c = catalog.getKameletByProvider("Red Hat");
-        assertFalse(c.isEmpty());
     }
 
     @Test
