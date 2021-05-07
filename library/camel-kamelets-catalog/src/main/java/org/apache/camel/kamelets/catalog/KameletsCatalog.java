@@ -24,6 +24,7 @@ import io.fabric8.camelk.v1alpha1.Kamelet;
 import io.fabric8.kubernetes.api.model.apiextensions.v1.JSONSchemaProps;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
+import org.apache.camel.kamelets.catalog.model.KameletAnnotationsNames;
 import org.apache.camel.kamelets.catalog.model.KameletLabelNames;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -107,6 +108,14 @@ public class KameletsCatalog {
         return collect;
     }
 
+    public List<Kamelet> getKameletsByGroups(String group) {
+        List<Kamelet> collect = kameletModels.entrySet().stream()
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_GROUP).contains(group))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+        return collect;
+    }
+
     public JSONSchemaProps getKameletDefinition(String name) {
         Kamelet kamelet = kameletModels.get(name);
         if (kamelet != null) {
@@ -118,7 +127,7 @@ public class KameletsCatalog {
 
     public List<Kamelet> getKameletByProvider(String provider) {
         List<Kamelet> collect = kameletModels.entrySet().stream()
-                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletLabelNames.KAMELET_LABEL_PROVIDER).equalsIgnoreCase(provider))
+                .filter(x -> x.getValue().getMetadata().getAnnotations().get(KameletAnnotationsNames.KAMELET_ANNOTATION_PROVIDER).equalsIgnoreCase(provider))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
         if (!collect.isEmpty()) {
