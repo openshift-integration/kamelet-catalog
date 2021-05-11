@@ -16,29 +16,24 @@
  */
 package org.apache.camel.kamelets.utils.transform;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangeProperty;
 import org.apache.camel.InvalidPayloadException;
 
-public class InsertField {
+import java.util.HashMap;
+import java.util.Map;
 
-    public JsonNode process(@ExchangeProperty("field") String field, @ExchangeProperty("value") String value, Exchange ex) throws InvalidPayloadException {
-        JsonNode body = ex.getMessage().getBody(JsonNode.class);
-        switch (body.getNodeType()) {
-            case ARRAY:
-                ((ArrayNode) body).add(value);
-                break;
-            case OBJECT:
-                ((ObjectNode) body).put(field, value);
-                break;
-            default:
-                ((ObjectNode) body).put(field, value);
-                break;
-        }
-        return body;
+public class HoistField {
+
+    public JsonNode process(@ExchangeProperty("field") String field, Exchange ex) throws InvalidPayloadException {
+        ObjectMapper mapper = new ObjectMapper();
+        Object body = ex.getMessage().getBody();
+        Map<Object, Object> updatedBody = new HashMap<>();
+        updatedBody.put(field, body);
+        return mapper.valueToTree(updatedBody);
     }
 
 }
