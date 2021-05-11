@@ -8,7 +8,6 @@ metadata:
     camel.apache.org/kamelet.group: "FTP"
   labels:
     camel.apache.org/kamelet.type: "source"
-    camel.apache.org/kamelet.group: "FTP"
 spec:
   definition:
     title: "SFTP Source"
