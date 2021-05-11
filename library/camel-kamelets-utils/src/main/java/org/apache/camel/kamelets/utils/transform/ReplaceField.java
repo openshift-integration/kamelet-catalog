@@ -16,6 +16,9 @@
  */
 package org.apache.camel.kamelets.utils.transform;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangeProperty;
 import org.apache.camel.InvalidPayloadException;
@@ -30,11 +33,13 @@ import java.util.stream.Collectors;
 
 public class ReplaceField {
 
-    public Map<?, ?> process(@ExchangeProperty("enabled") String enabled, @ExchangeProperty("disabled") String disabled, @ExchangeProperty("renames") String renames,Exchange ex) throws InvalidPayloadException {
+    public JsonNode process(@ExchangeProperty("enabled") String enabled, @ExchangeProperty("disabled") String disabled, @ExchangeProperty("renames") String renames,Exchange ex) throws InvalidPayloadException {
+        ObjectMapper mapper = new ObjectMapper();
         List<String> enabledFields = new ArrayList<>();
         List<String> disabledFields = new ArrayList<>();
         List<String> renameFields = new ArrayList<>();
-        Map<Object, Object> body = ex.getMessage().getMandatoryBody(Map.class);
+        JsonNode jsonNodeBody = ex.getMessage().getBody(JsonNode.class);
+        Map<Object, Object> body = mapper.convertValue(jsonNodeBody, new TypeReference<Map<Object, Object>>(){});
         if (ObjectHelper.isNotEmpty(enabled)) {
             enabledFields = Arrays.stream(enabled.split(",")).collect(Collectors.toList());
         }
@@ -55,7 +60,11 @@ public class ReplaceField {
                 updatedBody.put(renameOptional(fieldName, renamingMap), fieldValue);
             }
         }
-        return updatedBody;
+        if (!updatedBody.isEmpty()) {
+            return mapper.valueToTree(updatedBody);
+        } else {
+            return mapper.valueToTree(body);
+        }
     }
 
     boolean filterNames(String fieldName, List<String> enabledFields, List<String> disabledFields) {
