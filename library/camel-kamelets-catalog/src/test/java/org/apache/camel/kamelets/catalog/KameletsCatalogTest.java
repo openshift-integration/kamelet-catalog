@@ -89,7 +89,7 @@ public class KameletsCatalogTest {
         c = catalog.getKameletsByType(KameletTypeEnum.SINK.type());
         assertTrue(!c.isEmpty());
         c = catalog.getKameletsByType(KameletTypeEnum.ACTION.type());
-        assertTrue(!c.isEmpty());
+        assertTrue(c.isEmpty());
     }
 
     @Test
