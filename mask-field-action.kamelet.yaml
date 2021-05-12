@@ -26,7 +26,7 @@ spec:
         type: string
     type: object
   dependencies:
-  - "github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT"
+  - "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:main-SNAPSHOT"
   - "camel:jackson"
   - "camel:kamelet"
   - "camel:core"
