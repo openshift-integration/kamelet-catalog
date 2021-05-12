@@ -14,7 +14,6 @@ spec:
     description: "Deserialize payload to JSON"
     type: object
   dependencies:
-  - "github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT"
   - "camel:kamelet"
   - "camel:core"
   - "camel:jackson"
