@@ -14,7 +14,7 @@ spec:
     description: "Manually commit Kafka Offset"
     type: object
   dependencies:
-  - "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:main-SNAPSHOT"
+  - "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:master-SNAPSHOT"
   - "camel:kamelet"
   flow:
     from:
