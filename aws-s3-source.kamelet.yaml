@@ -54,9 +54,6 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
-  types:
-    out:
-      mediaType: application/json
   flow:
     from:
       uri: "aws2-s3:{{bucketNameOrArn}}"
