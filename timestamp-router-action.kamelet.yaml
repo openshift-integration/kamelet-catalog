@@ -30,7 +30,7 @@ spec:
         default: "kafka.TIMESTAMP"
     type: object
   dependencies:
-  - github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT
+  - "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:master-SNAPSHOT"
   - "camel:kamelet"
   - "camel:core"
   flow:
