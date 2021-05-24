@@ -57,6 +57,9 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
+  dependencies:
+  - "camel:kamelet"
+  - "camel:aws2-s3"
   flow:
     from:
       uri: "aws2-s3:{{bucketNameOrArn}}"

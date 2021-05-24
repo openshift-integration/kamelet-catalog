@@ -58,6 +58,8 @@ spec:
     out:
       mediaType: application/json
   dependencies:
+  - "camel:kamelet"
+  - "camel:aws2-ddb"
   - "camel:gson"
   flow:
     from:
