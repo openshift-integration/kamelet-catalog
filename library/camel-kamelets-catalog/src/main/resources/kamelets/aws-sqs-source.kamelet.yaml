@@ -18,13 +18,14 @@ spec:
       - accessKey
       - secretKey
       - region
+    type: object
     properties:
       queueNameOrArn:
         title: Queue Name
         description: The SQS Queue name or ARN
         type: string
       deleteAfterRead:
-        title: Auto-delete messages
+        title: Auto-delete Messages
         description: Delete messages after consuming them
         type: boolean
         x-descriptors:
@@ -34,12 +35,14 @@ spec:
         title: Access Key
         description: The access key obtained from AWS
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       secretKey:
         title: Secret Key
         description: The secret key obtained from AWS
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       region:
@@ -48,7 +51,7 @@ spec:
         type: string
         example: eu-west-1
       autoCreateQueue:
-        title: Autocreate queue
+        title: Autocreate Queue
         description: Setting the autocreation of the SQS queue. 
         type: boolean
         x-descriptors:
@@ -58,6 +61,9 @@ spec:
     out:
       mediaType: application/json
   dependencies:
+  - "camel:aws2-sqs"
+  - "camel:core"
+  - "camel:kamelet"
   - "camel:jackson"
   flow:
     from:

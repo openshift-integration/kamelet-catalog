@@ -20,6 +20,7 @@ spec:
       - username
       - password
       - directoryName
+    type: object
     properties:
       host:
         title: Host
@@ -38,6 +39,7 @@ spec:
         title: Password
         description: The password to access the FTPS server
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       directoryName:
@@ -49,16 +51,27 @@ spec:
         description: Sets passive mode connection
         type: boolean
         default: false
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
       recursive:
         title: Recursive
         description: If a directory, will look for files in all the sub-directories as well.
         type: boolean
         default: false
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
       idempotent:
         title: Idempotency
         description: Skip already processed files.
         type: boolean
         default: true
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+  dependencies:
+  - "camel:core"
+  - "camel:kamelet"
+  - "camel:ftp"
+  - "camel:jackson"  
   flow:
     from:
       uri: "ftps:{{username}}@{{host}}:{{port}}/{{directoryName}}"

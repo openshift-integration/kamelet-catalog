@@ -17,6 +17,7 @@ spec:
       - jiraUrl
       - username
       - password
+    type: object
     properties:
       jiraUrl:
         title: Jira URL
@@ -31,6 +32,7 @@ spec:
         title: Password
         description: The password to access Jira
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       jql:
@@ -44,6 +46,8 @@ spec:
       mediaType: application/json
   dependencies:
   - "camel:jackson"
+  - "camel:kamelet"
+  - "camel:jira"
   flow:
     from:
       uri: "jira:newIssues"

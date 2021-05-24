@@ -30,6 +30,7 @@ spec:
       - accessKey
       - secretKey
       - region
+    type: object
     properties:
       stream:
         title: Stream Name
@@ -39,12 +40,14 @@ spec:
         title: Access Key
         description: The access key obtained from AWS
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       secretKey:
         title: Secret Key
         description: The secret key obtained from AWS
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       region:
@@ -52,6 +55,9 @@ spec:
         description: The AWS region to connect to (capitalized name)
         type: string
         example: eu-west-1
+  dependencies:
+  - "camel:kamelet"
+  - "camel:aws2-kinesis"
   flow:
     from:
       uri: kamelet:source

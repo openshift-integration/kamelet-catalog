@@ -18,9 +18,10 @@ spec:
       - accountName
       - containerName
       - accessKey
+    type: object
     properties:
       period:
-        title: Period between polls
+        title: Period Between Polls
         description: The interval between fetches to the Azure Storage Container in milliseconds
         type: integer
         default: 10000
@@ -36,8 +37,15 @@ spec:
         title: Access Key
         description: The Azure Storage Blob access Key.
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+  dependencies:
+  - "camel:azure-storage-blob"
+  - "camel:jsonpath"
+  - "camel:core"
+  - "camel:timer"
+  - "camel:kamelet"
   flow:
     from:
       uri: "timer:azure-storage-blob-stream"

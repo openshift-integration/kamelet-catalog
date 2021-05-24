@@ -20,6 +20,7 @@ spec:
       - username
       - password
       - directoryName
+    type: object
     properties:
       host:
         title: Host
@@ -38,6 +39,7 @@ spec:
         title: Password
         description: The password to access the FTP server
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       directoryName:
@@ -48,17 +50,28 @@ spec:
         title: Passive Mode
         description: Sets passive mode connection
         type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
       recursive:
         title: Recursive
         description: If a directory, will look for files in all the sub-directories as well.
         type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
       idempotent:
         title: Idempotency
         description: Skip already processed files.
         type: boolean
-        default: true        
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: true
+  dependencies:
+  - "camel:core"
+  - "camel:kamelet"
+  - "camel:ftp"
+  - "camel:jackson"        
   flow:
     from:
       uri: "ftp:{{username}}@{{host}}:{{port}}/{{directoryName}}"

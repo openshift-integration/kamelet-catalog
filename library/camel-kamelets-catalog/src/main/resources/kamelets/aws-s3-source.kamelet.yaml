@@ -18,13 +18,14 @@ spec:
       - accessKey
       - secretKey
       - region
+    type: object
     properties:
       bucketNameOrArn:
         title: Bucket Name
         description: The S3 Bucket name or ARN
         type: string
       deleteAfterRead:
-        title: Auto-delete objects
+        title: Auto-delete Objects
         description: Delete objects after consuming them
         type: boolean
         x-descriptors:
@@ -34,12 +35,14 @@ spec:
         title: Access Key
         description: The access key obtained from AWS
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       secretKey:
         title: Secret Key
         description: The secret key obtained from AWS
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       region:
@@ -48,12 +51,15 @@ spec:
         type: string
         example: eu-west-1
       autoCreateBucket:
-        title: Autocreate bucket
+        title: Autocreate Bucket
         description: Setting the autocreation of the S3 bucket bucketName. 
         type: boolean
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
+  dependencies:
+  - "camel:kamelet"
+  - "camel:aws2-s3"
   flow:
     from:
       uri: "aws2-s3:{{bucketNameOrArn}}"

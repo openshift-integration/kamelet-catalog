@@ -21,7 +21,8 @@ spec:
       - keyspace
       - username
       - password
-      - query
+      - preparedStatement
+    type: object
     properties:
       host:
         title: Host
@@ -46,6 +47,7 @@ spec:
         title: Password
         description: The password to use for accessing a secured Cassandra Cluster
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       consistencyLevel:
@@ -54,11 +56,13 @@ spec:
         type: string
         default: ANY
       preparedStatement:
-        title: The Prepared statement
+        title: Prepared Statement
         description: The Prepared statement to execute against the Cassandra cluster table
         type: string
   dependencies:
   - "camel:jackson"
+  - "camel:cassandraql"
+  - "camel:kamelet"
   flow:
     from:
       uri: "kamelet:source"

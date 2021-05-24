@@ -15,11 +15,13 @@ spec:
       Receive all messages that people send to your telegram bot.
     required:
       - authorizationToken
+    type: object
     properties:
       authorizationToken:
         title: Token
         description: The token to access your bot on Telegram, that you can obtain from the Telegram "Bot Father".
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
   types:
@@ -27,6 +29,8 @@ spec:
       mediaType: application/json
   dependencies:
   - "camel:jackson"
+  - "camel:kamelet"
+  - "camel:telegram"
   flow:
     from:
       uri: telegram:bots
