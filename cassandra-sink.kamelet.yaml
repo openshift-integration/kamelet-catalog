@@ -21,7 +21,8 @@ spec:
       - keyspace
       - username
       - password
-      - query
+      - preparedStatement
+    type: object
     properties:
       host:
         title: Host
@@ -54,7 +55,7 @@ spec:
         type: string
         default: ANY
       preparedStatement:
-        title: The Prepared statement
+        title: Prepared Statement
         description: The Prepared statement to execute against the Cassandra cluster table
         type: string
   dependencies:

@@ -20,6 +20,7 @@ spec:
       - username
       - password
       - query
+    type: object
     properties:
       host:
         title: Host
