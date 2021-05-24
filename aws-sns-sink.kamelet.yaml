@@ -18,6 +18,7 @@ spec:
       - accessKey
       - secretKey
       - region
+    type: object
     properties:
       topicNameOrArn:
         title: Topic Name
@@ -41,7 +42,7 @@ spec:
         type: string
         example: eu-west-1
       autoCreateTopic:
-        title: Autocreate topic
+        title: Autocreate Topic
         description: Setting the autocreation of the SNS topic. 
         type: boolean
         x-descriptors:
