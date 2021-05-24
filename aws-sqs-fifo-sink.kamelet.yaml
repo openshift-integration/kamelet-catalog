@@ -48,6 +48,8 @@ spec:
         description: Use content-based deduplication (should be enabled in the SQS FIFO queue first)
         type: boolean
         default: false
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
       autoCreateQueue:
         title: Autocreate Queue
         description: Setting the autocreation of the SQS queue. 
