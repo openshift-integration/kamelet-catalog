@@ -66,6 +66,11 @@ spec:
         default: true
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+  dependencies:
+  - "camel:core"
+  - "camel:kamelet"
+  - "camel:ftp"
+  - "camel:jackson"  
   flow:
     from:
       uri: "sftp:{{username}}@{{host}}:{{port}}/{{directoryName}}"

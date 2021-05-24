@@ -66,7 +66,12 @@ spec:
         type: boolean
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
-        default: true        
+        default: true
+  dependencies:
+  - "camel:core"
+  - "camel:kamelet"
+  - "camel:ftp"
+  - "camel:jackson"        
   flow:
     from:
       uri: "ftp:{{username}}@{{host}}:{{port}}/{{directoryName}}"
