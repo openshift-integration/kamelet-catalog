@@ -105,10 +105,9 @@ public class KameletsCatalogTest {
     @Test
     void testGetKameletsDependencies() throws Exception {
         List<String> deps = catalog.getKameletDependencies("aws-sqs-source");
-        assertEquals(1, deps.size());
+        assertEquals(4, deps.size());
         deps = catalog.getKameletDependencies("cassandra-sink");
-        assertEquals(1, deps.size());
-        assertEquals("camel:jackson", deps.get(0));
+        assertEquals(3, deps.size());
     }
 
     @Test
