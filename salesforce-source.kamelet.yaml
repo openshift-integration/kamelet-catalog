@@ -20,6 +20,7 @@ spec:
       - clientSecret
       - userName
       - password
+    type: object
     properties:
       query:
         title: Query

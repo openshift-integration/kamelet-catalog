@@ -17,6 +17,7 @@ spec:
       - jiraUrl
       - username
       - password
+    type: object
     properties:
       jiraUrl:
         title: Jira URL
