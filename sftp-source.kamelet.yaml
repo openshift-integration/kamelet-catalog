@@ -38,6 +38,7 @@ spec:
         title: Password
         description: The password to access the SFTP server
         type: string
+        format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       directoryName:
