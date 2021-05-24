@@ -23,6 +23,7 @@ spec:
       - accountName
       - containerName
       - accessKey
+    type: object
     properties:
       accountName:
         title: Account Name
@@ -39,7 +40,7 @@ spec:
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
       operation:
-        title: Operation name
+        title: Operation Name
         description: The operation to perform.
         type: string
         default: uploadBlockBlob
