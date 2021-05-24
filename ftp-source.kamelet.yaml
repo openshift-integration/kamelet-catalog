@@ -20,6 +20,7 @@ spec:
       - username
       - password
       - directoryName
+    type: object
     properties:
       host:
         title: Host

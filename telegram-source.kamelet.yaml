@@ -15,6 +15,7 @@ spec:
       Receive all messages that people send to your telegram bot.
     required:
       - authorizationToken
+    type: object
     properties:
       authorizationToken:
         title: Token
