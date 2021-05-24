@@ -49,16 +49,22 @@ spec:
         description: Sets passive mode connection
         type: boolean
         default: false
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
       recursive:
         title: Recursive
         description: If a directory, will look for files in all the sub-directories as well.
         type: boolean
         default: false
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
       idempotent:
         title: Idempotency
         description: Skip already processed files.
         type: boolean
         default: true
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
   flow:
     from:
       uri: "sftp:{{username}}@{{host}}:{{port}}/{{directoryName}}"
