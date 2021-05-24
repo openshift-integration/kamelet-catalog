@@ -18,6 +18,7 @@ spec:
       - accessKey
       - secretKey
       - region
+    type: object
     properties:
       bucketNameOrArn:
         title: Bucket Name
