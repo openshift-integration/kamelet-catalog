@@ -61,6 +61,8 @@ spec:
         type: string
   dependencies:
   - "camel:jackson"
+  - "camel:cassandraql"
+  - "camel:kamelet"
   flow:
     from:
       uri: "kamelet:source"
