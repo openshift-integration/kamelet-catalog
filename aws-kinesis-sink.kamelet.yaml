@@ -30,6 +30,7 @@ spec:
       - accessKey
       - secretKey
       - region
+    type: object
     properties:
       stream:
         title: Stream Name
