@@ -50,6 +50,10 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
+  dependencies:
+  - "camel:aws2-sqs"
+  - "camel:core"
+  - "camel:kamelet"
   flow:
     from:
       uri: kamelet:source

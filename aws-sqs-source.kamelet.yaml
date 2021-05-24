@@ -61,6 +61,9 @@ spec:
     out:
       mediaType: application/json
   dependencies:
+  - "camel:aws2-sqs"
+  - "camel:core"
+  - "camel:kamelet"
   - "camel:jackson"
   flow:
     from:
