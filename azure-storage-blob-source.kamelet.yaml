@@ -40,6 +40,12 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+  dependencies:
+  - "camel:azure-storage-blob"
+  - "camel:jsonpath"
+  - "camel:core"
+  - "camel:timer"
+  - "camel:kamelet"
   flow:
     from:
       uri: "timer:azure-storage-blob-stream"
