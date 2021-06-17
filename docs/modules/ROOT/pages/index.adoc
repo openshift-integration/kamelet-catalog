@@ -1,0 +1,11 @@
+= Kamelet Catalog
+
+This page contains the catalog of Kamelets provided by Red Hat.
+
+
+
+[indexBlock,'xref',relative=!nav.adoc]
+----
+[.catalog]
+[.item]#{xref}#
+----
