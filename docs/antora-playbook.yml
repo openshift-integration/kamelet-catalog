@@ -1,0 +1,18 @@
+site:
+  title: Kamelet Catalog
+  url: /
+  start_page: camel-kamelets::index.adoc
+content:
+  sources:
+  - url: ../
+    branches: HEAD
+    start_path: docs
+asciidoc:
+  extensions:
+    - "@djencks/asciidoctor-antora-indexer"
+    - "@djencks/asciidoctor-jsonpath"
+  attributes:
+    eip-vc: latest@components
+ui:
+  bundle:
+    url: ./ui-bundle.zip
