@@ -419,7 +419,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Make sure you have Camel K installed into the Kubernetes cluster you&#8217;re connected to.</p>
+<p>Make sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
 <p>Save the <code>azure-storage-queue-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
@@ -429,7 +429,80 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kubectl apply -f azure-storage-queue-sink-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f azure-storage-queue-sink-binding.yaml</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_binding_to_knative_using_the_kamel_cli"><a class="anchor" href="#_binding_to_knative_using_the_kamel_cli"></a><strong>Binding to Knative using the Kamel CLI:</strong></h4>
+<div class="paragraph">
+<p>The procedure described above can be simplified into a single execution of the <code>kamel bind</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel azure-storage-queue-sink -p "sink.accessKey=The Access Key" -p "sink.accountName=The Account Name" -p "sink.queueName=The Queue Name"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kafka_sink"><a class="anchor" href="#_kafka_sink"></a>Kafka Sink</h3>
+<div class="paragraph">
+<p>The <code>azure-storage-queue-sink</code> Kamelet can be used as Kafka sink by binding it to a Kafka topic.</p>
+</div>
+<div class="listingblock">
+<div class="title">azure-storage-queue-sink-binding.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: azure-storage-queue-sink-binding
+spec:
+  source:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: azure-storage-queue-sink
+    properties:
+      accessKey: "The Access Key"
+      accountName: "The Account Name"
+      queueName: "The Queue Name"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ensure that you&#8217;ve installed the <strong>AMQ Streams</strong> operator in your OpenShift cluster and created a topic named <code>my-topic</code> in the current namespace.
+Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
+</div>
+<div class="paragraph">
+<p>Save the <code>azure-storage-queue-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+</div>
+<div class="paragraph">
+<p>You can run the sink using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f azure-storage-queue-sink-binding.yaml</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_binding_to_kafka_using_the_kamel_cli"><a class="anchor" href="#_binding_to_kafka_using_the_kamel_cli"></a><strong>Binding to Kafka using the Kamel CLI:</strong></h4>
+<div class="paragraph">
+<p>The procedure described above can be simplified into a single execution of the <code>kamel bind</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic azure-storage-queue-sink -p "sink.accessKey=The Access Key" -p "sink.accountName=The Account Name" -p "sink.queueName=The Queue Name"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.</p>
 </div>
 </div>
 </div>
