@@ -11,7 +11,7 @@ Feature: Telegram Kamelet - URI based config
     When load Camel-K integration telegram-to-log-uri-based.groovy
     Then Kamelet telegram-source is available
     Given Camel-K integration telegram-to-log-uri-based is running
-    Given variable loginfo is "started and consuming from: telegram"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration telegram-to-log-uri-based should print ${loginfo}
 
   Scenario: Verify Kamelet source - URI based config

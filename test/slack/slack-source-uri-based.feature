@@ -7,7 +7,7 @@ Feature: Slack Kamelet - URI based configuration
   Scenario: Create Camel-K resources
     Given load Camel-K integration slack-to-log-uri-based.groovy
     Given Camel-K integration slack-to-log-uri-based is running
-    Given variable loginfo is "started and consuming from: slack"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration slack-to-log-uri-based should print ${loginfo}
 
   Scenario: Verify Kamelet source - URI based configuration
