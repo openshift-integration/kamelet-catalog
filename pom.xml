@@ -271,7 +271,7 @@
                 </executions>
                 <configuration>
                 <scriptpath>
-                    <path>${project.basedir}/src/main/script</path>
+                    <path>${project.basedir}/script/version</path>
                 </scriptpath>
                     <source>
                     import Update
