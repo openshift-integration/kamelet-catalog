@@ -8,7 +8,7 @@ Feature: Jira Kamelet - binding to URI
   Scenario: Verify resources
     Given load KameletBinding jira-uri-binding.yaml
     Given KameletBinding jira-uri-binding is available
-    Given variable loginfo is "started and consuming from: kamelet://jira-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration jira-uri-binding should print ${loginfo}
 
   Scenario: Verify new jira issue is created

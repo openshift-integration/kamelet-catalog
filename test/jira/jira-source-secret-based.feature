@@ -8,7 +8,7 @@ Feature: Jira Kamelet - secret based config
   Scenario: Verify resources, secret based config
     Given load Camel-K integration jira-to-log-secret-based.groovy
     Given Camel-K integration jira-to-log-secret-based is running
-    Given variable loginfo is "started and consuming from: kamelet://jira-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration jira-to-log-secret-based should print ${loginfo}
 
   Scenario: Verify new jira issue is created, secret based config

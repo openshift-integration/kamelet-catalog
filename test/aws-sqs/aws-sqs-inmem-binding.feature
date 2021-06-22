@@ -18,10 +18,8 @@ Feature: AWS SQS Kamelet - binding to InMemoryChannel
     Given load KameletBinding inmem-to-log.yaml
     Then KameletBinding aws-sqs-to-inmem is available
     And KameletBinding inmem-to-log should be available
-    Given variable loginfo is "started and consuming from: knative://channel/messages"
-    Then Camel-K integration inmem-to-log should print ${loginfo}
-    Given variable loginfo is "started and consuming from: kamelet://aws-sqs-source"
-    Then Camel-K integration aws-sqs-to-inmem should print ${loginfo}
+    Then Camel-K integration aws-sqs-to-inmem is running
+    And Camel-K integration inmem-to-log is running
 
     And Camel-K integration aws-sqs-to-inmem should print Installed features
     And Camel-K integration inmem-to-log should print Installed features

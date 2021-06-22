@@ -16,7 +16,7 @@ Feature: AWS SQS Kamelet - binding to URI
     Given Kamelet aws-sqs-source is available
     Given load KameletBinding aws-sqs-uri-binding.yaml
     Given KameletBinding aws-sqs-uri-binding is available
-    Given variable loginfo is "started and consuming from: kamelet://aws-sqs-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration aws-sqs-uri-binding should print ${loginfo}
 
   Scenario: Verify Kamelet source

@@ -13,9 +13,9 @@ Feature: Salesforce Kamelet
     And Camel-K integration salesforce-to-inmem is running
 
     And KameletBinding inmem-to-log should be available
-    Given variable loginfo is "started and consuming from: knative://channel/messages"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration inmem-to-log should print ${loginfo}
-    And Camel-K integration inmem-to-log should print Installed features
+    And Camel-K integration inmem-to-log should print ${loginfo}
     Then sleep 10000 ms
 
     #obtain token

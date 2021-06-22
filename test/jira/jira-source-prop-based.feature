@@ -13,7 +13,7 @@ Feature: Jira Kamelet - property based config
       .to('log:info')
     """
     Given Camel-K integration jira-to-log-prop-based is running
-    Given variable loginfo is "started and consuming from: kamelet://jira-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration jira-to-log-prop-based should print ${loginfo}
 
   Scenario: Verify new jira issue is created, property based config
