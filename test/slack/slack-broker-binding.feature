@@ -12,9 +12,9 @@ Feature: Slack Kamelet
     Given load KameletBinding slack-to-broker.yaml
 
     Then KameletBinding slack-to-broker should be available
-    And Camel-K integration slack-to-broker should print started and consuming from: kamelet://slack-source/source
+    And Camel-K integration slack-to-broker should print kamelet://slack-source/source
     And KameletBinding broker-to-log should be available
-    Given variable loginfo is "started and consuming from: knative://event/custom-type"
+    Given variable loginfo is "knative://event/custom-type"
     Then Camel-K integration broker-to-log should print ${loginfo}
 
     #Avoid sending message too early

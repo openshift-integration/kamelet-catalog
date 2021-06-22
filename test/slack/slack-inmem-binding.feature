@@ -11,7 +11,7 @@ Feature: Slack Kamelet
     Given load KameletBinding slack-to-inmem.yaml
     Then KameletBinding slack-to-inmem should be available
     And KameletBinding inmem-to-log should be available
-    Given variable loginfo is "started and consuming from: knative://channel/messages"
+    Given variable loginfo is "knative://channel/messages"
     Then Camel-K integration inmem-to-log should print ${loginfo}
 
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"

@@ -15,7 +15,7 @@ Feature: Telegram Kamelet - secret based configuration
     .to('log:info')
     """
     Given Camel-K integration telegram-to-log-secret-based is running
-    Given variable loginfo is "started and consuming from: telegram"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration telegram-to-log-secret-based should print ${loginfo}
 
   Scenario: Verify Kamelet source - secret based configuration

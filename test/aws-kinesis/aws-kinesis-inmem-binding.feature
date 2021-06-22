@@ -18,8 +18,8 @@ Feature: AWS-Kinesis Kamelet
     Then KameletBinding aws-kinesis-to-inmem should be available
     Given load KameletBinding inmem-to-log.yaml
     And KameletBinding inmem-to-log should be available
-    Given variable loginfo is "started and consuming from: knative://channel/messages"
-    Then Camel-K integration inmem-to-log should print ${loginfo}
+    And Camel-K integration aws-kinesis-to-inmem is running
+    And Camel-K integration inmem-to-log is running
 
     And Camel-K integration aws-kinesis-to-inmem should print Installed features
     And Camel-K integration inmem-to-log should print Installed features

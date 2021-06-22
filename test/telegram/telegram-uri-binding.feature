@@ -11,7 +11,7 @@ Feature: Telegram Kamelet - binding to URI
     Given Kamelet telegram-source is available
     Given load KameletBinding telegram-uri-binding.yaml
     Given Camel-K integration telegram-uri-binding is running
-    Given variable loginfo is "started and consuming from: kamelet://telegram-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration telegram-uri-binding should print ${loginfo}
 
   Scenario: Verify Kamelet source - binding to URI
