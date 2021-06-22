@@ -1,0 +1,23 @@
+name: Publish Website
+on:
+  push:
+    branches:
+    - kamelet-catalog-1.4
+jobs:
+  publish-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          cd docs
+          yarn install
+          yarn build
+          touch build/site/.nojekyll
+
+      - name: Publish
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: docs/build/site
