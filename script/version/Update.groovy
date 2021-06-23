@@ -23,27 +23,31 @@ import java.util.Properties
 
 def updateKameletDirectory(String directoryName, String replaceVersion) {
     println "#### updateKamelets BEGIN"
+    boolean useJitpack = replaceVersion.endsWith("-SNAPSHOT")
+    
+    String kameletUtilsMvnSelector = "mvn:org\\.apache\\.camel\\.kamelets:camel-kamelets-utils:[A-Za-z0-9-.]+"
+    String kameletUtilsJitpackSelector = "github:openshift-integration\\.kamelet-catalog:camel-kamelets-utils:[A-Za-z0-9-.]+"
+
+    String kameletUtilsMvnVersion = "mvn:org.apache.camel.kamelets:camel-kamelets-utils:" + replaceVersion
+    String kameletUtilsJitpackVersion = "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:" + replaceVersion
+    String kameletUtilsNewVersion = useJitpack ? kameletUtilsJitpackVersion : kameletUtilsMvnVersion
+
+    String catalogVersionAnnotationSelector = "camel\\.apache\\.org/catalog\\.version:.*"
+    String catalogVersion = "camel.apache.org/catalog.version: \"" + replaceVersion + "\""
 
     File directory = new File(directoryName)
     File[] files = directory.listFiles()
-    String oldVersion = "mvn:org.apache.camel.kamelets:camel-kamelets-utils:[A-Za-z0-9-.]+"
-    String newVersion = "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:" + replaceVersion
-
-    String catalogOldVersion = "camel.apache.org/catalog.version:.*"
-    String catalogNewVersion = "camel.apache.org/catalog.version: \"" + replaceVersion + "\""
-
-    String kameletUtilsOldVersion = "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:[A-Za-z0-9-.]+"
-    String kameletUtilsNewVersion = "mvn:org.apache.camel.kamelets:camel-kamelets-utils:" + replaceVersion
 
     for (File f in files) {
         if (f.getName().endsWith(".kamelet.yaml")) {
             String kameletFile = f.getName() 
-            println "#### Replacing content in " + kameletFile + " with " + newVersion
+            println "#### Setting version in " + kameletFile + " to " + catalogVersion
+            println "#### Replacing content in " + kameletFile + " with " + kameletUtilsNewVersion
             new File( kameletFile + ".bak" ).withWriter { w ->
                 new File( kameletFile ).eachLine { line ->
-                    w << line.replaceAll(oldVersion, newVersion)
-                            .replaceAll(catalogOldVersion, catalogNewVersion)
-                            .replaceAll(kameletUtilsOldVersion, kameletUtilsNewVersion) + System.getProperty("line.separator")
+                    w << line.replaceAll(catalogVersionAnnotationSelector, catalogVersion)
+                            .replaceAll(kameletUtilsMvnSelector, kameletUtilsNewVersion)
+                            .replaceAll(kameletUtilsJitpackSelector, kameletUtilsNewVersion) + System.getProperty("line.separator")
                 }
             }
             Files.copy(Paths.get(kameletFile + ".bak"), Paths.get(kameletFile), StandardCopyOption.REPLACE_EXISTING)
