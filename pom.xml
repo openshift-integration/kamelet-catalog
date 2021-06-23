@@ -41,6 +41,7 @@
     <properties>
         <failIfNoTests>false</failIfNoTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <groovy-maven-plugin.version>2.0</groovy-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
@@ -247,28 +248,36 @@
                         <target>8</target>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.gmaven</groupId>
+                    <artifactId>groovy-maven-plugin</artifactId>
+                    <version>${groovy-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
+                        <id>UpdateKamelets</id>
                         <phase>process-resources</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>execute</goal>
                         </goals>
-                        <configuration>
-                            <target>
-                                <ant antfile="update-kamelets.xml">
-                                    <target name="update.kamelets" />
-                                </ant>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                <scriptpath>
+                    <path>${project.basedir}/script/version</path>
+                </scriptpath>
+                    <source>
+                    import Update
+                    new Update().updateKameletDirectory("${basedir}", "${project.version}")
+                    </source>
+                </configuration>
             </plugin>
         </plugins>
     </build>
