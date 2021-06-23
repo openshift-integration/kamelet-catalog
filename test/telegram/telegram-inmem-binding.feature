@@ -15,11 +15,9 @@ Feature: Telegram Kamelet - binding to InMemoryChannel
     Given Camel-K integration telegram-to-inmem is running
 
     And KameletBinding inmem-to-log should be available
-    Given variable loginfo2 is "started and consuming from: knative://channel/messages"
-    Then Camel-K integration inmem-to-log should print ${loginfo2}
-    Given variable loginfo is "started and consuming from: kamelet://telegram-source"
+    Given variable loginfo is "Installed features"
+    Then Camel-K integration inmem-to-log should print ${loginfo}
     Then Camel-K integration telegram-to-inmem should print ${loginfo}
-    Then Camel-K integration telegram-to-inmem should print Installed features
 
     When Camel-K integration telegram-to-inmem is running
     And load Kubernetes resource telegram-client.yaml

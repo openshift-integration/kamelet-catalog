@@ -7,7 +7,7 @@ Feature: Slack Kamelet - secret based configuration
   Scenario: Create Camel-K resources
     Given load KameletBinding slack-uri-binding.yaml
     Given KameletBinding slack-uri-binding is available
-    Given variable loginfo is "started and consuming from: kamelet://slack-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration slack-uri-binding should print ${loginfo}
 
   Scenario: Verify Kamelet source - secret based configuration

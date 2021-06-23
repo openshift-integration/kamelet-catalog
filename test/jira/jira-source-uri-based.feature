@@ -7,7 +7,7 @@ Feature: Jira Kamelet - URI based config
   Scenario: Verify resources
     Given load Camel-K integration jira-to-log-uri-based.groovy
     Given Camel-K integration jira-to-log-uri-based is running
-    Given variable loginfo is "started and consuming from: kamelet://jira-source"
+    Given variable loginfo is "Installed features"
     Then Camel-K integration jira-to-log-uri-based should print ${loginfo}
 
   Scenario: Verify Jira Kamelet with URI based config
