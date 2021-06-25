@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> Kafka Topic Name Matches Filter Action :: Kamelet Catalog</title>
+    <title> MongoDB Source :: Kamelet Catalog</title>
     <meta name="generator" content="Antora 3.0.0-alpha.6">
     <link rel="stylesheet" href="../../_/css/site-a192e92461.css">
 <meta name="application-name" content="Apache Camel">
@@ -204,7 +204,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="message-timestamp-router-action.html"><span class="image"><img src="_images/kamelets/message-timestamp-router-action.svg" alt="message timestamp router action"></span> Message Timestamp Router Action</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="mongodb-source.html"><span class="image"><img src="_images/kamelets/mongodb-source.svg" alt="mongodb source"></span> MongoDB Source</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,7 +249,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="timestamp-router-action.html"><span class="image"><img src="_images/kamelets/timestamp-router-action.svg" alt="timestamp router action"></span> Timestamp Router Action</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="topic-name-matches-filter-action.html"><span class="image"><img src="_images/kamelets/topic-name-matches-filter-action.svg" alt="topic name matches filter action"></span> Kafka Topic Name Matches Filter Action</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -286,21 +286,27 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Kamelet Catalog</a></li>
-    <li><a href="topic-name-matches-filter-action.html"><span class="image"><img src="_images/kamelets/topic-name-matches-filter-action.svg" alt="topic name matches filter action"></span> Kafka Topic Name Matches Filter Action</a></li>
+    <li><a href="mongodb-source.html"><span class="image"><img src="_images/kamelets/mongodb-source.svg" alt="mongodb source"></span> MongoDB Source</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/kamelet-catalog-1.4/docs/modules/ROOT/pages/topic-name-matches-filter-action.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/kamelet-catalog-1.4/docs/modules/ROOT/pages/mongodb-source.adoc">Edit this Page</a></div>
   </nav>
   <div class="content">
 <article class="doc">
-<h1 class="page"><span class="image"><img src="_images/kamelets/topic-name-matches-filter-action.svg" alt="topic name matches filter action"></span> Kafka Topic Name Matches Filter Action</h1>
+<h1 class="page"><span class="image"><img src="_images/kamelets/mongodb-source.svg" alt="mongodb source"></span> MongoDB Source</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Provided by: "Red Hat"</strong></p>
 </div>
 <div class="paragraph">
-<p>Filter based on kafka topic value compared to regex</p>
+<p>Consume documents from MongoDB.</p>
+</div>
+<div class="paragraph">
+<p>If the persistentTailTracking option will be enabled, the consumer will keep track of the last consumed message and on the next restart, the consumption will restart from that message. In case of persistentTailTracking enabled, the tailTrackIncreasingField must be provided (by default it is optional).</p>
+</div>
+<div class="paragraph">
+<p>If the persistentTailTracking option won&#8217;t be enabled, the consumer will consume the whole collection and wait in idle for new documents to consume.</p>
 </div>
 </div>
 </div>
@@ -308,7 +314,7 @@
 <h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following table summarizes the configuration options available for the <code>topic-name-matches-filter-action</code> Kamelet:</p>
+<p>The following table summarizes the configuration options available for the <code>mongodb-source</code> Kamelet:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -331,9 +337,57 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>regex </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Regex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Regex to Evaluate against the Kafka topic name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>collection </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Collection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of the MongoDB collection to bind to this endpoint.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>database </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of the MongoDB database to target.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hosts </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Hosts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of MongoDB Host Addresses in host:port format.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>password </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User password for accessing MongoDB.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Username for accessing MongoDB.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">persistentTailTracking</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Persistent Tail Tracking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable persistent tail tracking, which is a mechanism to keep track of the last consumed message across system restarts. The next time the system is up, the endpoint will recover the cursor from the point where it last stopped slurping records.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tailTrackIncreasingField</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Tail Track Increasing Field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Correlation field in the incoming record which is of increasing nature and will be used to position the tailing cursor every time it is generated.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -358,35 +412,32 @@ Fields marked with (*) are mandatory.
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section summarizes how the <code>topic-name-matches-filter-action</code> can be used in various contexts.</p>
+<p>This section summarizes how the <code>mongodb-source</code> can be used in various contexts.</p>
 </div>
 <div class="sect2">
-<h3 id="_knative_action"><a class="anchor" href="#_knative_action"></a>Knative Action</h3>
+<h3 id="_knative_source"><a class="anchor" href="#_knative_source"></a>Knative Source</h3>
 <div class="paragraph">
-<p>The <code>topic-name-matches-filter-action</code> Kamelet can be used as intermediate step in a Knative binding.</p>
+<p>The <code>mongodb-source</code> Kamelet can be used as Knative source by binding it to a Knative object.</p>
 </div>
 <div class="listingblock">
-<div class="title">topic-name-matches-filter-action-binding.yaml</div>
+<div class="title">mongodb-source-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: topic-name-matches-filter-action-binding
+  name: mongodb-source-binding
 spec:
   source:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: timer-source
+      name: mongodb-source
     properties:
-      message: "Hello"
-  steps:
-  - ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
-      name: topic-name-matches-filter-action
-    properties:
-      regex: "The Regex"
+      collection: "The MongoDB Collection"
+      database: "The MongoDB Database"
+      hosts: "The MongoDB Hosts"
+      password: "The MongoDB Password"
+      username: "The MongoDB Username"
   sink:
     ref:
       kind: InMemoryChannel
@@ -398,14 +449,14 @@ spec:
 <p>Make sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
-<p>Save the <code>topic-name-matches-filter-action-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+<p>Save the <code>mongodb-source-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
 <div class="paragraph">
-<p>You can run the action using the following command:</p>
+<p>You can run the source using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f topic-name-matches-filter-action-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f mongodb-source-binding.yaml</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -415,7 +466,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step topic-name-matches-filter-action -p "step-0.regex=The Regex" channel/mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind mongodb-source -p "source.collection=The MongoDB Collection" -p "source.database=The MongoDB Database" -p "source.hosts=The MongoDB Hosts" -p "source.password=The MongoDB Password" -p "source.username=The MongoDB Username" channel/mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -424,32 +475,29 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="_kafka_action"><a class="anchor" href="#_kafka_action"></a>Kafka Action</h3>
+<h3 id="_kafka_source"><a class="anchor" href="#_kafka_source"></a>Kafka Source</h3>
 <div class="paragraph">
-<p>The <code>topic-name-matches-filter-action</code> Kamelet can be used as intermediate step in a Kafka binding.</p>
+<p>The <code>mongodb-source</code> Kamelet can be used as Kafka source by binding it to a Kafka topic.</p>
 </div>
 <div class="listingblock">
-<div class="title">topic-name-matches-filter-action-binding.yaml</div>
+<div class="title">mongodb-source-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: topic-name-matches-filter-action-binding
+  name: mongodb-source-binding
 spec:
   source:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: timer-source
+      name: mongodb-source
     properties:
-      message: "Hello"
-  steps:
-  - ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
-      name: topic-name-matches-filter-action
-    properties:
-      regex: "The Regex"
+      collection: "The MongoDB Collection"
+      database: "The MongoDB Database"
+      hosts: "The MongoDB Hosts"
+      password: "The MongoDB Password"
+      username: "The MongoDB Username"
   sink:
     ref:
       kind: KafkaTopic
@@ -462,14 +510,14 @@ spec:
 Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
-<p>Save the <code>topic-name-matches-filter-action-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+<p>Save the <code>mongodb-source-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
 <div class="paragraph">
-<p>You can run the action using the following command:</p>
+<p>You can run the source using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f topic-name-matches-filter-action-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f mongodb-source-binding.yaml</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -479,7 +527,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step topic-name-matches-filter-action -p "step-0.regex=The Regex" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind mongodb-source -p "source.collection=The MongoDB Collection" -p "source.database=The MongoDB Database" -p "source.hosts=The MongoDB Hosts" -p "source.password=The MongoDB Password" -p "source.username=The MongoDB Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -613,7 +661,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
         {
         "@type": "ListItem",
         "position": 4,
-        "name": "Kafka Topic Name Matches Filter Action","item": "https://camel.apache.org/camel-kamelets/latest/topic-name-matches-filter-action.html"}
+        "name": "MongoDB Source","item": "https://camel.apache.org/camel-kamelets/latest/mongodb-source.html"}
         ]
     }
 </script>
