@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> Kafka Sink :: Kamelet Catalog</title>
+    <title> MongoDB Sink :: Kamelet Catalog</title>
     <meta name="generator" content="Antora 3.0.0-alpha.6">
     <link rel="stylesheet" href="../../_/css/site-a192e92461.css">
 <meta name="application-name" content="Apache Camel">
@@ -189,7 +189,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="kafka-manual-commit-action.html"><span class="image"><img src="_images/kamelets/kafka-manual-commit-action.svg" alt="kafka manual commit action"></span> Kafka Manual Commit Action</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="kafka-sink.html"><span class="image"><img src="_images/kamelets/kafka-sink.svg" alt="kafka sink"></span> Kafka Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -204,7 +204,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="message-timestamp-router-action.html"><span class="image"><img src="_images/kamelets/message-timestamp-router-action.svg" alt="message timestamp router action"></span> Message Timestamp Router Action</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="mongodb-sink.html"><span class="image"><img src="_images/kamelets/mongodb-sink.svg" alt="mongodb sink"></span> MongoDB Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -289,37 +289,24 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Kamelet Catalog</a></li>
-    <li><a href="kafka-sink.html"><span class="image"><img src="_images/kamelets/kafka-sink.svg" alt="kafka sink"></span> Kafka Sink</a></li>
+    <li><a href="mongodb-sink.html"><span class="image"><img src="_images/kamelets/mongodb-sink.svg" alt="mongodb sink"></span> MongoDB Sink</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/kamelet-catalog-1.4/docs/modules/ROOT/pages/kafka-sink.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/kamelet-catalog-1.4/docs/modules/ROOT/pages/mongodb-sink.adoc">Edit this Page</a></div>
   </nav>
   <div class="content">
 <article class="doc">
-<h1 class="page"><span class="image"><img src="_images/kamelets/kafka-sink.svg" alt="kafka sink"></span> Kafka Sink</h1>
+<h1 class="page"><span class="image"><img src="_images/kamelets/mongodb-sink.svg" alt="mongodb sink"></span> MongoDB Sink</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Provided by: "Red Hat"</strong></p>
 </div>
 <div class="paragraph">
-<p>Send data to Kafka topics.</p>
+<p>Send documents to MongoDB.</p>
 </div>
 <div class="paragraph">
-<p>The Kamelet is able to understand the following headers to be set:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>key</code> / <code>ce-key</code>: as message key</p>
-</li>
-<li>
-<p><code>partition-key</code> / <code>ce-partition-key</code>: as message partition key</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Both the headers are optional.</p>
+<p>This Kamelet expects a JSON as body.</p>
 </div>
 </div>
 </div>
@@ -327,7 +314,7 @@
 <h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following table summarizes the configuration options available for the <code>kafka-sink</code> Kamelet:</p>
+<p>The following table summarizes the configuration options available for the <code>mongodb-sink</code> Kamelet:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -350,51 +337,43 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>brokers </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Brokers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of Kafka Broker URLs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>collection </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Collection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of the MongoDB collection to bind to this endpoint.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>database </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of the MongoDB database to target.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hosts </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Hosts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of MongoDB Host Addresses in host:port format.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>password </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Password</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password to authenticate to kafka</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>topic </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Topic Names</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of Kafka topic names</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User password for accessing MongoDB.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Username</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Username to authenticate to Kafka</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Username for accessing MongoDB.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">saslMechanism</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">SASL Mechanism</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Simple Authentication and Security Layer (SASL) Mechanism used.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"PLAIN"</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">securityProtocol</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Security Protocol</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Protocol used to communicate with brokers. SASL_PLAINTEXT, PLAINTEXT, SASL_SSL and SSL are supported</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"SASL_SSL"</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -417,20 +396,20 @@ Fields marked with (*) are mandatory.
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section summarizes how the <code>kafka-sink</code> can be used in various contexts.</p>
+<p>This section summarizes how the <code>mongodb-sink</code> can be used in various contexts.</p>
 </div>
 <div class="sect2">
 <h3 id="_knative_sink"><a class="anchor" href="#_knative_sink"></a>Knative Sink</h3>
 <div class="paragraph">
-<p>The <code>kafka-sink</code> Kamelet can be used as Knative sink by binding it to a Knative object.</p>
+<p>The <code>mongodb-sink</code> Kamelet can be used as Knative sink by binding it to a Knative object.</p>
 </div>
 <div class="listingblock">
-<div class="title">kafka-sink-binding.yaml</div>
+<div class="title">mongodb-sink-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: kafka-sink-binding
+  name: mongodb-sink-binding
 spec:
   source:
     ref:
@@ -441,26 +420,27 @@ spec:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: kafka-sink
+      name: mongodb-sink
     properties:
-      brokers: "The Brokers"
-      password: "The Password"
-      topic: "The Topic Names"
-      username: "The Username"</code></pre>
+      collection: "The MongoDB Collection"
+      database: "The MongoDB Database"
+      hosts: "The MongoDB Hosts"
+      password: "The MongoDB Password"
+      username: "The MongoDB Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Make sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
-<p>Save the <code>kafka-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+<p>Save the <code>mongodb-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
 <div class="paragraph">
 <p>You can run the sink using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f kafka-sink-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f mongodb-sink-binding.yaml</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -470,7 +450,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel kafka-sink -p "sink.brokers=The Brokers" -p "sink.password=The Password" -p "sink.topic=The Topic Names" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel mongodb-sink -p "sink.collection=The MongoDB Collection" -p "sink.database=The MongoDB Database" -p "sink.hosts=The MongoDB Hosts" -p "sink.password=The MongoDB Password" -p "sink.username=The MongoDB Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -481,15 +461,15 @@ spec:
 <div class="sect2">
 <h3 id="_kafka_sink"><a class="anchor" href="#_kafka_sink"></a>Kafka Sink</h3>
 <div class="paragraph">
-<p>The <code>kafka-sink</code> Kamelet can be used as Kafka sink by binding it to a Kafka topic.</p>
+<p>The <code>mongodb-sink</code> Kamelet can be used as Kafka sink by binding it to a Kafka topic.</p>
 </div>
 <div class="listingblock">
-<div class="title">kafka-sink-binding.yaml</div>
+<div class="title">mongodb-sink-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: kafka-sink-binding
+  name: mongodb-sink-binding
 spec:
   source:
     ref:
@@ -500,12 +480,13 @@ spec:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: kafka-sink
+      name: mongodb-sink
     properties:
-      brokers: "The Brokers"
-      password: "The Password"
-      topic: "The Topic Names"
-      username: "The Username"</code></pre>
+      collection: "The MongoDB Collection"
+      database: "The MongoDB Database"
+      hosts: "The MongoDB Hosts"
+      password: "The MongoDB Password"
+      username: "The MongoDB Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -513,14 +494,14 @@ spec:
 Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
-<p>Save the <code>kafka-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+<p>Save the <code>mongodb-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
 <div class="paragraph">
 <p>You can run the sink using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f kafka-sink-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f mongodb-sink-binding.yaml</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -530,7 +511,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic kafka-sink -p "sink.brokers=The Brokers" -p "sink.password=The Password" -p "sink.topic=The Topic Names" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic mongodb-sink -p "sink.collection=The MongoDB Collection" -p "sink.database=The MongoDB Database" -p "sink.hosts=The MongoDB Hosts" -p "sink.password=The MongoDB Password" -p "sink.username=The MongoDB Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -664,7 +645,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
         {
         "@type": "ListItem",
         "position": 4,
-        "name": "Kafka Sink","item": "https://camel.apache.org/camel-kamelets/latest/kafka-sink.html"}
+        "name": "MongoDB Sink","item": "https://camel.apache.org/camel-kamelets/latest/mongodb-sink.html"}
         ]
     }
 </script>
