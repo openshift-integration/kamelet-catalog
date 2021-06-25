@@ -45,6 +45,7 @@
 * xref:ROOT:mariadb-sink.adoc[image:kamelets/mariadb-sink.svg[] MariaDB Sink]
 * xref:ROOT:mask-field-action.adoc[image:kamelets/mask-field-action.svg[] Mask Fields Action]
 * xref:ROOT:message-timestamp-router-action.adoc[image:kamelets/message-timestamp-router-action.svg[] Message Timestamp Router Action]
+* xref:ROOT:mongodb-source.adoc[image:kamelets/mongodb-source.svg[] MongoDB Source]
 * xref:ROOT:mysql-sink.adoc[image:kamelets/mysql-sink.svg[] MySQL Sink]
 * xref:ROOT:postgresql-sink.adoc[image:kamelets/postgresql-sink.svg[] PostgreSQL Sink]
 * xref:ROOT:predicate-filter-action.adoc[image:kamelets/predicate-filter-action.svg[] Predicate Filter Action]
