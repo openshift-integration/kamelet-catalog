@@ -57,6 +57,16 @@
         <commons.io.version>2.8.0</commons.io.version>
         <junit.jupiter.version>5.7.1</junit.jupiter.version>
         <classgraph.version>4.8.105</classgraph.version>
+
+        <!-- Versions used inside Kamelets (add them also to the groovy script below) -->
+        <version.com.microsoft.sqlserver.mssql-jdbc>9.2.1.jre11</version.com.microsoft.sqlserver.mssql-jdbc>
+        <version.org.apache.activemq.artemis-jms-client-all>2.17.0</version.org.apache.activemq.artemis-jms-client-all>
+        <version.org.apache.commons.commons-dbcp2>2.8.0</version.org.apache.commons.commons-dbcp2>
+        <version.org.apache.qpid.qpid-jms-client>1.0.0</version.org.apache.qpid.qpid-jms-client>
+        <version.org.mariadb.jdbc.mariadb-java-client>2.7.3</version.org.mariadb.jdbc.mariadb-java-client>
+        <version.org.postgresql.postgresql>42.2.14</version.org.postgresql.postgresql>
+        <version.mysql.mysql-connector-java>8.0.22</version.mysql.mysql-connector-java>
+
     </properties>
 
     <developers>
@@ -275,7 +285,17 @@
                 </scriptpath>
                     <source>
                     import Update
-                    new Update().updateKameletDirectory("${basedir}", "${project.version}")
+                    Update update = new Update()
+
+                    update.addLibVersion("com.microsoft.sqlserver", "mssql-jdbc", "${version.com.microsoft.sqlserver.mssql-jdbc}")
+                    update.addLibVersion("org.apache.activemq", "artemis-jms-client-all", "${version.org.apache.activemq.artemis-jms-client-all}")
+                    update.addLibVersion("org.apache.commons", "commons-dbcp2", "${version.org.apache.commons.commons-dbcp2}")
+                    update.addLibVersion("org.apache.qpid", "qpid-jms-client", "${version.org.apache.qpid.qpid-jms-client}")
+                    update.addLibVersion("org.mariadb.jdbc", "mariadb-java-client", "${version.org.mariadb.jdbc.mariadb-java-client}")
+                    update.addLibVersion("org.postgresql", "postgresql", "${version.org.postgresql.postgresql}")
+                    update.addLibVersion("mysql", "mysql-connector-java", "${version.mysql.mysql-connector-java}")
+
+                    update.updateKameletDirectory("${basedir}", "${project.version}")
                     </source>
                 </configuration>
             </plugin>
