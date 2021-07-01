@@ -334,20 +334,20 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>brokerURL </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Broker URL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The JMS URL</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"amqp://k3s-node-master.usersys.redhat.com:31616"</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>destinationName </strong> *</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Destination Name</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The JMS destination name</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>remoteURI </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Broker URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The JMS URL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"amqp://my-host:31616"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">destinationType</p></td>
@@ -403,8 +403,8 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: jms-amqp-10-sink
     properties:
-      brokerURL: "amqp://k3s-node-master.usersys.redhat.com:31616"
-      destinationName: "The Destination Name"</code></pre>
+      destinationName: "The Destination Name"
+      remoteURI: "amqp://my-host:31616"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -428,7 +428,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel jms-amqp-10-sink -p "sink.brokerURL=amqp://k3s-node-master.usersys.redhat.com:31616" -p "sink.destinationName=The Destination Name"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel jms-amqp-10-sink -p "sink.destinationName=The Destination Name" -p "sink.remoteURI=amqp://my-host:31616"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -460,8 +460,8 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: jms-amqp-10-sink
     properties:
-      brokerURL: "amqp://k3s-node-master.usersys.redhat.com:31616"
-      destinationName: "The Destination Name"</code></pre>
+      destinationName: "The Destination Name"
+      remoteURI: "amqp://my-host:31616"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -486,7 +486,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic jms-amqp-10-sink -p "sink.brokerURL=amqp://k3s-node-master.usersys.redhat.com:31616" -p "sink.destinationName=The Destination Name"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic jms-amqp-10-sink -p "sink.destinationName=The Destination Name" -p "sink.remoteURI=amqp://my-host:31616"</code></pre>
 </div>
 </div>
 <div class="paragraph">
