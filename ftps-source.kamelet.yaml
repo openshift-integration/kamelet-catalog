@@ -9,26 +9,25 @@ metadata:
     camel.apache.org/kamelet.group: "FTP"
   labels:
     camel.apache.org/kamelet.type: "source"
-    camel.apache.org/kamelet.group: "FTP"
 spec:
   definition:
     title: "FTPS Source"
     description: |-
       Receive data from an FTPS Server.
     required:
-      - host
-      - port
+      - connectionHost
+      - connectionPort
       - username
       - password
       - directoryName
     type: object
     properties:
-      host:
-        title: Host
+      connectionHost:
+        title: Connection Host
         description: Hostname of the FTPS server
         type: string
-      port:
-        title: Port
+      connectionPort:
+        title: Connection Port
         description: Port of the FTPS server
         type: string
         default: 21
@@ -69,13 +68,12 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
   dependencies:
-  - "camel:core"
-  - "camel:kamelet"
-  - "camel:ftp"
-  - "camel:jackson"  
+    - "camel:ftp"
+    - "camel:core"
+    - "camel:kamelet"
   flow:
     from:
-      uri: "ftps:{{username}}@{{host}}:{{port}}/{{directoryName}}"
+      uri: "ftps:{{username}}@{{connectionHost}}:{{connectionPort}}/{{directoryName}}"
       parameters:
         password: "{{password}}"
         passiveMode: "{{passiveMode}}"
