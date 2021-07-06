@@ -15,19 +15,19 @@ spec:
     description: |-
       Receive data from an SFTP Server.
     required:
-      - host
-      - port
+      - connectionHost
+      - connectionPort
       - username
       - password
       - directoryName
     type: object
     properties:
-      host:
-        title: Host
+      connectionHost:
+        title: Connection Host
         description: Hostname of the SFTP server
         type: string
-      port:
-        title: Port
+      connectionPort:
+        title: Connection Port
         description: Port of the FTP server
         type: string
         default: 22
@@ -68,13 +68,12 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
   dependencies:
-  - "camel:core"
-  - "camel:kamelet"
-  - "camel:ftp"
-  - "camel:jackson"  
+    - "camel:ftp"
+    - "camel:core"
+    - "camel:kamelet"
   flow:
     from:
-      uri: "sftp:{{username}}@{{host}}:{{port}}/{{directoryName}}"
+      uri: "sftp:{{username}}@{{connectionHost}}:{{connectionPort}}/{{directoryName}}"
       parameters:
         password: "{{password}}"
         passiveMode: "{{passiveMode}}"

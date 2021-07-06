@@ -9,26 +9,25 @@ metadata:
     camel.apache.org/kamelet.group: "FTP"
   labels:
     camel.apache.org/kamelet.type: "source"
-    camel.apache.org/kamelet.group: "FTP"
 spec:
   definition:
     title: "FTP Source"
     description: |-
       Receive data from an FTP Server.
     required:
-      - host
-      - port
+      - connectionHost
+      - connectionPort
       - username
       - password
       - directoryName
     type: object
     properties:
-      host:
-        title: Host
+      connectionHost:
+        title: Connection Host
         description: Hostname of the FTP server
         type: string
-      port:
-        title: Port
+      connectionPort:
+        title: Connection Port
         description: Port of the FTP server
         type: string
         default: 21
@@ -51,31 +50,30 @@ spec:
         title: Passive Mode
         description: Sets passive mode connection
         type: boolean
+        default: false
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
-        default: false
       recursive:
         title: Recursive
         description: If a directory, will look for files in all the sub-directories as well.
         type: boolean
+        default: false
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
-        default: false
       idempotent:
         title: Idempotency
         description: Skip already processed files.
         type: boolean
+        default: true
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
-        default: true
   dependencies:
-  - "camel:core"
-  - "camel:kamelet"
-  - "camel:ftp"
-  - "camel:jackson"        
+    - "camel:ftp"
+    - "camel:core"
+    - "camel:kamelet"
   flow:
     from:
-      uri: "ftp:{{username}}@{{host}}:{{port}}/{{directoryName}}"
+      uri: "ftp:{{username}}@{{connectionHost}}:{{connectionPort}}/{{directoryName}}"
       parameters:
         password: "{{password}}"
         passiveMode: "{{passiveMode}}"
