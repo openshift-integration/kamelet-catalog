@@ -337,12 +337,20 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>host </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>connectionHost </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Connection Host</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Hostname(s) cassandra server(s). Multiple hosts can be separated by comma.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>"localhost"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>connectionPort </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Connection Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port number of cassandra server(s)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>9042</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>keyspace </strong> *</p></td>
@@ -359,14 +367,6 @@
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>port </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port number of cassandra server(s)</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>9042</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>preparedStatement </strong> *</p></td>
@@ -438,10 +438,10 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: cassandra-sink
     properties:
-      host: "localhost"
+      connectionHost: "localhost"
+      connectionPort: 9042
       keyspace: "customers"
       password: "The Password"
-      port: 9042
       preparedStatement: "The Prepared Statement"
       username: "The Username"</code></pre>
 </div>
@@ -467,7 +467,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel cassandra-sink -p "sink.host=localhost" -p "sink.keyspace=customers" -p "sink.password=The Password" -p sink.port=9042 -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -499,10 +499,10 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: cassandra-sink
     properties:
-      host: "localhost"
+      connectionHost: "localhost"
+      connectionPort: 9042
       keyspace: "customers"
       password: "The Password"
-      port: 9042
       preparedStatement: "The Prepared Statement"
       username: "The Username"</code></pre>
 </div>
@@ -529,7 +529,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.host=localhost" -p "sink.keyspace=customers" -p "sink.password=The Password" -p sink.port=9042 -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">

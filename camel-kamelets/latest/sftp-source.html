@@ -334,17 +334,25 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>directoryName </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Directory Name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The starting directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>connectionHost </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Connection Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname of the SFTP server</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>host </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Host</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname of the SFTP server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>connectionPort </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Connection Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the FTP server</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>22</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>directoryName </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Directory Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The starting directory</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -355,14 +363,6 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">The password to access the SFTP server</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>port </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the FTP server</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>22</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -438,8 +438,8 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: sftp-source
     properties:
+      connectionHost: "The Connection Host"
       directoryName: "The Directory Name"
-      host: "The Host"
       password: "The Password"
       username: "The Username"
   sink:
@@ -470,7 +470,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind sftp-source -p "source.directoryName=The Directory Name" -p "source.host=The Host" -p "source.password=The Password" -p "source.username=The Username" channel/mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind sftp-source -p "source.connectionHost=The Connection Host" -p "source.directoryName=The Directory Name" -p "source.password=The Password" -p "source.username=The Username" channel/mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -497,8 +497,8 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: sftp-source
     properties:
+      connectionHost: "The Connection Host"
       directoryName: "The Directory Name"
-      host: "The Host"
       password: "The Password"
       username: "The Username"
   sink:
@@ -530,7 +530,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind sftp-source -p "source.directoryName=The Directory Name" -p "source.host=The Host" -p "source.password=The Password" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind sftp-source -p "source.connectionHost=The Connection Host" -p "source.directoryName=The Directory Name" -p "source.password=The Password" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
 </div>
 </div>
 <div class="paragraph">

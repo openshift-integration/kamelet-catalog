@@ -308,6 +308,10 @@
 <div class="paragraph">
 <p>This Kamelet expects a JSON as body.</p>
 </div>
+<div class="paragraph">
+<p>Properties you can set as headers:
+<code>db-upsert</code> / <code>ce-db-upsert</code> If the database should create the element if it does not exist. Boolean value.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -372,6 +376,22 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">MongoDB Username</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Username for accessing MongoDB.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">createCollection</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Collection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create collection during initialisation if it doesn&#8217;t exist.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">writeConcern</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Write Concern</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configure the level of acknowledgment requested from MongoDB for write operations, possible values are ACKNOWLEDGED, W1, W2, W3, UNACKNOWLEDGED, JOURNALED, MAJORITY.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
