@@ -32,13 +32,10 @@ config:
     settings:
       dependencies:
         - groupId: org.apache.camel
-          artifactId: camel-aws-kinesis
+          artifactId: camel-aws2-kinesis
           version: "@camel.version@"
         - groupId: org.apache.camel
-          artifactId: camel-jackson
-          version: "@camel.version@"
-        - groupId: org.apache.camel
-          artifactId: camel-cbor
+          artifactId: camel-gson
           version: "@camel.version@"
 pre:
   - name: Install kamel
