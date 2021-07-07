@@ -26,7 +26,7 @@ Feature: AWS Kinesis Kamelet
     Given Camel exchange message header CamelAwsKinesisPartitionKey="${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.partitionKey}"
     Given Camel exchange body: ${aws.kinesis.streamData}
     When Camel-K integration aws-kinesis-to-log-prop-based is running
-    And send Camel exchange to("aws-kinesis:${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}?accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}")
+    And send Camel exchange to("aws2-kinesis:${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}?accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}")
     Then Camel-K integration aws-kinesis-to-log-prop-based should print "citrus:encodeBase64(${aws.kinesis.streamData})"
 
   Scenario: Remove Camel-K resources
