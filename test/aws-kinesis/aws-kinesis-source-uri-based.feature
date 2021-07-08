@@ -25,7 +25,7 @@ Feature: AWS Kinesis Kamelet
     Given Camel exchange body: ${aws.kinesis.streamData}
     When Camel-K integration aws-kinesis-to-log-uri-based is running
     And send Camel exchange to("aws2-kinesis:${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}?accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}")
-    Then Camel-K integration aws-kinesis-to-log-uri-based should print "citrus:encodeBase64(${aws.kinesis.streamData})"
+    Then Camel-K integration aws-kinesis-to-log-uri-based should print ${aws.kinesis.streamData}
 
   @ignored
   Scenario: Remove Camel-K resources
