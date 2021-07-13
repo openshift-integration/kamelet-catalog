@@ -58,16 +58,41 @@
         <junit.jupiter.version>5.7.1</junit.jupiter.version>
         <classgraph.version>4.8.105</classgraph.version>
 
-        <!-- Versions used inside Kamelets (add them also to the groovy script below) -->
+        <!-- Versions used inside Kamelets (add them also to the dependencyManagement section and the groovy script below) -->
         <version.com.microsoft.sqlserver.mssql-jdbc>9.2.1.jre11</version.com.microsoft.sqlserver.mssql-jdbc>
         <version.org.apache.activemq.artemis-jms-client-all>2.17.0</version.org.apache.activemq.artemis-jms-client-all>
         <version.org.apache.commons.commons-dbcp2>2.8.0</version.org.apache.commons.commons-dbcp2>
         <version.org.apache.qpid.qpid-jms-client>1.0.0</version.org.apache.qpid.qpid-jms-client>
-        <version.org.mariadb.jdbc.mariadb-java-client>2.7.3</version.org.mariadb.jdbc.mariadb-java-client>
-        <version.org.postgresql.postgresql>42.2.14</version.org.postgresql.postgresql>
-        <version.mysql.mysql-connector-java>8.0.22</version.mysql.mysql-connector-java>
 
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Dependencies used in Kamelets must be listed here -->
+            <dependency>
+                <!-- Quarkus default one is targeted for jdk8 -->
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>${version.com.microsoft.sqlserver.mssql-jdbc}</version>
+            </dependency>
+            <dependency>
+                <!-- Quarkus does not provide the -all version -->
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>artemis-jms-client-all</artifactId>
+                <version>${version.org.apache.activemq.artemis-jms-client-all}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>${version.org.apache.commons.commons-dbcp2}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.qpid</groupId>
+                <artifactId>qpid-jms-client</artifactId>
+                <version>${version.org.apache.qpid.qpid-jms-client}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <developers>
         <developer>
@@ -291,9 +316,6 @@
                     update.addLibVersion("org.apache.activemq", "artemis-jms-client-all", "${version.org.apache.activemq.artemis-jms-client-all}")
                     update.addLibVersion("org.apache.commons", "commons-dbcp2", "${version.org.apache.commons.commons-dbcp2}")
                     update.addLibVersion("org.apache.qpid", "qpid-jms-client", "${version.org.apache.qpid.qpid-jms-client}")
-                    update.addLibVersion("org.mariadb.jdbc", "mariadb-java-client", "${version.org.mariadb.jdbc.mariadb-java-client}")
-                    update.addLibVersion("org.postgresql", "postgresql", "${version.org.postgresql.postgresql}")
-                    update.addLibVersion("mysql", "mysql-connector-java", "${version.mysql.mysql-connector-java}")
 
                     update.updateKameletDirectory("${basedir}", "${project.version}")
                     </source>
