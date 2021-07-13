@@ -16,16 +16,16 @@ Feature: AWS Kinesis Kamelet - binding to URI
     Given Kamelet aws-kinesis-source is available
     Given load KameletBinding aws-kinesis-uri-binding.yaml
     Given KameletBinding aws-kinesis-uri-binding is available
-    Given variable loginfo is "started and consuming from: aws-kinesis://${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}"
+    Given variable loginfo is "aws2-kinesis://${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}"
     Then Camel-K integration aws-kinesis-uri-binding should print ${loginfo}
 
   Scenario: Verify Kamelet source - binding to URI
-    Given variable aws.kinesis.streamData is "Hello Kinesis"
+    Given variable aws.kinesis.streamData is "abc"
     Given Camel exchange message header CamelAwsKinesisPartitionKey="${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.partitionKey}"
     Given Camel exchange body: ${aws.kinesis.streamData}
     When Camel-K integration aws-kinesis-uri-binding is running
     And send Camel exchange to("aws2-kinesis:${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}?accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}")
-    Then Camel-K integration aws-kinesis-uri-binding should print "citrus:encodeBase64(${aws.kinesis.streamData})"
+    Then Camel-K integration aws-kinesis-uri-binding should print "data":{"bytes":[97,98,99]
 
   Scenario: Remove Camel-K resources
     Given delete Camel-K integration aws-kinesis-uri-binding

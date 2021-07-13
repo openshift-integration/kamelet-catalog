@@ -22,12 +22,12 @@ Feature: AWS Kinesis Kamelet
     Then Kamelet aws-kinesis-source is available
 
   Scenario: Verify Kamelet source - property based config
-    Given variable aws.kinesis.streamData is "Hello Kinesis"
+    Given variable aws.kinesis.streamData is "abc"
     Given Camel exchange message header CamelAwsKinesisPartitionKey="${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.partitionKey}"
     Given Camel exchange body: ${aws.kinesis.streamData}
     When Camel-K integration aws-kinesis-to-log-prop-based is running
     And send Camel exchange to("aws2-kinesis:${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.stream}?accessKey=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.secretKey})&region=${camel.kamelet.aws-kinesis-source.aws-kinesis-credentials.region}")
-    Then Camel-K integration aws-kinesis-to-log-prop-based should print "citrus:encodeBase64(${aws.kinesis.streamData})"
+    Then Camel-K integration aws-kinesis-to-log-prop-based should print "data":{"bytes":[97,98,99]
 
   Scenario: Remove Camel-K resources
     Given delete Camel-K integration aws-kinesis-to-log-prop-based
