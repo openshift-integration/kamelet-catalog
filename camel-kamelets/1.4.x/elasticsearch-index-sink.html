@@ -303,14 +303,27 @@
 <p>Input data must have JSON format according to the index used.</p>
 </div>
 <div class="paragraph">
-<p>If the <strong>indexId</strong> parameter is set, that value will be used as the document ID on ElasticSearch.</p>
+<p>The Kamelet expects the following headers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>indexId</code> / <code>ce-indexId</code>: as the index ID for Elasticsearch</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>If the <strong>indexId</strong> parameter is not set and the source of the kamelet binding is a Kafka broker, it will take the kafka topic, partition and offset of the
-element to generate an automatic ID that warrantees that this element is processed only once.</p>
+<p>If the header won&#8217;t be set the exchange ID will be used as index.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>indexName</code> / <code>ce-indexName</code>: as the index Name for Elasticsearch</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>If the <strong>indexName</strong> parameter is not set and the source of the kamelet binding is a Kafka broker, it will take the kafka topic as the indexName.</p>
+<p>If the header won&#8217;t be set the exchange ID will be used as index name.</p>
 </div>
 </div>
 </div>
@@ -363,22 +376,6 @@ element to generate an automatic ID that warrantees that this element is process
 <td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>true</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">indexId</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Index ID</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"NONE"</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">indexName</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Index in ElasticSearch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the index to act against.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"NONE"</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"data"</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
