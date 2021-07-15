@@ -19,55 +19,61 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 import java.util.regex.Pattern
+import java.util.Map
 import java.util.Properties
 
-class Update {
-    
+def updateKameletDirectory(String directoryName, String replaceVersion, Map properties) {
+    println "#### updateKamelets BEGIN"
+
+    // compute version replacement
     def libVersions = [:]
-
-
-    def updateKameletDirectory(String directoryName, String replaceVersion) {
-        println "#### updateKamelets BEGIN"
-        boolean useJitpack = replaceVersion.endsWith("-SNAPSHOT")
-        
-        String kameletUtilsMvnSelector = "mvn:org\\.apache\\.camel\\.kamelets:camel-kamelets-utils:[A-Za-z0-9-.]+"
-        String kameletUtilsJitpackSelector = "github:openshift-integration\\.kamelet-catalog:camel-kamelets-utils:[A-Za-z0-9-.]+"
-
-        String kameletUtilsMvnVersion = "mvn:org.apache.camel.kamelets:camel-kamelets-utils:" + replaceVersion
-        String kameletUtilsJitpackVersion = "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:" + replaceVersion
-        String kameletUtilsNewVersion = useJitpack ? kameletUtilsJitpackVersion : kameletUtilsMvnVersion
-
-        String catalogVersionAnnotationSelector = "camel\\.apache\\.org/catalog\\.version:.*"
-        String catalogVersion = "camel.apache.org/catalog.version: \"" + replaceVersion + "\""
-
-        File directory = new File(directoryName)
-        File[] files = directory.listFiles()
-
-        for (File f in files) {
-            if (f.getName().endsWith(".kamelet.yaml")) {
-                String kameletFile = f.getName() 
-                println "#### Setting version in " + kameletFile + " to " + catalogVersion
-                println "#### Replacing content in " + kameletFile + " with " + kameletUtilsNewVersion
-                new File( kameletFile + ".bak" ).withWriter { w ->
-                    new File( kameletFile ).eachLine { line ->
-                        libVersions.each { line = line.replaceAll(it.key, it.value) }
-                        w << line.replaceAll(catalogVersionAnnotationSelector, catalogVersion)
-                                .replaceAll(kameletUtilsMvnSelector, kameletUtilsNewVersion)
-                                .replaceAll(kameletUtilsJitpackSelector, kameletUtilsNewVersion) + System.getProperty("line.separator")
-                    }
-                }
-                Files.copy(Paths.get(kameletFile + ".bak"), Paths.get(kameletFile), StandardCopyOption.REPLACE_EXISTING)
-                boolean deleted = new File(kameletFile + ".bak").delete()
+    properties.each {prop -> 
+        if (prop.key.startsWith("version.")) {
+            String ga = prop.key.substring("version.".length())
+            int split = ga.lastIndexOf(".")
+            if (split > 0 && split < ga.length() - 1) {
+                String groupId = ga.substring(0, split)
+                String artifactId = ga.substring(split + 1)
+                String libSelector = "mvn:" + Pattern.quote(groupId) + ":" + Pattern.quote(artifactId) + ":[A-Za-z0-9-.]+"
+                String libNewVersion = "mvn:" + groupId + ":" + artifactId + ":" + prop.value
+                libVersions[libSelector] = libNewVersion
+                println "#### Going to replace in all files \"${libSelector}\" with \"${libNewVersion}\""
             }
         }
-
-        println "#### updateKamelets END"
     }
 
-    def addLibVersion(String groupId, String artifactId, String replaceVersion) {
-        String libSelector = "mvn:" + Pattern.quote(groupId) + ":" + Pattern.quote(artifactId) + ":[A-Za-z0-9-.]+"
-        String libNewVersion = "mvn:" + groupId + ":" + artifactId + ":" + replaceVersion
-        libVersions[libSelector] = libNewVersion
+    boolean useJitpack = replaceVersion.endsWith("-SNAPSHOT")
+    
+    String kameletUtilsMvnSelector = "mvn:org\\.apache\\.camel\\.kamelets:camel-kamelets-utils:[A-Za-z0-9-.]+"
+    String kameletUtilsJitpackSelector = "github:openshift-integration\\.kamelet-catalog:camel-kamelets-utils:[A-Za-z0-9-.]+"
+
+    String kameletUtilsMvnVersion = "mvn:org.apache.camel.kamelets:camel-kamelets-utils:" + replaceVersion
+    String kameletUtilsJitpackVersion = "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:" + replaceVersion
+    String kameletUtilsNewVersion = useJitpack ? kameletUtilsJitpackVersion : kameletUtilsMvnVersion
+
+    String catalogVersionAnnotationSelector = "camel\\.apache\\.org/catalog\\.version:.*"
+    String catalogVersion = "camel.apache.org/catalog.version: \"" + replaceVersion + "\""
+
+    File directory = new File(directoryName)
+    File[] files = directory.listFiles()
+
+    for (File f in files) {
+        if (f.getName().endsWith(".kamelet.yaml")) {
+            String kameletFile = f.getName() 
+            println "#### Setting version in " + kameletFile + " to " + catalogVersion
+            println "#### Replacing content in " + kameletFile + " with " + kameletUtilsNewVersion
+            new File( kameletFile + ".bak" ).withWriter { w ->
+                new File( kameletFile ).eachLine { line ->
+                    libVersions.each { line = line.replaceAll(it.key, it.value) }
+                    w << line.replaceAll(catalogVersionAnnotationSelector, catalogVersion)
+                            .replaceAll(kameletUtilsMvnSelector, kameletUtilsNewVersion)
+                            .replaceAll(kameletUtilsJitpackSelector, kameletUtilsNewVersion) + System.getProperty("line.separator")
+                }
+            }
+            Files.copy(Paths.get(kameletFile + ".bak"), Paths.get(kameletFile), StandardCopyOption.REPLACE_EXISTING)
+            boolean deleted = new File(kameletFile + ".bak").delete()
+        }
     }
 
+    println "#### updateKamelets END"
 }
