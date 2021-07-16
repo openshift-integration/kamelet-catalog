@@ -3,12 +3,15 @@ on:
   push:
     branches:
     - kamelet-catalog-1.4
+    - master
 jobs:
   publish-pages:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Build
         run: |
           cd docs

@@ -5,7 +5,9 @@ site:
 content:
   sources:
   - url: ../
-    branches: HEAD
+    branches:
+    - kamelet-catalog-1.4
+    - HEAD
     start_path: docs
 asciidoc:
   extensions:

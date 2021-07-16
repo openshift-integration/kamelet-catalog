@@ -1,5 +1,6 @@
 name: camel-kamelets
 title: Kamelet Catalog
 version: latest
+display_version: latest (Red Hat)
 nav:
 - modules/ROOT/nav.adoc
