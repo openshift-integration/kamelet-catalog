@@ -11,8 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          # was master: does not seem to work on both branches
           ref: kamelet-catalog-1.4
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Build
         run: |
           cd docs
