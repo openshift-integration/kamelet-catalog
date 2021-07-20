@@ -354,7 +354,7 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>brokers </strong> *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>bootstrapServers </strong> *</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Brokers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of Kafka Broker URLs</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
@@ -378,7 +378,7 @@
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>user </strong> *</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Username</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Username to authenticate to Kafka</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
@@ -447,10 +447,10 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: kafka-sink
     properties:
-      brokers: "The Brokers"
+      bootstrapServers: "The Brokers"
       password: "The Password"
       topic: "The Topic Names"
-      username: "The Username"</code></pre>
+      user: "The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -474,7 +474,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel kafka-sink -p "sink.brokers=The Brokers" -p "sink.password=The Password" -p "sink.topic=The Topic Names" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel kafka-sink -p "sink.bootstrapServers=The Brokers" -p "sink.password=The Password" -p "sink.topic=The Topic Names" -p "sink.user=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -506,10 +506,10 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: kafka-sink
     properties:
-      brokers: "The Brokers"
+      bootstrapServers: "The Brokers"
       password: "The Password"
       topic: "The Topic Names"
-      username: "The Username"</code></pre>
+      user: "The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -534,7 +534,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic kafka-sink -p "sink.brokers=The Brokers" -p "sink.password=The Password" -p "sink.topic=The Topic Names" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic kafka-sink -p "sink.bootstrapServers=The Brokers" -p "sink.password=The Password" -p "sink.topic=The Topic Names" -p "sink.user=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
