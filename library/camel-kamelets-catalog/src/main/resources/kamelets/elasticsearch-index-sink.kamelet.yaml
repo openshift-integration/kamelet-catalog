@@ -68,6 +68,11 @@ spec:
         description: Name of the cluster.
         type: string
         example: quickstart
+      indexName:
+        title: Index in ElasticSearch
+        description: The name of the index to act against.
+        type: string
+        example: data
   types:
     out:
       mediaType: application/json
@@ -99,7 +104,7 @@ spec:
             steps:
             - set-header:
                 name: "indexId"
-                simple: "${exchangeId}"
+                simple: "camel-k-index-es"
       - choice:
           when:
           - simple: "${header[indexName]}"
@@ -112,11 +117,6 @@ spec:
             - set-header:
                 name: "indexName"
                 simple: "${header[ce-indexName]}"
-          otherwise:
-            steps:
-            - set-header:
-                name: "indexName"
-                simple: "${exchangeId}"
       - to:
           uri: "kamelet-reify:elasticsearch-rest:{{clusterName}}"
           parameters:
@@ -125,5 +125,6 @@ spec:
             enableSSL: "{{enableSSL}}"
             user: "{{?user}}"
             password: "{{?password}}"
+            indexName: "{{?indexName}}"
       - marshal:
           json: { }
