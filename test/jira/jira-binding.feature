@@ -11,7 +11,7 @@ Feature: Jira Kamelet Binding
     Given load KameletBinding inmem-to-log.yaml
     Given KameletBinding jira-to-inmem is available
     Given KameletBinding inmem-to-log is available
-    Given variable loginfo is "started and consuming from: knative://channel/messages"
+    Given variable loginfo is "knative://channel/messages"
     Then Camel-K integration inmem-to-log should print ${loginfo}
 
   Scenario: Verify new jira issue is created

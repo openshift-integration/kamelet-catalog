@@ -8,11 +8,13 @@ Feature: Slack Kamelet
   Scenario: Verify Slack Kamelet to InMemoryChannel binding
     Given Kamelet slack-source is available
     Given load KameletBinding inmem-to-log.yaml
-    Given load KameletBinding slack-to-inmem.yaml
-    Then KameletBinding slack-to-inmem should be available
     And KameletBinding inmem-to-log should be available
     Given variable loginfo is "knative://channel/messages"
     Then Camel-K integration inmem-to-log should print ${loginfo}
+
+    Given load KameletBinding slack-to-inmem.yaml
+    Then KameletBinding slack-to-inmem should be available
+    And Camel-K integration slack-to-inmem should print Installed features
 
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
     Given URL: https://slack.com
