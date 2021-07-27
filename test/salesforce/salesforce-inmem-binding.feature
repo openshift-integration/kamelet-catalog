@@ -14,8 +14,7 @@ Feature: Salesforce Kamelet
 
     And KameletBinding inmem-to-log should be available
     Given variable loginfo is "Installed features"
-    Then Camel-K integration inmem-to-log should print ${loginfo}
-    And Camel-K integration inmem-to-log should print ${loginfo}
+    Then Camel-K integration salesforce-to-inmem should print ${loginfo}
     Then sleep 10000 ms
 
     #obtain token
