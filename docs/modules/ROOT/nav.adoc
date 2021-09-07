@@ -58,6 +58,7 @@
 * xref:ROOT:slack-source.adoc[image:kamelets/slack-source.svg[] Slack Source]
 * xref:ROOT:sqlserver-sink.adoc[image:kamelets/sqlserver-sink.svg[] Microsoft SQL Server Sink]
 * xref:ROOT:telegram-source.adoc[image:kamelets/telegram-source.svg[] Telegram Source]
+* xref:ROOT:timer-source.adoc[image:kamelets/timer-source.svg[] Timer Source]
 * xref:ROOT:timestamp-router-action.adoc[image:kamelets/timestamp-router-action.svg[] Timestamp Router Action]
 * xref:ROOT:topic-name-matches-filter-action.adoc[image:kamelets/topic-name-matches-filter-action.svg[] Kafka Topic Name Matches Filter Action]
 * xref:ROOT:value-to-key-action.adoc[image:kamelets/value-to-key-action.svg[] Value to Key Action]
