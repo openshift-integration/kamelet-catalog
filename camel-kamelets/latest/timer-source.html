@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> Cassandra Sink :: Kamelet Catalog</title>
+    <title> Timer Source :: Kamelet Catalog</title>
     <meta name="generator" content="Antora 3.0.0-alpha.6">
     <link rel="stylesheet" href="../../_/css/site-a192e92461.css">
 <meta name="application-name" content="Apache Camel">
@@ -123,7 +123,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="azure-storage-queue-source.html"><span class="image"><img src="_images/kamelets/azure-storage-queue-source.svg" alt="azure storage queue source"></span> Azure Storage Queue Source</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="cassandra-sink.html"><span class="image"><img src="_images/kamelets/cassandra-sink.svg" alt="cassandra sink"></span> Cassandra Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -243,7 +243,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="telegram-source.html"><span class="image"><img src="_images/kamelets/telegram-source.svg" alt="telegram source"></span> Telegram Source</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="timer-source.html"><span class="image"><img src="_images/kamelets/timer-source.svg" alt="timer source"></span> Timer Source</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -289,31 +289,28 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Kamelet Catalog</a></li>
-    <li><a href="cassandra-sink.html"><span class="image"><img src="_images/kamelets/cassandra-sink.svg" alt="cassandra sink"></span> Cassandra Sink</a></li>
+    <li><a href="timer-source.html"><span class="image"><img src="_images/kamelets/timer-source.svg" alt="timer source"></span> Timer Source</a></li>
   </ul>
 </nav>
 <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">latest (Red Hat)</button>
   <div class="version-menu">
-    <a class="version is-current" href="cassandra-sink.html">latest (Red Hat)</a>
-    <a class="version" href="../1.4.x/cassandra-sink.html">1.4.x (Red Hat)</a>
+    <a class="version is-current" href="timer-source.html">latest (Red Hat)</a>
+    <a class="version is-missing" href="../1.4.x/index.html">1.4.x (Red Hat)</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/master/docs/modules/ROOT/pages/cassandra-sink.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/master/docs/modules/ROOT/pages/timer-source.adoc">Edit this Page</a></div>
   </nav>
   <div class="content">
 <article class="doc">
-<h1 class="page"><span class="image"><img src="_images/kamelets/cassandra-sink.svg" alt="cassandra sink"></span> Cassandra Sink</h1>
+<h1 class="page"><span class="image"><img src="_images/kamelets/timer-source.svg" alt="timer source"></span> Timer Source</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Provided by: "Red Hat"</strong></p>
 </div>
 <div class="paragraph">
-<p>Send data to a Cassandra Cluster.</p>
-</div>
-<div class="paragraph">
-<p>This Kamelet expects the body as JSON Array. The content of the JSON Array will be used as input for the CQL Prepared Statement set in the query parameter.</p>
+<p>Produces periodic events with a custom payload.</p>
 </div>
 </div>
 </div>
@@ -321,7 +318,7 @@
 <h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following table summarizes the configuration options available for the <code>cassandra-sink</code> Kamelet:</p>
+<p>The following table summarizes the configuration options available for the <code>timer-source</code> Kamelet:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -344,59 +341,27 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>connectionHost </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Connection Host</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hostname(s) cassandra server(s). Multiple hosts can be separated by comma.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>message </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The message to generate</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"localhost"</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"hello world"</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>connectionPort </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Connection Port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port number of cassandra server(s)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contentType</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Content Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The content type of the message being generated</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>9042</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>keyspace </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Keyspace</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Keyspace to use</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"customers"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>password </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Password</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The password to use for accessing a secured Cassandra Cluster</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"text/plain"</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>preparedStatement </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Prepared Statement</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Prepared statement to execute against the Cassandra cluster table</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Username</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The username to use for accessing a secured Cassandra Cluster</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">consistencyLevel</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Consistency Level</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Consistency level to use. The value can be one of ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, SERIAL, LOCAL_SERIAL, LOCAL_ONE</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"ANY"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">period</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Period</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The interval between two events in milliseconds</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">integer</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>1000</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -419,52 +384,47 @@ Fields marked with (*) are mandatory.
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section summarizes how the <code>cassandra-sink</code> can be used in various contexts.</p>
+<p>This section summarizes how the <code>timer-source</code> can be used in various contexts.</p>
 </div>
 <div class="sect2">
-<h3 id="_knative_sink"><a class="anchor" href="#_knative_sink"></a>Knative Sink</h3>
+<h3 id="_knative_source"><a class="anchor" href="#_knative_source"></a>Knative Source</h3>
 <div class="paragraph">
-<p>The <code>cassandra-sink</code> Kamelet can be used as Knative sink by binding it to a Knative object.</p>
+<p>The <code>timer-source</code> Kamelet can be used as Knative source by binding it to a Knative object.</p>
 </div>
 <div class="listingblock">
-<div class="title">cassandra-sink-binding.yaml</div>
+<div class="title">timer-source-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: cassandra-sink-binding
+  name: timer-source-binding
 spec:
   source:
     ref:
-      kind: InMemoryChannel
-      apiVersion: messaging.knative.dev/v1
-      name: mychannel
-  sink:
-    ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: cassandra-sink
+      name: timer-source
     properties:
-      connectionHost: "localhost"
-      connectionPort: 9042
-      keyspace: "customers"
-      password: "The Password"
-      preparedStatement: "The Prepared Statement"
-      username: "The Username"</code></pre>
+      message: "hello world"
+  sink:
+    ref:
+      kind: InMemoryChannel
+      apiVersion: messaging.knative.dev/v1
+      name: mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Make sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
-<p>Save the <code>cassandra-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+<p>Save the <code>timer-source-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
 <div class="paragraph">
-<p>You can run the sink using the following command:</p>
+<p>You can run the source using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f cassandra-sink-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f timer-source-binding.yaml</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -474,7 +434,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source -p "source.message=hello world" channel/mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -483,35 +443,30 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="_kafka_sink"><a class="anchor" href="#_kafka_sink"></a>Kafka Sink</h3>
+<h3 id="_kafka_source"><a class="anchor" href="#_kafka_source"></a>Kafka Source</h3>
 <div class="paragraph">
-<p>The <code>cassandra-sink</code> Kamelet can be used as Kafka sink by binding it to a Kafka topic.</p>
+<p>The <code>timer-source</code> Kamelet can be used as Kafka source by binding it to a Kafka topic.</p>
 </div>
 <div class="listingblock">
-<div class="title">cassandra-sink-binding.yaml</div>
+<div class="title">timer-source-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: cassandra-sink-binding
+  name: timer-source-binding
 spec:
   source:
     ref:
-      kind: KafkaTopic
-      apiVersion: kafka.strimzi.io/v1beta1
-      name: my-topic
-  sink:
-    ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
-      name: cassandra-sink
+      name: timer-source
     properties:
-      connectionHost: "localhost"
-      connectionPort: 9042
-      keyspace: "customers"
-      password: "The Password"
-      preparedStatement: "The Prepared Statement"
-      username: "The Username"</code></pre>
+      message: "hello world"
+  sink:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -519,14 +474,14 @@ spec:
 Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
 <div class="paragraph">
-<p>Save the <code>cassandra-sink-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
+<p>Save the <code>timer-source-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
 <div class="paragraph">
-<p>You can run the sink using the following command:</p>
+<p>You can run the source using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f cassandra-sink-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f timer-source-binding.yaml</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -536,7 +491,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source -p "source.message=hello world" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -670,7 +625,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
         {
         "@type": "ListItem",
         "position": 4,
-        "name": "Cassandra Sink","item": "https://camel.apache.org/camel-kamelets/latest/cassandra-sink.html"}
+        "name": "Timer Source","item": "https://camel.apache.org/camel-kamelets/latest/timer-source.html"}
         ]
     }
 </script>
