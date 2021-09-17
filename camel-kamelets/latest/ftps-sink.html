@@ -449,7 +449,7 @@ metadata:
 spec:
   source:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
   sink:
@@ -485,7 +485,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel ftps-sink -p "sink.connectionHost=The Connection Host" -p "sink.directoryName=The Directory Name" -p "sink.password=The Password" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel ftps-sink -p "sink.connectionHost=The Connection Host" -p "sink.directoryName=The Directory Name" -p "sink.password=The Password" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">

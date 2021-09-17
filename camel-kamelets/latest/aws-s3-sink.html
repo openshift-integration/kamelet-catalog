@@ -433,7 +433,7 @@ metadata:
 spec:
   source:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
   sink:
@@ -469,7 +469,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel aws-s3-sink -p "sink.accessKey=The Access Key" -p "sink.bucketNameOrArn=The Bucket Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel aws-s3-sink -p "sink.accessKey=The Access Key" -p "sink.bucketNameOrArn=The Bucket Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"</code></pre>
 </div>
 </div>
 <div class="paragraph">

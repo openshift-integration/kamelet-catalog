@@ -402,7 +402,7 @@ spec:
       field: "The Field"
   sink:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel</code></pre>
 </div>
@@ -428,7 +428,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step hoist-field-action -p "step-0.field=The Field" channel/mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step hoist-field-action -p "step-0.field=The Field" channel:mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -421,7 +421,7 @@ spec:
       queueName: "The Queue Name"
   sink:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel</code></pre>
 </div>
@@ -447,7 +447,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind azure-storage-queue-source -p "source.accessKey=The Access Key" -p "source.accountName=The Account Name" -p "source.queueName=The Queue Name" channel/mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind azure-storage-queue-source -p "source.accessKey=The Access Key" -p "source.accountName=The Account Name" -p "source.queueName=The Queue Name" channel:mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -425,7 +425,7 @@ metadata:
 spec:
   source:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
   sink:
@@ -460,7 +460,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel/mychannel azure-storage-blob-sink -p "sink.accessKey=The Access Key" -p "sink.accountName=The Account Name" -p "sink.containerName=The Container Name"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel azure-storage-blob-sink -p "sink.accessKey=The Access Key" -p "sink.accountName=The Account Name" -p "sink.containerName=The Container Name"</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -438,7 +438,7 @@ spec:
       secretKey: "The Secret Key"
   sink:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel</code></pre>
 </div>
@@ -464,7 +464,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind aws-sqs-source -p "source.accessKey=The Access Key" -p "source.queueNameOrArn=The Queue Name" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" channel/mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind aws-sqs-source -p "source.accessKey=The Access Key" -p "source.queueNameOrArn=The Queue Name" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" channel:mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
