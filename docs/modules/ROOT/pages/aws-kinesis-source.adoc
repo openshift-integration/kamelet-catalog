@@ -47,7 +47,7 @@ spec:
       stream: "The Stream Name"
   sink:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
 
@@ -70,7 +70,7 @@ The procedure described above can be simplified into a single execution of the `
 
 [source,shell]
 ----
-kamel bind aws-kinesis-source -p "source.accessKey=The Access Key" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" -p "source.stream=The Stream Name" channel/mychannel
+kamel bind aws-kinesis-source -p "source.accessKey=The Access Key" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" -p "source.stream=The Stream Name" channel:mychannel
 ----
 
 This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.
