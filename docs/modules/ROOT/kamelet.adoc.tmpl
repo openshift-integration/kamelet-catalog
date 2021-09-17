@@ -24,7 +24,7 @@ The `{{ .Kamelet.ObjectMeta.Name }}` Kamelet can be used as intermediate step in
 {{ else -}}
 The `{{ .Kamelet.ObjectMeta.Name }}` Kamelet can be used as Knative {{ index .Kamelet.ObjectMeta.Labels "camel.apache.org/kamelet.type" }} by binding it to a Knative object.
 {{ end }}
-{{ .ExampleBinding "messaging.knative.dev/v1" "InMemoryChannel" "mychannel" }}
+{{ .ExampleBinding "messaging.knative.dev/v1" "Channel" "mychannel" }}
 Make sure you have *"Red Hat Integration - Camel K"* installed into the OpenShift cluster you're connected to.
 
 Save the `{{ .Kamelet.ObjectMeta.Name }}-binding.yaml` file into your hard drive, then configure it according to your needs.
@@ -42,7 +42,7 @@ The procedure described above can be simplified into a single execution of the `
 
 [source,shell]
 ----
-{{ .ExampleKamelBindCommand "channel/mychannel" }}
+{{ .ExampleKamelBindCommand "channel:mychannel" }}
 ----
 
 This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.

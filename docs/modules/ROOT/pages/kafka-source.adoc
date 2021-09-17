@@ -53,7 +53,7 @@ spec:
       user: "The Username"
   sink:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
 
@@ -76,7 +76,7 @@ The procedure described above can be simplified into a single execution of the `
 
 [source,shell]
 ----
-kamel bind kafka-source -p "source.bootstrapServers=The Brokers" -p "source.password=The Password" -p "source.topic=The Topic Names" -p "source.user=The Username" channel/mychannel
+kamel bind kafka-source -p "source.bootstrapServers=The Brokers" -p "source.password=The Password" -p "source.topic=The Topic Names" -p "source.user=The Username" channel:mychannel
 ----
 
 This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.

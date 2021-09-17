@@ -50,7 +50,7 @@ spec:
       value: "The Value"
   sink:
     ref:
-      kind: InMemoryChannel
+      kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
 
@@ -73,7 +73,7 @@ The procedure described above can be simplified into a single execution of the `
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step insert-header-action -p "step-0.name=The Name" -p "step-0.value=The Value" channel/mychannel
+kamel bind timer-source?message=Hello --step insert-header-action -p "step-0.name=The Name" -p "step-0.value=The Value" channel:mychannel
 ----
 
 This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.
