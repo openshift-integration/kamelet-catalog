@@ -18,12 +18,11 @@ spec:
       This Kamelet expects a JSON as body.
 
       Properties you can set as headers:
-      `db-upsert` / `ce-db-upsert` If the database should create the element if it does not exist. Boolean value.
+
+      - `db-upsert` / `ce-dbupsert`: if the database should create the element if it does not exist. Boolean value.
     required:
       - hosts
       - collection
-      - password
-      - username
       - database
     type: object
     properties:
@@ -82,11 +81,11 @@ spec:
             - set-header:
                 name: CamelMongoDbUpsert
                 simple: "${header[db-upsert]}"
-          - simple: "${header[ce-db-upsert]}"
+          - simple: "${header[ce-dbupsert]}"
             steps:
             - set-header:
                 name: CamelMongoDbUpsert
-                simple: "${header[ce-db-upsert]}"
+                simple: "${header[ce-dbupsert]}"
       - to: 
           uri: "{{local-mongodb}}:test"
           parameters:
@@ -94,7 +93,7 @@ spec:
             writeConcern: "{{?writeConcern}}"
             hosts: "{{hosts}}"
             collection: "{{collection}}"
-            password: "{{password}}"
-            username: "{{username}}"
+            password: "{{?password}}"
+            username: "{{?username}}"
             database: "{{database}}"
             operation: "insert"

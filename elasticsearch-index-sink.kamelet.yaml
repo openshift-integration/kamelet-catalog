@@ -28,11 +28,11 @@ spec:
 
       The Kamelet expects the following headers:
 
-      - `indexId` / `ce-indexId`: as the index ID for Elasticsearch
+      - `indexId` / `ce-indexid`: as the index ID for Elasticsearch
 
       If the header won't be set the exchange ID will be used as index.
 
-      - `indexName` / `ce-indexName`: as the index Name for Elasticsearch
+      - `indexName` / `ce-indexname`: as the index Name for Elasticsearch
 
       If the header is not set, `camel-k-index-es` will be used as the index name.
     required:
@@ -84,6 +84,7 @@ spec:
     - "mvn:org.apache.camel.k:camel-k-kamelet-reify"
     - "camel:elasticsearch-rest"
     - "camel:gson"
+    - "camel:bean"
   flow:
     from:
       uri: kamelet:source
@@ -95,11 +96,11 @@ spec:
             - set-header:
                 name: "indexId"
                 simple: "${header[indexId]}"
-          - simple: "${header[ce-indexId]}"
+          - simple: "${header[ce-indexid]}"
             steps:
             - set-header:
                 name: "indexId"
-                simple: "${header[ce-indexId]}"
+                simple: "${header[ce-indexid]}"
           otherwise:
             steps:
             - set-header:
@@ -112,11 +113,11 @@ spec:
             - set-header:
                 name: "indexName"
                 simple: "${header[indexName]}"
-          - simple: "${header[ce-indexName]}"
+          - simple: "${header[ce-indexname]}"
             steps:
             - set-header:
                 name: "indexName"
-                simple: "${header[ce-indexName]}"
+                simple: "${header[ce-indexname]}"
       - to:
           uri: "kamelet-reify:elasticsearch-rest:{{clusterName}}"
           parameters:
