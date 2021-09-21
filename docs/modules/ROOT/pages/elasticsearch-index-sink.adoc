@@ -9,11 +9,11 @@ Input data must have JSON format according to the index used.
 
 The Kamelet expects the following headers:
 
-- `indexId` / `ce-indexId`: as the index ID for Elasticsearch
+- `indexId` / `ce-indexid`: as the index ID for Elasticsearch
 
 If the header won't be set the exchange ID will be used as index.
 
-- `indexName` / `ce-indexName`: as the index Name for Elasticsearch
+- `indexName` / `ce-indexname`: as the index Name for Elasticsearch
 
 If the header is not set, `camel-k-index-es` will be used as the index name.
 

@@ -13,14 +13,21 @@ spec:
   definition:
     title: "Telegram Source"
     description: |-
-      Receive all messages that people send to your telegram bot.
+      Receive all messages that people send to your Telegram bot.
+
+      To create a bot, contact the @botfather account using the Telegram app.
+
+      The source attaches the following headers to the messages:
+
+      - `chat-id` / `ce-chatid`: the ID of the chat where the message comes from
+
     required:
       - authorizationToken
     type: object
     properties:
       authorizationToken:
         title: Token
-        description: The token to access your bot on Telegram, that you can obtain from the Telegram "Bot Father".
+        description: The token to access your bot on Telegram. You you can obtain it from the Telegram @botfather.
         type: string
         format: password
         x-descriptors:
@@ -29,15 +36,22 @@ spec:
     out:
       mediaType: application/json
   dependencies:
-  - "camel:jackson"
-  - "camel:kamelet"
-  - "camel:telegram"
+    - "camel:jackson"
+    - "camel:kamelet"
+    - "camel:telegram"
+    - "camel:core"
   flow:
     from:
       uri: telegram:bots
       parameters:
         authorizationToken: "{{authorizationToken}}"
       steps:
+      - set-header:
+          name: chat-id
+          simple: "${header[CamelTelegramChatId]}"
+      - set-header:
+          name: ce-chatid
+          simple: "${header[CamelTelegramChatId]}"
       - marshal:
           json: {}
       - to: "kamelet:sink"
