@@ -15,6 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          ref: kamelet-catalog-1.6
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
           ref: master
       - name: Build
         run: |

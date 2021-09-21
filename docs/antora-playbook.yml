@@ -6,6 +6,7 @@ content:
   sources:
   - url: ../
     branches:
+    - kamelet-catalog-1.6
     - kamelet-catalog-1.4
     - HEAD
     start_path: docs
