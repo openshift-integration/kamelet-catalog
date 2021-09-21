@@ -2,6 +2,7 @@ name: Publish Website
 on:
   push:
     branches:
+    - kamelet-catalog-1.6
     - kamelet-catalog-1.4
     - master
 jobs:
