@@ -15,39 +15,12 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-name: Validate
-
-on:
-  pull_request:
-    branches:
-      - master
-    paths-ignore:
-      - '**.adoc'
-      - 'KEYS'
-      - 'LICENSE'
-      - 'NOTICE'
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.adoc'
-      - 'KEYS'
-      - 'LICENSE'
-      - 'NOTICE'
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Install Go
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.13.x
-    - name: Run Validator
-      run: |
-        echo "Running Kamelet validator..."
-
-        cd script/validator
-        go run . ../../
+config:
+  runtime:
+    env:
+      - name: YAKS_CAMELK_AUTO_REMOVE_RESOURCES
+        value: false
+      - name: YAKS_KUBERNETES_AUTO_REMOVE_RESOURCES
+        value: false
+    resources:
+      - extract-field-test.yaml
