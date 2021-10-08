@@ -21,6 +21,9 @@ on:
   pull_request:
     branches:
       - master
+      - kamelet-catalog-1.3
+      - kamelet-catalog-1.4
+      - kamelet-catalog-1.6
     paths-ignore:
       - '**.adoc'
       - 'KEYS'
@@ -28,7 +31,10 @@ on:
       - 'NOTICE'
   push:
     branches:
-      - main
+      - master
+      - kamelet-catalog-1.3
+      - kamelet-catalog-1.4
+      - kamelet-catalog-1.6
     paths-ignore:
       - '**.adoc'
       - 'KEYS'
@@ -44,7 +50,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v1
       with:
-        go-version: 1.13.x
+        go-version: 1.15.x
     - name: Run Validator
       run: |
         echo "Running Kamelet validator..."
