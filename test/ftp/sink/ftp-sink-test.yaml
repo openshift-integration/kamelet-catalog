@@ -1,0 +1,34 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: ftp-sink-test
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: timer-source
+    properties:
+      period: 10000
+      message: ${message}
+  steps:
+    - ref:
+        kind: Kamelet
+        apiVersion: camel.apache.org/v1alpha1
+        name: insert-header-action
+      properties:
+        name: file
+        value: ${file}
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: ftp-sink
+    properties:
+      connectionHost: ${ftp.server.host}.${YAKS_NAMESPACE}
+      connectionPort: ${ftp.server.port}
+      username: ${ftp.server.username}
+      password: ${ftp.server.password}
+      directoryName: ${directoryName}
+      passiveMode: ${passiveMode}
+
