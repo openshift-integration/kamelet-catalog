@@ -44,7 +44,7 @@ Now you should be ready to run the test!
 ## Run the test
 
 ```shell script
-$ yaks run test/extract-field-action
+$ yaks run test/http-sink
 ```
 
 You will be provided with the test log output and the test results.
