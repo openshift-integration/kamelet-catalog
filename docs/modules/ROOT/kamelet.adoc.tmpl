@@ -4,8 +4,6 @@
 
 *Provided by: "{{ index .Kamelet.ObjectMeta.Annotations "camel.apache.org/provider" }}"*
 
-*Support Level for this Kamelet is: "{{ index .Kamelet.ObjectMeta.Annotations "camel.apache.org/kamelet.support.level" }}"*
-
 {{ .Kamelet.Spec.Definition.Description }}
 
 == Configuration Options
