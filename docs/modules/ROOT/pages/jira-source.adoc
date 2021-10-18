@@ -27,7 +27,8 @@ At runtime, the `jira-source Kamelet relies upon the presence of the following d
 
 - camel:jackson
 - camel:kamelet
-- camel:jira 
+- camel:jira
+- mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda 
 
 == Usage
 
