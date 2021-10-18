@@ -40,8 +40,7 @@ spec:
         title: JQL
         description: A query to filter issues
         type: string
-        example: project=MyProject
-      
+        example: project=MyProject   
   types:
     out:
       mediaType: application/json
@@ -49,6 +48,7 @@ spec:
   - "camel:jackson"
   - "camel:kamelet"
   - "camel:jira"
+  - "mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda"
   flow:
     from:
       uri: "jira:newIssues"
