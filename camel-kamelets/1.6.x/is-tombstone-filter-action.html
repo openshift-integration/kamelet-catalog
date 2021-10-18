@@ -325,7 +325,25 @@
 <h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Kamelet does not specify any configuration option.</p>
+<p>The <code>is-tombstone-filter-action</code> Kamelet does not specify any configuration option.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At runtime, the `is-tombstone-filter-action Kamelet relies upon the presence of the following dependencies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>camel:core</p>
+</li>
+<li>
+<p>camel:kamelet</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -333,12 +351,12 @@
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section summarizes how the <code>is-tombstone-filter-action</code> can be used in various contexts.</p>
+<p>This section describes how you can use the <code>is-tombstone-filter-action</code>.</p>
 </div>
 <div class="sect2">
 <h3 id="_knative_action"><a class="anchor" href="#_knative_action"></a>Knative Action</h3>
 <div class="paragraph">
-<p>The <code>is-tombstone-filter-action</code> Kamelet can be used as intermediate step in a Knative binding.</p>
+<p>You can use the <code>is-tombstone-filter-action</code> Kamelet as an intermediate step in a Knative binding.</p>
 </div>
 <div class="listingblock">
 <div class="title">is-tombstone-filter-action-binding.yaml</div>
@@ -367,24 +385,34 @@ spec:
       name: mychannel</code></pre>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_prerequisite"><a class="anchor" href="#_prerequisite"></a><strong>Prerequisite</strong></h4>
 <div class="paragraph">
 <p>Make sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
-<div class="paragraph">
-<p>Save the <code>is-tombstone-filter-action-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
-<div class="paragraph">
-<p>You can run the action using the following command:</p>
-</div>
+<div class="sect3">
+<h4 id="_procedure_for_using_the_cluster_cli"><a class="anchor" href="#_procedure_for_using_the_cluster_cli"></a><strong>Procedure for using the cluster CLI</strong></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the <code>is-tombstone-filter-action-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+</li>
+<li>
+<p>Run the action by using the following command:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f is-tombstone-filter-action-binding.yaml</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
+</div>
 <div class="sect3">
-<h4 id="_binding_to_knative_using_the_kamel_cli"><a class="anchor" href="#_binding_to_knative_using_the_kamel_cli"></a><strong>Binding to Knative using the Kamel CLI:</strong></h4>
+<h4 id="_procedure_for_using_the_kamel_cli"><a class="anchor" href="#_procedure_for_using_the_kamel_cli"></a><strong>Procedure for using the Kamel CLI</strong></h4>
 <div class="paragraph">
-<p>The procedure described above can be simplified into a single execution of the <code>kamel bind</code> command:</p>
+<p>Configure and run the action by using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -392,14 +420,14 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.</p>
+<p>This command creates the KameletBinding in the current namespace on the cluster.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_kafka_action"><a class="anchor" href="#_kafka_action"></a>Kafka Action</h3>
 <div class="paragraph">
-<p>The <code>is-tombstone-filter-action</code> Kamelet can be used as intermediate step in a Kafka binding.</p>
+<p>You can use the <code>is-tombstone-filter-action</code> Kamelet as an intermediate step in a Kafka binding.</p>
 </div>
 <div class="listingblock">
 <div class="title">is-tombstone-filter-action-binding.yaml</div>
@@ -428,25 +456,35 @@ spec:
       name: my-topic</code></pre>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><strong>Prerequisites</strong></h4>
 <div class="paragraph">
 <p>Ensure that you&#8217;ve installed the <strong>AMQ Streams</strong> operator in your OpenShift cluster and created a topic named <code>my-topic</code> in the current namespace.
 Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
 </div>
-<div class="paragraph">
-<p>Save the <code>is-tombstone-filter-action-binding.yaml</code> file into your hard drive, then configure it according to your needs.</p>
 </div>
-<div class="paragraph">
-<p>You can run the action using the following command:</p>
-</div>
+<div class="sect3">
+<h4 id="_procedure_for_using_the_cluster_cli_2"><a class="anchor" href="#_procedure_for_using_the_cluster_cli_2"></a><strong>Procedure for using the cluster CLI</strong></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the <code>is-tombstone-filter-action-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+</li>
+<li>
+<p>Run the action by using the following command:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f is-tombstone-filter-action-binding.yaml</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
+</div>
 <div class="sect3">
-<h4 id="_binding_to_kafka_using_the_kamel_cli"><a class="anchor" href="#_binding_to_kafka_using_the_kamel_cli"></a><strong>Binding to Kafka using the Kamel CLI:</strong></h4>
+<h4 id="_procedure_for_using_the_kamel_cli_2"><a class="anchor" href="#_procedure_for_using_the_kamel_cli_2"></a><strong>Procedure for using the Kamel CLI</strong></h4>
 <div class="paragraph">
-<p>The procedure described above can be simplified into a single execution of the <code>kamel bind</code> command:</p>
+<p>Configure and run the action by using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -454,9 +492,17 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 </div>
 <div class="paragraph">
-<p>This will create the KameletBinding under the hood and apply it to the current namespace in the cluster.</p>
+<p>This command creates the KameletBinding in the current namespace on the cluster.</p>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kamelet_source_file"><a class="anchor" href="#_kamelet_source_file"></a>Kamelet source file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/openshift-integration/kamelet-catalog/blob/main/is-tombstone-filter-action.kamelet.yaml" class="bare">https://github.com/openshift-integration/kamelet-catalog/blob/main/is-tombstone-filter-action.kamelet.yaml</a></p>
 </div>
 </div>
 </div>
