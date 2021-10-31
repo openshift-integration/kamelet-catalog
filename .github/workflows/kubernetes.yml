@@ -72,6 +72,8 @@ jobs:
           kubectl describe nodes
       - name: Camel K Tools
         uses: container-tools/camel-k-action@v1
+        with:
+          version: v1.6.0
       - name: Install Camel K
         run: |
           # Configure install options
@@ -82,6 +84,8 @@ jobs:
           kamel install
       - name: YAKS tools
         uses: citrusframework/yaks-install-action@v1.0
+        with:
+          version: 0.6.0-202110290949
       - name: Install YAKS
         run: |
           yaks install --operator-image $YAKS_IMAGE_NAME:$YAKS_IMAGE_VERSION

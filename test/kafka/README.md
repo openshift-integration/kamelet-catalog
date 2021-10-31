@@ -29,7 +29,7 @@ The test performs the following high level steps:
 - Delete the Kamelet binding
 - Delete the test Http service
 
-### Test Kamelet source
+### Test Kamelet sink
 
 The Kafka Kamelet sink test uses a timer-source to periodically send Kafka messages to a topic.
 The test consumes the messages and verifies the message content.
