@@ -1,0 +1,20 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: ftp-source-test
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: ftp-source
+    properties:
+      connectionHost: ${ftp.server.host}.${YAKS_NAMESPACE}
+      connectionPort: ${ftp.server.port}
+      username: ${ftp.server.username}
+      password: ${ftp.server.password}
+      directoryName: ${directoryName}
+      passiveMode: ${passiveMode}
+  sink:
+    uri: http://ftp-to-http-service.${YAKS_NAMESPACE}/result
+
