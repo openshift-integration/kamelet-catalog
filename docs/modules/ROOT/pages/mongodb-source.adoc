@@ -20,7 +20,7 @@ The following table summarizes the configuration options available for the `mong
 | *database {empty}* *| MongoDB Database| Sets the name of the MongoDB database to target.| string| | 
 | *hosts {empty}* *| MongoDB Hosts| Comma separated list of MongoDB Host Addresses in host:port format.| string| | 
 | *password {empty}* *| MongoDB Password| User password for accessing MongoDB.| string| | 
-| *username {empty}* *| MongoDB Username| Username for accessing MongoDB.| string| | 
+| *username {empty}* *| MongoDB Username| Username for accessing MongoDB. The username must be present in the MongoDB's authentication database (authenticationDatabase). By default, the MongoDB authenticationDatabase is 'admin'.| string| | 
 | persistentTailTracking| MongoDB Persistent Tail Tracking| Enable persistent tail tracking, which is a mechanism to keep track of the last consumed message across system restarts. The next time the system is up, the endpoint will recover the cursor from the point where it last stopped slurping records.| boolean| `false`| 
 | tailTrackIncreasingField| MongoDB Tail Track Increasing Field| Correlation field in the incoming record which is of increasing nature and will be used to position the tailing cursor every time it is generated.| string| | 
 |===
