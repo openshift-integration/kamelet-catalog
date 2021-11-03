@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       YAKS_IMAGE_NAME: "docker.io/yaks/yaks"
-      YAKS_IMAGE_VERSION: "0.6.0-202110290949"
+      YAKS_IMAGE_VERSION: "0.6.0-202111030019"
       YAKS_RUN_OPTIONS: "--timeout=15m"
       KUBECTL_WAIT_TIMEOUT: "180s"
     steps:
@@ -97,3 +97,4 @@ jobs:
           yaks run test/ftp/sink $YAKS_RUN_OPTIONS
           yaks run test/ftp/source $YAKS_RUN_OPTIONS
           yaks run test/kafka $YAKS_RUN_OPTIONS
+          yaks run test/postgresql $YAKS_RUN_OPTIONS
