@@ -1,0 +1,26 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: postgresql-sink-test
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: timer-source
+    properties:
+      period: 60000
+      contentType: application/json
+      message: '${message}'
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: postgresql-sink
+    properties:
+      serverName: ${YAKS_TESTCONTAINERS_POSTGRESQL_SERVICE_NAME}.${YAKS_NAMESPACE}
+      serverPort: ${YAKS_TESTCONTAINERS_POSTGRESQL_PORT}
+      username: ${YAKS_TESTCONTAINERS_POSTGRESQL_USERNAME}
+      password: ${YAKS_TESTCONTAINERS_POSTGRESQL_PASSWORD}
+      databaseName: ${YAKS_TESTCONTAINERS_POSTGRESQL_DB_NAME}
+      query: ${query}

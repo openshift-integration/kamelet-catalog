@@ -8,6 +8,7 @@ on:
 jobs:
   publish-pages:
     runs-on: ubuntu-latest
+    if: github.repository == 'openshift-integration/kamelet-catalog'
     steps:
       - name: Checkout
         uses: actions/checkout@v2

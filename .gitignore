@@ -8,6 +8,7 @@ target
 .DS_Store
 .classpath
 .ekstazi
+.metadata
 .project
 .settings
 .checkstyle
@@ -28,3 +29,9 @@ components/camel-cxf/activemq-data
 .flattened-pom.xml
 .java-version
 node_modules/
+
+# YAKS output folders
+_output
+
+# IDE source libraries folder
+lib/

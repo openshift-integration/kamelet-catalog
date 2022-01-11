@@ -1,0 +1,25 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: insert-field-test
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: timer-source
+    properties:
+      period: 5000
+      contentType: application/json
+      message: >
+        ${input}
+  steps:
+  - ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: insert-field-action
+    properties:
+      field: ${field}
+      value: ${value}
+  sink:
+    uri: http://test-insert-service.${YAKS_NAMESPACE}/result

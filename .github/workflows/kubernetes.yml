@@ -1,0 +1,100 @@
+# ---------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ---------------------------------------------------------------------------
+
+name: Kubernetes
+
+on:
+  pull_request:
+    branches:
+      - master
+      - kamelet-catalog-1.6
+  push:
+    branches:
+      - master
+      - kamelet-catalog-1.6
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      YAKS_IMAGE_NAME: "docker.io/citrusframework/yaks"
+      YAKS_VERSION: "0.7.0"
+      YAKS_RUN_OPTIONS: "--timeout=15m"
+      KUBECTL_WAIT_TIMEOUT: "180s"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Cleanup
+        run: |
+          ls -lart
+          echo "Initial status:"
+          df -h
+
+          echo "Cleaning up resources:"
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          docker rmi $(docker image ls -aq)
+
+          echo "Final status:"
+          df -h
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: "11"
+      - name: Kind Cluster
+        uses: container-tools/kind-action@v1
+        with:
+          version: v0.11.0
+          node_image: kindest/node:v1.21.1@sha256:fae9a58f17f18f06aeac9772ca8b5ac680ebbed985e266f711d936e91d113bad
+      - name: Info
+        run: |
+          kubectl version
+          kubectl cluster-info
+          kubectl describe nodes
+      - name: Camel K Tools
+        uses: container-tools/camel-k-action@v1
+        with:
+          version: v1.6.0
+      - name: Install Camel K
+        run: |
+          # Configure install options
+          export KAMEL_INSTALL_BUILD_PUBLISH_STRATEGY=Spectrum
+          export KAMEL_INSTALL_REGISTRY=$KIND_REGISTRY
+          export KAMEL_INSTALL_REGISTRY_INSECURE=true
+
+          kamel install
+      - name: YAKS tools
+        uses: citrusframework/yaks-install-action@v1.0
+        with:
+          version: v${{ env.YAKS_VERSION }}
+      - name: Install YAKS
+        run: |
+          yaks install --operator-image $YAKS_IMAGE_NAME:$YAKS_VERSION
+      - name: YAKS Tests
+        run: |
+          yaks run test/extract-field $YAKS_RUN_OPTIONS
+          yaks run test/http-sink $YAKS_RUN_OPTIONS
+          yaks run test/insert-field $YAKS_RUN_OPTIONS
+          yaks run test/ftp/sink $YAKS_RUN_OPTIONS
+          yaks run test/ftp/source $YAKS_RUN_OPTIONS
+          yaks run test/kafka $YAKS_RUN_OPTIONS
+          yaks run test/postgresql $YAKS_RUN_OPTIONS

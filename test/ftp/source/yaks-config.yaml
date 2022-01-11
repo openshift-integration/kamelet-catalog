@@ -15,45 +15,24 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-name: Validate
-
-on:
-  pull_request:
-    branches:
-      - master
-      - kamelet-catalog-1.3
-      - kamelet-catalog-1.4
-      - kamelet-catalog-1.6
-    paths-ignore:
-      - '**.adoc'
-      - 'KEYS'
-      - 'LICENSE'
-      - 'NOTICE'
-  push:
-    branches:
-      - master
-      - kamelet-catalog-1.3
-      - kamelet-catalog-1.4
-      - kamelet-catalog-1.6
-    paths-ignore:
-      - '**.adoc'
-      - 'KEYS'
-      - 'LICENSE'
-      - 'NOTICE'
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Install Go
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.15.x
-    - name: Run Validator
-      run: |
-        echo "Running Kamelet validator..."
-
-        cd script/validator
-        go run . ../../
+config:
+  runtime:
+    env:
+      - name: YAKS_CAMELK_AUTO_REMOVE_RESOURCES
+        value: false
+      - name: YAKS_KUBERNETES_AUTO_REMOVE_RESOURCES
+        value: false
+      - name: CITRUS_TYPE_CONVERTER
+        value: camel
+    settings:
+      dependencies:
+        - groupId: com.consol.citrus
+          artifactId: citrus-ftp
+          version: "@citrus.version@"
+        - groupId: org.apache.camel
+          artifactId: camel-ftp
+          version: "@camel.version@"
+    resources:
+      - ../ftp-server.groovy
+      - ../ftp.server.properties
+      - ftp-source-test.yaml
