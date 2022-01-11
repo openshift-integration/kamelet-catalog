@@ -36,6 +36,7 @@
     <modules>
         <module>library/camel-kamelets-catalog</module>
         <module>library/camel-kamelets-utils</module>
+        <module>library/camel-kamelets-bom</module>
     </modules>
 
     <properties>
@@ -65,28 +66,6 @@
         <version.org.apache.qpid.qpid-jms-client>0.55.0</version.org.apache.qpid.qpid-jms-client>
 
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Dependencies used in Kamelets must be listed here -->
-            <dependency>
-                <!-- Quarkus default one is targeted for jdk8 -->
-                <groupId>com.microsoft.sqlserver</groupId>
-                <artifactId>mssql-jdbc</artifactId>
-                <version>${version.com.microsoft.sqlserver.mssql-jdbc}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-dbcp2</artifactId>
-                <version>${version.org.apache.commons.commons-dbcp2}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.qpid</groupId>
-                <artifactId>qpid-jms-client</artifactId>
-                <version>${version.org.apache.qpid.qpid-jms-client}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <developers>
         <developer>
