@@ -4,7 +4,17 @@
 
 *Provided by: "Red Hat"*
 
-Replace field with a different key in the message in transit
+Replace field with a different key in the message in transit.
+
+The required parameter 'renames' is a comma-separated list of colon-delimited renaming pairs like for example 'foo:bar,abc:xyz' and it represents the field rename mappings.
+
+The optional parameter 'enabled' represents the fields to include. If specified, only the named fields will be included in the resulting message.
+
+The optional parameter 'disabled' represents the fields to exclude. If specified, the listed fields will be excluded from the resulting message. This takes precedence over the 'enabled' parameter.
+
+The default value of 'enabled' parameter is 'all', so all the fields of the payload will be included.
+
+The default value of 'disabled' parameter is 'none', so no fields of the payload will be excluded.
 
 == Configuration Options
 
@@ -12,8 +22,8 @@ The following table summarizes the configuration options available for the `repl
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *disabled {empty}* *| Disabled| Comma separated list of fields to be disabled| string| | 
-| *enabled {empty}* *| Enabled| Comma separated list of fields to be enabled| string| | 
+| *disabled {empty}* *| Disabled| Comma separated list of fields to be disabled| string| `"none"`| 
+| *enabled {empty}* *| Enabled| Comma separated list of fields to be enabled| string| `"all"`| 
 | *renames {empty}* *| Renames| Comma separated list of field with new value to be renamed| string| | `"foo:bar,c1:c2"`
 |===
 
@@ -58,8 +68,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
@@ -90,7 +98,7 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.disabled=The Disabled" -p "step-0.enabled=The Enabled" -p "step-0.renames=foo:bar,c1:c2" channel:mychannel
+kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.renames=foo:bar,c1:c2" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -120,8 +128,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
@@ -153,7 +159,7 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.disabled=The Disabled" -p "step-0.enabled=The Enabled" -p "step-0.renames=foo:bar,c1:c2" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.renames=foo:bar,c1:c2" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

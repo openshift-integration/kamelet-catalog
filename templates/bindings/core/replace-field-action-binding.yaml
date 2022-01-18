@@ -8,8 +8,6 @@
       - to:
           uri: "kamelet:replace-field-action"
           parameters:
-            disabled: "The Disabled"
-        enabled: "The Enabled"
-        renames: "foo:bar,c1:c2"
+            renames: "foo:bar,c1:c2"
       - to:
           uri: "log:info"
