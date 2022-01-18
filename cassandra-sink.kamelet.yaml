@@ -22,7 +22,7 @@ spec:
       - keyspace
       - username
       - password
-      - preparedStatement
+      - query
     type: object
     properties:
       connectionHost:
@@ -57,8 +57,8 @@ spec:
         description: Consistency level to use. The value can be one of ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, SERIAL, LOCAL_SERIAL, LOCAL_ONE
         type: string
         default: ANY
-      preparedStatement:
-        title: Prepared Statement
+      query:
+        title: Query
         description: The Prepared statement to execute against the Cassandra cluster table
         type: string
   types:
@@ -81,5 +81,5 @@ spec:
           parameters:
             username: "{{username}}"
             password: "{{password}}"
-            preparedStatement: "{{preparedStatement}}"
+            cql: "{{query}}"
             consistencyLevel: "{{consistencyLevel}}"
