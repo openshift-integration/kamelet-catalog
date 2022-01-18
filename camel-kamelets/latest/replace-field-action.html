@@ -320,7 +320,22 @@
 <p><strong>Provided by: "Red Hat"</strong></p>
 </div>
 <div class="paragraph">
-<p>Replace field with a different key in the message in transit</p>
+<p>Replace field with a different key in the message in transit.</p>
+</div>
+<div class="paragraph">
+<p>The required parameter 'renames' is a comma-separated list of colon-delimited renaming pairs like for example 'foo:bar,abc:xyz' and it represents the field rename mappings.</p>
+</div>
+<div class="paragraph">
+<p>The optional parameter 'enabled' represents the fields to include. If specified, only the named fields will be included in the resulting message.</p>
+</div>
+<div class="paragraph">
+<p>The optional parameter 'disabled' represents the fields to exclude. If specified, the listed fields will be excluded from the resulting message. This takes precedence over the 'enabled' parameter.</p>
+</div>
+<div class="paragraph">
+<p>The default value of 'enabled' parameter is 'all', so all the fields of the payload will be included.</p>
+</div>
+<div class="paragraph">
+<p>The default value of 'disabled' parameter is 'none', so no fields of the payload will be excluded.</p>
 </div>
 </div>
 </div>
@@ -355,7 +370,7 @@
 <td class="tableblock halign-center valign-top"><p class="tableblock">Disabled</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of fields to be disabled</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"none"</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -363,7 +378,7 @@
 <td class="tableblock halign-center valign-top"><p class="tableblock">Enabled</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated list of fields to be enabled</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"all"</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -446,8 +461,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
@@ -487,7 +500,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.disabled=The Disabled" -p "step-0.enabled=The Enabled" -p "step-0.renames=foo:bar,c1:c2" channel:mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.renames=foo:bar,c1:c2" channel:mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -521,8 +534,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
@@ -563,7 +574,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.disabled=The Disabled" -p "step-0.enabled=The Enabled" -p "step-0.renames=foo:bar,c1:c2" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.renames=foo:bar,c1:c2" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
 </div>
 </div>
 <div class="paragraph">
