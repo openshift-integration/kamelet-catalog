@@ -45,6 +45,9 @@ spec:
         type: string
         example: "foo:bar,c1:c2"
     type: object
+  types:
+    in:
+      mediaType: application/json
   dependencies:
   - "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:master-SNAPSHOT"
   - "camel:core"
