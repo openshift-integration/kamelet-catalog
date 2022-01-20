@@ -7,13 +7,12 @@ Feature: Kafka Kamelet source
       | bootstrap.server.host     | my-cluster-kafka-bootstrap |
       | bootstrap.server.port     | 9092 |
       | securityProtocol          | PLAINTEXT |
+      | deserializeHeaders        | true |
       | topic                     | my-topic |
       | source                    | Kafka Kamelet source |
       | message                   | Camel K rocks! |
     Given Kafka topic: ${topic}
     Given Kafka topic partition: 0
-    Given Kafka connection
-      | url         | ${bootstrap.server.host}.${YAKS_NAMESPACE}:${bootstrap.server.port} |
     Given HTTP server timeout is 15000 ms
     Given HTTP server "kafka-to-http-service"
 
@@ -29,10 +28,12 @@ Feature: Kafka Kamelet source
     And Camel-K integration kafka-source-test should print Resetting offset for partition ${topic}-0
 
   Scenario: Send message to Kafka topic and verify sink output
+    Given Kafka connection
+      | url         | ${bootstrap.server.host}.${YAKS_NAMESPACE}:${bootstrap.server.port} |
     When send Kafka message with body and headers: ${message}
       | event-source | ${source} |
     Then expect HTTP request body: ${message}
-    Then expect HTTP request header: event-source="@notNull()@"
+    Then expect HTTP request header: event-source="${source}"
     And receive POST /result
     And send HTTP 200 OK
 
