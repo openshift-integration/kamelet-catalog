@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       YAKS_IMAGE_NAME: "docker.io/citrusframework/yaks"
-      YAKS_VERSION: "0.7.0"
+      YAKS_VERSION: "0.8.0"
       YAKS_RUN_OPTIONS: "--timeout=15m"
       KUBECTL_WAIT_TIMEOUT: "180s"
     steps:
