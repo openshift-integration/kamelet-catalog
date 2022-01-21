@@ -14,6 +14,7 @@ spec:
       password: ${password}
       topic: ${topic}
       securityProtocol: ${securityProtocol}
+      deserializeHeaders: ${deserializeHeaders}
   sink:
     uri: http://kafka-to-http-service.${YAKS_NAMESPACE}/result
 

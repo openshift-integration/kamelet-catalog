@@ -72,6 +72,21 @@
             <artifactId>camel-kafka</artifactId>
         </dependency>
 
+        <!-- Test scoped dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+            <version>${junit.jupiter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+            <version>${junit.jupiter.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
