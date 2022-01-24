@@ -12,9 +12,9 @@ The following table summarizes the configuration options available for the `time
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| timestampFormat| Timestamp Format| Format string for the timestamp that is compatible with java.text.SimpleDateFormat.| string| `"yyyyMMdd"`| 
-| timestampHeaderName| Timestamp Header Name| The name of the header containing a timestamp| string| `"kafka.TIMESTAMP"`| 
-| topicFormat| Topic Format| Format string which can contain '$[topic]' and '$[timestamp]' as placeholders for the topic and timestamp, respectively.| string| `"topic-$[timestamp]"`| 
+| timestampFormat| Timestamp Format| Format string for the timestamp that is compatible with java.text.SimpleDateFormat.| string| `"yyyyMMdd"`|
+| timestampHeaderName| Timestamp Header Name| The name of the header containing a timestamp| string| `"kafka.TIMESTAMP"`|
+| topicFormat| Topic Format| Format string which can contain '$[topic]' and '$[timestamp]' as placeholders for the topic and timestamp, respectively.| string| `"topic-$[timestamp]"`|
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -24,9 +24,9 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `timestamp-router-action` Kamelet relies upon the presence of the following dependencies:
 
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:master-SNAPSHOT
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.6-SNAPSHOT
 - camel:kamelet
-- camel:core 
+- camel:core
 
 == Usage
 
