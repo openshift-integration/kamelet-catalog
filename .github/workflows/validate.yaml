@@ -20,7 +20,7 @@ name: Validate
 on:
   pull_request:
     branches:
-      - master
+      - main
       - kamelet-catalog-1.3
       - kamelet-catalog-1.4
       - kamelet-catalog-1.6
@@ -31,7 +31,7 @@ on:
       - 'NOTICE'
   push:
     branches:
-      - master
+      - main
       - kamelet-catalog-1.3
       - kamelet-catalog-1.4
       - kamelet-catalog-1.6

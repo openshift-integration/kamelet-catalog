@@ -20,11 +20,11 @@ name: Kubernetes
 on:
   pull_request:
     branches:
-      - master
+      - main
       - kamelet-catalog-1.6
   push:
     branches:
-      - master
+      - main
       - kamelet-catalog-1.6
 
 jobs:
