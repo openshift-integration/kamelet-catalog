@@ -1,6 +1,6 @@
 # Jira Kamelet test
 
-This test verifies the Jira Kamelet source defined in [jira-source.kamelet.yaml](https://github.com/openshift-integration/kamelet-catalog/blob/master/jira-source.kamelet.yaml)
+This test verifies the Jira Kamelet source defined in [jira-source.kamelet.yaml](https://github.com/openshift-integration/kamelet-catalog/blob/main/jira-source.kamelet.yaml)
 
 ## Objectives
 
