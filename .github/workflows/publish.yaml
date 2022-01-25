@@ -4,7 +4,7 @@ on:
     branches:
     - kamelet-catalog-1.6
     - kamelet-catalog-1.4
-    - master
+    - main
 jobs:
   publish-pages:
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: main
       - name: Build
         run: |
           cd docs
