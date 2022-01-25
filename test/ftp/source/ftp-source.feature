@@ -12,7 +12,7 @@ Feature: FTP Kamelet source
       | passiveMode          | true        |
       | file                 | message.txt |
       | message              | Camel K rocks! |
-    Given HTTP server timeout is 15000 ms
+    Given HTTP server timeout is 60000 ms
     Given HTTP server "ftp-to-http-service"
 
   Scenario: Create Http server
@@ -33,6 +33,7 @@ Feature: FTP Kamelet source
     And Camel-K integration ftp-source-test should print Routes startup summary
 
   Scenario: Create FTP file
+    Given sleep 5000 ms
     Then send Camel exchange to("file:~/ftp/user/admin?directoryMustExist=true&fileName=${file}") with body: ${message}
 
   Scenario: Verify output message sent
