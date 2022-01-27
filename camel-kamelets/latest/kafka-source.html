@@ -91,6 +91,9 @@
     <a class="nav-link" href="aws-lambda-sink.html"><span class="image"><img src="_images/kamelets/aws-lambda-sink.svg" alt="aws lambda sink"></span> AWS Lambda Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-redshift-sink.html"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="aws-s3-sink.html"><span class="image"><img src="_images/kamelets/aws-s3-sink.svg" alt="aws s3 sink"></span> AWS S3 Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -407,6 +410,14 @@
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deserializeHeaders</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Automatically Deserialize Headers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When enabled the Kamelet source will deserialize all message headers to String representation.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">pollOnError</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Poll On Error Behavior</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">What to do if kafka threw an exception while polling for new messages. There are 5 enums and the value can be one of DISCARD, ERROR_HANDLER, RECONNECT, RETRY, STOP</p></td>
@@ -454,6 +465,12 @@ Fields marked with an asterisk (*) are mandatory.
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>github:openshift-integration.kamelet-catalog:camel-kamelets-utils:main-SNAPSHOT</p>
+</li>
+<li>
+<p>camel:core</p>
+</li>
 <li>
 <p>camel:kafka</p>
 </li>

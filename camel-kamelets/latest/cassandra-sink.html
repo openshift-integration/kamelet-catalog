@@ -91,6 +91,9 @@
     <a class="nav-link" href="aws-lambda-sink.html"><span class="image"><img src="_images/kamelets/aws-lambda-sink.svg" alt="aws lambda sink"></span> AWS Lambda Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-redshift-sink.html"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="aws-s3-sink.html"><span class="image"><img src="_images/kamelets/aws-s3-sink.svg" alt="aws s3 sink"></span> AWS S3 Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -386,8 +389,8 @@
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>preparedStatement </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Prepared Statement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>query </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Query</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Prepared statement to execute against the Cassandra cluster table</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -480,7 +483,7 @@ spec:
       connectionPort: 9042
       keyspace: "customers"
       password: "The Password"
-      preparedStatement: "The Prepared Statement"
+      query: "The Query"
       username: "The Username"</code></pre>
 </div>
 </div>
@@ -515,7 +518,7 @@ spec:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.query=The Query" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -551,7 +554,7 @@ spec:
       connectionPort: 9042
       keyspace: "customers"
       password: "The Password"
-      preparedStatement: "The Prepared Statement"
+      query: "The Query"
       username: "The Username"</code></pre>
 </div>
 </div>
@@ -587,7 +590,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.preparedStatement=The Prepared Statement" -p "sink.username=The Username"</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.query=The Query" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> Regex Router Action :: Kamelet Catalog</title>
+    <title> AWS Redshift Sink :: Kamelet Catalog</title>
     <meta name="generator" content="Antora 3.0.0-alpha.6">
     <link rel="stylesheet" href="../../_/css/site-a192e92461.css">
 <meta name="application-name" content="Apache Camel">
@@ -90,7 +90,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="aws-lambda-sink.html"><span class="image"><img src="_images/kamelets/aws-lambda-sink.svg" alt="aws lambda sink"></span> AWS Lambda Sink</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="aws-redshift-sink.html"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -225,7 +225,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="protobuf-serialize-action.html"><span class="image"><img src="_images/kamelets/protobuf-serialize-action.svg" alt="protobuf serialize action"></span> Protobuf Serialize Action</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="regex-router-action.html"><span class="image"><img src="_images/kamelets/regex-router-action.svg" alt="regex router action"></span> Regex Router Action</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -301,29 +301,41 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Kamelet Catalog</a></li>
-    <li><a href="regex-router-action.html"><span class="image"><img src="_images/kamelets/regex-router-action.svg" alt="regex router action"></span> Regex Router Action</a></li>
+    <li><a href="aws-redshift-sink.html"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</a></li>
   </ul>
 </nav>
 <div class="page-versions">
   <button class="version-menu-toggle" title="Show other versions of page">latest (Red Hat)</button>
   <div class="version-menu">
-    <a class="version is-current" href="regex-router-action.html">latest (Red Hat)</a>
-    <a class="version" href="../1.6.x/regex-router-action.html">1.6.x (Red Hat)</a>
-    <a class="version" href="../1.4.x/regex-router-action.html">1.4.x (Red Hat)</a>
+    <a class="version is-current" href="aws-redshift-sink.html">latest (Red Hat)</a>
+    <a class="version is-missing" href="../1.6.x/index.html">1.6.x (Red Hat)</a>
+    <a class="version is-missing" href="../1.4.x/index.html">1.4.x (Red Hat)</a>
   </div>
 </div>
-  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/main/docs/modules/ROOT/pages/regex-router-action.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/main/docs/modules/ROOT/pages/aws-redshift-sink.adoc">Edit this Page</a></div>
   </nav>
   <div class="content">
 <article class="doc">
-<h1 class="page"><span class="image"><img src="_images/kamelets/regex-router-action.svg" alt="regex router action"></span> Regex Router Action</h1>
+<h1 class="page"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Provided by: "Red Hat"</strong></p>
 </div>
 <div class="paragraph">
-<p>Update the destination using the configured regular expression and replacement string</p>
+<p>Send data to an AWS Redshift Database.</p>
+</div>
+<div class="paragraph">
+<p>This Kamelet expects a JSON as body. The mapping between the JSON fields and parameters is done by key, so if you have the following query:</p>
+</div>
+<div class="paragraph">
+<p>'INSERT INTO accounts (username,city) VALUES (:#username,:#city)'</p>
+</div>
+<div class="paragraph">
+<p>The Kamelet needs to receive as input something like:</p>
+</div>
+<div class="paragraph">
+<p>'{ "username":"oscerd", "city":"Rome"}'</p>
 </div>
 </div>
 </div>
@@ -331,7 +343,7 @@
 <h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following table summarizes the configuration options available for the <code>regex-router-action</code> Kamelet:</p>
+<p>The following table summarizes the configuration options available for the <code>aws-redshift-sink</code> Kamelet:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -354,19 +366,51 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>regex </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Regex</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Regular Expression for destination</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>databaseName </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Database Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Database Name we are pointing</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>replacement </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Replacement</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Replacement when matching</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>password </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password to use for accessing a secured AWS Redshift Database</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>query </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Query to execute against the AWS Redshift Database</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"INSERT INTO accounts (username,city) VALUES (:#username,:#city)"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>serverName </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Server Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server Name for the data source</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"localhost"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Username</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The username to use for accessing a secured AWS Redshift Database</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serverPort</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Server Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server Port for the data source</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>5439</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -389,18 +433,24 @@ Fields marked with an asterisk (*) are mandatory.
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>At runtime, the <code>regex-router-action</code> Kamelet relies upon the presence of the following dependencies:</p>
+<p>At runtime, the <code>aws-redshift-sink</code> Kamelet relies upon the presence of the following dependencies:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>github:openshift-integration.kamelet-catalog:camel-kamelets-utils:main-SNAPSHOT</p>
+<p>camel:jackson</p>
 </li>
 <li>
 <p>camel:kamelet</p>
 </li>
 <li>
-<p>camel:core</p>
+<p>camel:sql</p>
+</li>
+<li>
+<p>mvn:com.amazon.redshift:redshift-jdbc42:2.1.0.3</p>
+</li>
+<li>
+<p>mvn:org.apache.commons:commons-dbcp2:2.7.0</p>
 </li>
 </ul>
 </div>
@@ -410,41 +460,37 @@ Fields marked with an asterisk (*) are mandatory.
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section describes how you can use the <code>regex-router-action</code>.</p>
+<p>This section describes how you can use the <code>aws-redshift-sink</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="_knative_action"><a class="anchor" href="#_knative_action"></a>Knative Action</h3>
+<h3 id="_knative_sink"><a class="anchor" href="#_knative_sink"></a>Knative Sink</h3>
 <div class="paragraph">
-<p>You can use the <code>regex-router-action</code> Kamelet as an intermediate step in a Knative binding.</p>
+<p>You can use the <code>aws-redshift-sink</code> Kamelet as a Knative sink by binding it to a Knative object.</p>
 </div>
 <div class="listingblock">
-<div class="title">regex-router-action-binding.yaml</div>
+<div class="title">aws-redshift-sink-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: regex-router-action-binding
+  name: aws-redshift-sink-binding
 spec:
   source:
     ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
-      name: timer-source
-    properties:
-      message: "Hello"
-  steps:
-  - ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
-      name: regex-router-action
-    properties:
-      regex: "The Regex"
-      replacement: "The Replacement"
-  sink:
-    ref:
       kind: Channel
       apiVersion: messaging.knative.dev/v1
-      name: mychannel</code></pre>
+      name: mychannel
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: aws-redshift-sink
+    properties:
+      databaseName: "The Database Name"
+      password: "The Password"
+      query: "INSERT INTO accounts (username,city) VALUES (:#username,:#city)"
+      serverName: "localhost"
+      username: "The Username"</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -458,13 +504,13 @@ spec:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Save the <code>regex-router-action-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+<p>Save the <code>aws-redshift-sink-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
 </li>
 <li>
-<p>Run the action by using the following command:</p>
+<p>Run the sink by using the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f regex-router-action-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f aws-redshift-sink-binding.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -474,11 +520,11 @@ spec:
 <div class="sect3">
 <h4 id="_procedure_for_using_the_kamel_cli"><a class="anchor" href="#_procedure_for_using_the_kamel_cli"></a><strong>Procedure for using the Kamel CLI</strong></h4>
 <div class="paragraph">
-<p>Configure and run the action by using the following command:</p>
+<p>Configure and run the sink by using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step regex-router-action -p "step-0.regex=The Regex" -p "step-0.replacement=The Replacement" channel:mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel aws-redshift-sink -p "sink.databaseName=The Database Name" -p "sink.password=The Password" -p "sink.query=INSERT INTO accounts (username,city) VALUES (:#username,:#city)" -p "sink.serverName=localhost" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -487,38 +533,34 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="_kafka_action"><a class="anchor" href="#_kafka_action"></a>Kafka Action</h3>
+<h3 id="_kafka_sink"><a class="anchor" href="#_kafka_sink"></a>Kafka Sink</h3>
 <div class="paragraph">
-<p>You can use the <code>regex-router-action</code> Kamelet as an intermediate step in a Kafka binding.</p>
+<p>You can use the <code>aws-redshift-sink</code> Kamelet as a Kafka sink by binding it to a Kafka topic.</p>
 </div>
 <div class="listingblock">
-<div class="title">regex-router-action-binding.yaml</div>
+<div class="title">aws-redshift-sink-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
-  name: regex-router-action-binding
+  name: aws-redshift-sink-binding
 spec:
   source:
     ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
-      name: timer-source
-    properties:
-      message: "Hello"
-  steps:
-  - ref:
-      kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
-      name: regex-router-action
-    properties:
-      regex: "The Regex"
-      replacement: "The Replacement"
-  sink:
-    ref:
       kind: KafkaTopic
       apiVersion: kafka.strimzi.io/v1beta1
-      name: my-topic</code></pre>
+      name: my-topic
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: aws-redshift-sink
+    properties:
+      databaseName: "The Database Name"
+      password: "The Password"
+      query: "INSERT INTO accounts (username,city) VALUES (:#username,:#city)"
+      serverName: "localhost"
+      username: "The Username"</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -533,13 +575,13 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Save the <code>regex-router-action-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+<p>Save the <code>aws-redshift-sink-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
 </li>
 <li>
-<p>Run the action by using the following command:</p>
+<p>Run the sink by using the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f regex-router-action-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f aws-redshift-sink-binding.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -549,11 +591,11 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 <div class="sect3">
 <h4 id="_procedure_for_using_the_kamel_cli_2"><a class="anchor" href="#_procedure_for_using_the_kamel_cli_2"></a><strong>Procedure for using the Kamel CLI</strong></h4>
 <div class="paragraph">
-<p>Configure and run the action by using the following command:</p>
+<p>Configure and run the sink by using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step regex-router-action -p "step-0.regex=The Regex" -p "step-0.replacement=The Replacement" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-redshift-sink -p "sink.databaseName=The Database Name" -p "sink.password=The Password" -p "sink.query=INSERT INTO accounts (username,city) VALUES (:#username,:#city)" -p "sink.serverName=localhost" -p "sink.username=The Username"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -567,7 +609,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 <h2 id="_kamelet_source_file"><a class="anchor" href="#_kamelet_source_file"></a>Kamelet source file</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/openshift-integration/kamelet-catalog/blob/main/regex-router-action.kamelet.yaml" class="bare">https://github.com/openshift-integration/kamelet-catalog/blob/main/regex-router-action.kamelet.yaml</a></p>
+<p><a href="https://github.com/openshift-integration/kamelet-catalog/blob/main/aws-redshift-sink.kamelet.yaml" class="bare">https://github.com/openshift-integration/kamelet-catalog/blob/main/aws-redshift-sink.kamelet.yaml</a></p>
 </div>
 </div>
 </div>
@@ -695,7 +737,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
         {
         "@type": "ListItem",
         "position": 4,
-        "name": "Regex Router Action","item": "https://camel.apache.org/camel-kamelets/latest/regex-router-action.html"}
+        "name": "AWS Redshift Sink","item": "https://camel.apache.org/camel-kamelets/latest/aws-redshift-sink.html"}
         ]
     }
 </script>
