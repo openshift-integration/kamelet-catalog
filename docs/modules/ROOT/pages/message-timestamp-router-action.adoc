@@ -12,10 +12,10 @@ The following table summarizes the configuration options available for the `mess
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *timestampKeys {empty}* *| Timestamp Keys| Comma separated list of Timestamp keys. The timestamp is taken from the first found field.| string| |
-| timestampFormat| Timestamp Format| Format string for the timestamp that is compatible with java.text.SimpleDateFormat.| string| `"yyyyMMdd"`|
-| timestampKeyFormat| Timestamp Keys Format| Format of the timestamp keys. Possible values are 'timestamp' or any format string for the timestamp that is compatible with java.text.SimpleDateFormat. In case of 'timestamp' the field will be evaluated as milliseconds since 1970, so as a UNIX Timestamp.| string| `"timestamp"`|
-| topicFormat| Topic Format| Format string which can contain '$[topic]' and '$[timestamp]' as placeholders for the topic and timestamp, respectively.| string| `"topic-$[timestamp]"`|
+| *timestampKeys {empty}* *| Timestamp Keys| Comma separated list of Timestamp keys. The timestamp is taken from the first found field.| string| | 
+| timestampFormat| Timestamp Format| Format string for the timestamp that is compatible with java.text.SimpleDateFormat.| string| `"yyyyMMdd"`| 
+| timestampKeyFormat| Timestamp Keys Format| Format of the timestamp keys. Possible values are 'timestamp' or any format string for the timestamp that is compatible with java.text.SimpleDateFormat. In case of 'timestamp' the field will be evaluated as milliseconds since 1970, so as a UNIX Timestamp.| string| `"timestamp"`| 
+| topicFormat| Topic Format| Format string which can contain '$[topic]' and '$[timestamp]' as placeholders for the topic and timestamp, respectively.| string| `"topic-$[timestamp]"`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -25,10 +25,10 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `message-timestamp-router-action` Kamelet relies upon the presence of the following dependencies:
 
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.6-SNAPSHOT
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:main-SNAPSHOT
 - camel:jackson
 - camel:kamelet
-- camel:core
+- camel:core 
 
 == Usage
 
