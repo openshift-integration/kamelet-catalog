@@ -27,7 +27,7 @@ spec:
   - "camel:kamelet"
   - "camel:core"
   - "camel:jackson-protobuf"
-  flow:
+  template:
     from:
       uri: kamelet:source
       steps:

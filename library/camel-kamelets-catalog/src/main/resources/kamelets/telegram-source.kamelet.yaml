@@ -40,7 +40,7 @@ spec:
     - "camel:kamelet"
     - "camel:telegram"
     - "camel:core"
-  flow:
+  template:
     from:
       uri: telegram:bots
       parameters:
