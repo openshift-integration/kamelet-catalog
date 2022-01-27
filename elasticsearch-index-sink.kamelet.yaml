@@ -85,7 +85,7 @@ spec:
     - "camel:elasticsearch-rest"
     - "camel:gson"
     - "camel:bean"
-  flow:
+  template:
     from:
       uri: kamelet:source
       steps:
