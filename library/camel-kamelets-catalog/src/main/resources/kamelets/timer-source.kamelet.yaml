@@ -53,7 +53,7 @@ spec:
     - "camel:core"
     - "camel:timer"
     - "camel:kamelet"
-  flow:
+  template:
     from:
       uri: timer:tick
       parameters:

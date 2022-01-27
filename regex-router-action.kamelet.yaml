@@ -30,7 +30,7 @@ spec:
   - "github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.6-SNAPSHOT"
   - "camel:kamelet"
   - "camel:core"
-  flow:
+  template:
     from:
       uri: kamelet:source
       steps:
