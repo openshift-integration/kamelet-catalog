@@ -54,7 +54,7 @@ spec:
   dependencies:
   - "camel:kamelet"
   - "camel:aws2-sns"
-  flow:
+  template:
     from:
       uri: kamelet:source
       steps:

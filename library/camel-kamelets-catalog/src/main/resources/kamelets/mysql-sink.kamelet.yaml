@@ -69,7 +69,7 @@ spec:
   - "camel:sql"
   - "mvn:org.apache.commons:commons-dbcp2:2.7.0"
   - "mvn:mysql:mysql-connector-java"
-  flow:
+  template:
     beans:
       - name: dsBean
         type: "#class:org.apache.commons.dbcp2.BasicDataSource"
