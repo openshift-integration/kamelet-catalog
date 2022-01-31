@@ -14,7 +14,7 @@ import (
 	camelapi "github.com/apache/camel-k/pkg/apis/camel/v1alpha1"
 	"github.com/apache/camel-k/pkg/metadata"
 	"github.com/apache/camel-k/pkg/util/camel"
-	"github.com/apache/camel-k/pkg/util/flow"
+	"github.com/apache/camel-k/pkg/util/dsl"
 	"github.com/bbalet/stopwords"
 	perrors "github.com/pkg/errors"
 	yamlv3 "gopkg.in/yaml.v3"
@@ -44,11 +44,26 @@ func main() {
 
 	kamelets := listKamelets(dir)
 
+	if len(kamelets) <= 0 {
+		fmt.Printf("ERROR: directory %s has no Kamelets\n", dir)
+		os.Exit(1)
+	}
+
 	errors := verifyFileNames(kamelets)
 	errors = append(errors, verifyKameletType(kamelets)...)
-	errors = append(errors, verifyAnnotations(kamelets)...)
 	errors = append(errors, verifyParameters(kamelets)...)
 	errors = append(errors, verifyInvalidContent(kamelets)...)
+
+	// Any failing validation above may result in error in the below methods,
+	// let's show the errors if any
+	for _, err := range errors {
+		fmt.Printf("ERROR: %v\n", err)
+	}
+	if len(errors) > 0 {
+		os.Exit(1)
+	}
+
+	errors = append(errors, verifyAnnotations(kamelets)...)
 	errors = append(errors, verifyDescriptors(kamelets)...)
 	errors = append(errors, verifyDuplicates(kamelets)...)
 	errors = append(errors, verifyMissingDependencies(kamelets)...)
@@ -64,7 +79,7 @@ func main() {
 
 func verifyMissingDependencies(kamelets []KameletInfo) (errors []error) {
 	for _, kamelet := range kamelets {
-		yamlDslFlow, err := flow.ToYamlDSL([]camelapiv1.Flow{*kamelet.Kamelet.Spec.Flow})
+		yamlDslTemplate, err := dsl.TemplateToYamlDSL(*kamelet.Kamelet.Spec.Template, kamelet.Kamelet.Name)
 		if err != nil {
 			panic(err)
 		}
@@ -72,7 +87,7 @@ func verifyMissingDependencies(kamelets []KameletInfo) (errors []error) {
 		code := camelapiv1.SourceSpec{
 			DataSpec: camelapiv1.DataSpec{
 				Name:    "source.yaml",
-				Content: string(yamlDslFlow),
+				Content: string(yamlDslTemplate),
 			},
 			Language: camelapiv1.LanguageYaml,
 		}
@@ -137,6 +152,12 @@ func verifyDescriptors(kamelets []KameletInfo) (errors []error) {
 			}
 		}
 		for k, p := range kamelet.Spec.Definition.Properties {
+			credDescriptor := "urn:camel:group:credentials"
+			if p.Format == "password" && !hasXDescriptor(p, credDescriptor) {
+				errors = append(errors, fmt.Errorf("property %q in kamelet %q has \"password\" format but misses descriptor %q", k, kamelet.Name, credDescriptor))
+			}
+		}
+		for k, p := range kamelet.Spec.Definition.Properties {
 			checkboxDescriptor := "urn:alm:descriptor:com.tectonic.ui:checkbox"
 			if hasXDescriptor(p, checkboxDescriptor) && p.Type != "boolean" {
 				errors = append(errors, fmt.Errorf("property %q in kamelet %q has checkbox descriptor %q but its type is not \"boolean\"", k, kamelet.Name, checkboxDescriptor))
@@ -151,6 +172,15 @@ func verifyDescriptors(kamelets []KameletInfo) (errors []error) {
 func hasXDescriptor(p camelapi.JSONSchemaProp, desc string) bool {
 	for _, d := range p.XDescriptors {
 		if d == desc {
+			return true
+		}
+	}
+	return false
+}
+
+func hasXDescriptorPrefix(p camelapi.JSONSchemaProp, prefix string) bool {
+	for _, d := range p.XDescriptors {
+		if strings.HasPrefix(d, prefix) {
 			return true
 		}
 	}
@@ -205,6 +235,14 @@ func verifyParameters(kamelets []KameletInfo) (errors []error) {
 	for _, kamelet := range kamelets {
 		if kamelet.Spec.Definition == nil {
 			errors = append(errors, fmt.Errorf("kamelet %q does not contain the JSON schema definition", kamelet.Name))
+			continue
+		}
+		if kamelet.Spec.Flow != nil {
+			errors = append(errors, fmt.Errorf("kamelet %q contain the deprecated Flow specification, must use Template instead", kamelet.Name))
+			continue
+		}
+		if kamelet.Spec.Template == nil {
+			errors = append(errors, fmt.Errorf("kamelet %q does not contain the Template specification", kamelet.Name))
 			continue
 		}
 		requiredCheck := make(map[string]bool)
@@ -396,11 +434,11 @@ func getDeclaredParams(k camelapi.Kamelet) map[string]bool {
 		}
 	}
 	// include beans
-	var flowData interface{}
-	if err := json.Unmarshal(k.Spec.Flow.RawMessage, &flowData); err != nil {
-		handleGeneralError("cannot unmarshal flow", err)
+	var templateData interface{}
+	if err := json.Unmarshal(k.Spec.Template.RawMessage, &templateData); err != nil {
+		handleGeneralError("cannot unmarshal template", err)
 	}
-	if fd, ok := flowData.(map[string]interface{}); ok {
+	if fd, ok := templateData.(map[string]interface{}); ok {
 		beans := fd["beans"]
 		if bl, ok := beans.([]interface{}); ok {
 			for _, bdef := range bl {
@@ -417,19 +455,25 @@ func getDeclaredParams(k camelapi.Kamelet) map[string]bool {
 }
 
 func getUsedParams(k camelapi.Kamelet) map[string]bool {
-	if k.Spec.Flow != nil {
-		var flowData interface{}
-		if err := json.Unmarshal(k.Spec.Flow.RawMessage, &flowData); err != nil {
-			handleGeneralError("cannot unmarshal flow", err)
+	if k.Spec.Template != nil {
+		var templateData interface{}
+		if err := json.Unmarshal(k.Spec.Template.RawMessage, &templateData); err != nil {
+			handleGeneralError("cannot unmarshal template", err)
 		}
 		params := make(map[string]bool)
-		inspectFlowParams(flowData, params)
+		inspectTemplateParams(templateData, params)
+		for propName, propVal := range k.Spec.Definition.Properties {
+			if hasXDescriptorPrefix(propVal, "urn:keda:") {
+				// Assume KEDA parameters may be used by KEDA
+				params[propName] = true
+			}
+		}
 		return params
 	}
 	return nil
 }
 
-func inspectFlowParams(v interface{}, params map[string]bool) {
+func inspectTemplateParams(v interface{}, params map[string]bool) {
 	switch val := v.(type) {
 	case string:
 		res := paramRegexp.FindAllStringSubmatch(val, -1)
@@ -440,15 +484,15 @@ func inspectFlowParams(v interface{}, params map[string]bool) {
 		}
 	case []interface{}:
 		for _, c := range val {
-			inspectFlowParams(c, params)
+			inspectTemplateParams(c, params)
 		}
 	case map[string]interface{}:
 		for _, c := range val {
-			inspectFlowParams(c, params)
+			inspectTemplateParams(c, params)
 		}
 	case map[interface{}]interface{}:
 		for _, c := range val {
-			inspectFlowParams(c, params)
+			inspectTemplateParams(c, params)
 		}
 	}
 }
