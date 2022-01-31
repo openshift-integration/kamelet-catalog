@@ -42,6 +42,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       directoryName:
         title: Directory Name
         description: The starting directory
