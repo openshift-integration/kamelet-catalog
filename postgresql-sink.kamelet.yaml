@@ -51,6 +51,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       query:
         title: Query
         description: The Query to execute against the PostgreSQL Database
