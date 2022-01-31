@@ -50,6 +50,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       autoCommitEnable:
         title: Auto Commit Enable
         description: If true, periodically commit to ZooKeeper the offset of messages already fetched by the consumer

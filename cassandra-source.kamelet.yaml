@@ -49,6 +49,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       resultStrategy:
         title: Result Strategy
         description: The strategy to convert the result set of the query. Possible values are ALL, ONE, LIMIT_10, LIMIT_100...
