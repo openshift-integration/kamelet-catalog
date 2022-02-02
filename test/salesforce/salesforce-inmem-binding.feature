@@ -1,7 +1,7 @@
 Feature: Salesforce Kamelet
 
   Background:
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
     Given create Knative channel messages
 
@@ -10,11 +10,11 @@ Feature: Salesforce Kamelet
     Given load KameletBinding salesforce-to-inmem.yaml
     Given load KameletBinding inmem-to-log.yaml
     Then KameletBinding salesforce-to-inmem should be available
-    And Camel-K integration salesforce-to-inmem is running
+    And Camel K integration salesforce-to-inmem is running
 
     And KameletBinding inmem-to-log should be available
     Given variable loginfo is "Installed features"
-    Then Camel-K integration salesforce-to-inmem should print ${loginfo}
+    Then Camel K integration salesforce-to-inmem should print ${loginfo}
     Then sleep 10000 ms
 
     #obtain token
@@ -51,8 +51,8 @@ Feature: Salesforce Kamelet
     """
     When send POST /services/data/v${camel.kamelet.salesforce-source.salesforce-credentials.apiVersion}/sobjects/Case
     Then receive HTTP 201 Created
-    And Camel-K integration inmem-to-log should print "Subject":"${subject}"
+    And Camel K integration inmem-to-log should print "Subject":"${subject}"
 
-  Scenario: Remove Camel-K resources
+  Scenario: Remove Camel K resources
     Given delete KameletBinding salesforce-to-broker
     Given delete KameletBinding broker-to-log

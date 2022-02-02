@@ -2,7 +2,7 @@ Feature: AWS SQS Kamelet - binding to InMemoryChannel
 
   Background:
     Given Disable auto removal of Camel resources
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
     Given Disable auto removal of Kubernetes resources
     Given create Knative channel messages
@@ -18,19 +18,19 @@ Feature: AWS SQS Kamelet - binding to InMemoryChannel
     Given load KameletBinding inmem-to-log.yaml
     Then KameletBinding aws-sqs-to-inmem is available
     And KameletBinding inmem-to-log should be available
-    Then Camel-K integration aws-sqs-to-inmem is running
-    And Camel-K integration inmem-to-log is running
+    Then Camel K integration aws-sqs-to-inmem is running
+    And Camel K integration inmem-to-log is running
 
-    And Camel-K integration aws-sqs-to-inmem should print Installed features
-    And Camel-K integration inmem-to-log should print Installed features
+    And Camel K integration aws-sqs-to-inmem should print Installed features
+    And Camel K integration inmem-to-log should print Installed features
     Then sleep 10000 ms
 
     Given variable aws.sqs.message is "Hello from SQS Kamelet"
     Given Camel exchange body: ${aws.sqs.message}
     And send Camel exchange to("aws2-sqs:${camel.kamelet.aws-sqs-source.aws-sqs-credentials.queueNameOrArn}?accessKey=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.accessKey}&secretKey=RAW(${camel.kamelet.aws-sqs-source.aws-sqs-credentials.secretKey})&region=${camel.kamelet.aws-sqs-source.aws-sqs-credentials.region}")
-    Then Camel-K integration inmem-to-log should print "${aws.sqs.message}"
+    Then Camel K integration inmem-to-log should print "${aws.sqs.message}"
 
-  Scenario: Remove Camel-K resources
+  Scenario: Remove Camel K resources
     Given delete KameletBinding aws-sqs-to-inmem
     Given delete KameletBinding inmem-to-log
 

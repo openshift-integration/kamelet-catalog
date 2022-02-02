@@ -19,13 +19,13 @@ Feature: PostgreSQL Kamelet sink
       | url       | ${YAKS_TESTCONTAINERS_POSTGRESQL_URL} |
       | username  | ${YAKS_TESTCONTAINERS_POSTGRESQL_USERNAME} |
       | password  | ${YAKS_TESTCONTAINERS_POSTGRESQL_PASSWORD} |
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     Given SQL query max retry attempts: 10
     When load KameletBinding postgresql-sink-test.yaml
-    Then Camel-K integration postgresql-sink-test should be running
-    And Camel-K integration postgresql-sink-test should print Started source (timer://tick)
+    Then Camel K integration postgresql-sink-test should be running
+    And Camel K integration postgresql-sink-test should print Started source (timer://tick)
     Then SQL query: SELECT headline FROM headlines WHERE ID=${id}
     And verify column HEADLINE=Camel K rocks!
 

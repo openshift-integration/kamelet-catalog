@@ -8,7 +8,7 @@ Feature: Extract field Kamelet action
     Given create Kubernetes service test-extract-service with target port 8080
 
   Scenario: Create Kamelet binding
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     Given variable field = "subject"
@@ -17,7 +17,7 @@ Feature: Extract field Kamelet action
     { "id": "citrus:randomUUID()", "subject": "Camel K rocks!" }
     """
     When load Kubernetes custom resource extract-field-test.yaml in kameletbindings.camel.apache.org
-    Then Camel-K integration extract-field-test should be running
+    Then Camel K integration extract-field-test should be running
 
   Scenario: Verify output message sent
     Given expect HTTP request body: "Camel K rocks!"
