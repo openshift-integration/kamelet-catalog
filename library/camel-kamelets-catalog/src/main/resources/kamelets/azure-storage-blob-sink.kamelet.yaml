@@ -41,14 +41,16 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       operation:
         title: Operation Name
         description: The operation to perform.
         type: string
         default: uploadBlockBlob
   dependencies:
-  - "camel:azure-storage-blob"
-  - "camel:kamelet"
+    - camel:core
+    - "camel:azure-storage-blob"
+    - "camel:kamelet"
   template:
     from:
       uri: "kamelet:source"
