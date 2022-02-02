@@ -81,7 +81,7 @@ spec:
         accessKey: "{{accessKey}}"
         region: "{{region}}"
         deleteAfterRead: "{{deleteAfterRead}}"
-        uriEndpointOverride: "{{uriEndpointOverride}}"
+        uriEndpointOverride: "{{?uriEndpointOverride}}"
         overrideEndpoint: "{{overrideEndpoint}}"
       steps:
       - to: "kamelet:sink"

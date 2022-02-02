@@ -59,10 +59,6 @@ config:
           artifactId: camel-jackson
           version: "@camel.version@"
 pre:
-  - name: Install Camel K
-    if: env:CI=true
-    run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
   - name: Install Kamelets
     run: |
       kubectl apply -f ../../aws-s3-source.kamelet.yaml -n $YAKS_NAMESPACE
