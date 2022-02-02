@@ -11,7 +11,7 @@ Feature: Extract field Kamelet action
     Given create Kubernetes service test-insert-service with target port 8080
 
   Scenario: Create Kamelet binding
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     Given variable input is
@@ -19,7 +19,7 @@ Feature: Extract field Kamelet action
     { "id": "citrus:randomUUID()" }
     """
     When load Kubernetes custom resource insert-field-test.yaml in kameletbindings.camel.apache.org
-    Then Camel-K integration insert-field-test should be running
+    Then Camel K integration insert-field-test should be running
 
   Scenario: Verify output message sent
     Given expect HTTP request body

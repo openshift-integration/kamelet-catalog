@@ -20,12 +20,12 @@ Feature: Kafka Kamelet source
     Given create Kubernetes service kafka-to-http-service with target port 8080
 
   Scenario: Create Kamelet binding
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     When load KameletBinding kafka-source-test.yaml
-    Then Camel-K integration kafka-source-test should be running
-    And Camel-K integration kafka-source-test should print Resetting offset for partition ${topic}-0
+    Then Camel K integration kafka-source-test should be running
+    And Camel K integration kafka-source-test should print Resetting offset for partition ${topic}-0
 
   Scenario: Send message to Kafka topic and verify sink output
     Given Kafka connection

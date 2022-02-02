@@ -1,14 +1,14 @@
 Feature: Slack Kamelet - secret based configuration
 
   Background:
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
 
-  Scenario: Create Camel-K resources
+  Scenario: Create Camel K resources
     Given load KameletBinding slack-uri-binding.yaml
     Given KameletBinding slack-uri-binding is available
     Given variable loginfo is "Installed features"
-    Then Camel-K integration slack-uri-binding should print ${loginfo}
+    Then Camel K integration slack-uri-binding should print ${loginfo}
 
   Scenario: Verify Kamelet source - secret based configuration
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
@@ -24,7 +24,7 @@ Feature: Slack Kamelet - secret based configuration
     """
     When send POST /api/chat.postMessage
     Then receive HTTP 200 OK
-    And Camel-K integration slack-uri-binding should print ${message}
+    And Camel K integration slack-uri-binding should print ${message}
 
-  Scenario: Remove Camel-K resources  - secret based configuration
-    Given delete Camel-K integration slack-uri-binding
+  Scenario: Remove Camel K resources  - secret based configuration
+    Given delete Camel K integration slack-uri-binding

@@ -20,11 +20,11 @@ Feature: FTP Kamelet sink
     Given load endpoint ftp-server.groovy
 
   Scenario: Create Kamelet binding
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     When load Kubernetes custom resource ftp-sink-test.yaml in kameletbindings.camel.apache.org
-    Then Camel-K integration ftp-sink-test should be running
+    Then Camel K integration ftp-sink-test should be running
 
   Scenario: Verify FTP file created
     When endpoint ftp-server receives body
