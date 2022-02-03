@@ -1,14 +1,14 @@
 Feature: Slack Kamelet - URI based configuration
 
   Background:
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
 
-  Scenario: Create Camel-K resources
-    Given load Camel-K integration slack-to-log-uri-based.groovy
-    Given Camel-K integration slack-to-log-uri-based is running
+  Scenario: Create Camel K resources
+    Given load Camel K integration slack-to-log-uri-based.groovy
+    Given Camel K integration slack-to-log-uri-based is running
     Given variable loginfo is "Installed features"
-    Then Camel-K integration slack-to-log-uri-based should print ${loginfo}
+    Then Camel K integration slack-to-log-uri-based should print ${loginfo}
 
   Scenario: Verify Kamelet source - URI based configuration
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
@@ -24,7 +24,7 @@ Feature: Slack Kamelet - URI based configuration
     """
     When send POST /api/chat.postMessage
     Then receive HTTP 200 OK
-    And Camel-K integration slack-to-log-uri-based should print ${message}
+    And Camel K integration slack-to-log-uri-based should print ${message}
 
-  Scenario: Remove Camel-K resources - URI based configuration
-    Given delete Camel-K integration slack-to-log-uri-based
+  Scenario: Remove Camel K resources - URI based configuration
+    Given delete Camel K integration slack-to-log-uri-based

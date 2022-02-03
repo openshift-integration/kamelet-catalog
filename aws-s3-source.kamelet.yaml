@@ -53,7 +53,18 @@ spec:
         example: eu-west-1
       autoCreateBucket:
         title: Autocreate Bucket
-        description: Setting the autocreation of the S3 bucket bucketName. 
+        description: Setting the autocreation of the S3 bucket bucketName.
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
+      uriEndpointOverride:
+        title: Overwritte Endpoint URI
+        description: Set the overriding endpoint URI. This option needs to be used in combination with overrideEndpoint option.
+        type: string
+      overrideEndpoint:
+        title: Endpoint Overwrite
+        description: Set the need for overiding the endpoint URI. This option needs to be used in combination with uriEndpointOverride setting.
         type: boolean
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
@@ -70,5 +81,7 @@ spec:
         accessKey: "{{accessKey}}"
         region: "{{region}}"
         deleteAfterRead: "{{deleteAfterRead}}"
+        uriEndpointOverride: "{{?uriEndpointOverride}}"
+        overrideEndpoint: "{{overrideEndpoint}}"
       steps:
       - to: "kamelet:sink"

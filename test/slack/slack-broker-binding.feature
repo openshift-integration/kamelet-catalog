@@ -1,7 +1,7 @@
 Feature: Slack Kamelet
 
   Background:
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
     Given create Knative broker default
     Then Knative broker default is running
@@ -12,14 +12,14 @@ Feature: Slack Kamelet
     Given load KameletBinding slack-to-broker.yaml
 
     Then KameletBinding slack-to-broker should be available
-    And Camel-K integration slack-to-broker should print kamelet://slack-source/source
+    And Camel K integration slack-to-broker should print kamelet://slack-source/source
     And KameletBinding broker-to-log should be available
     Given variable loginfo is "knative://event/custom-type"
-    Then Camel-K integration broker-to-log should print ${loginfo}
+    Then Camel K integration broker-to-log should print ${loginfo}
 
     #Avoid sending message too early
-    And Camel-K integration slack-to-broker should print Installed features
-    And Camel-K integration broker-to-log should print Installed features
+    And Camel K integration slack-to-broker should print Installed features
+    And Camel K integration broker-to-log should print Installed features
     Then sleep 10000 ms
 
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
@@ -35,8 +35,8 @@ Feature: Slack Kamelet
     """
     When send POST /api/chat.postMessage
     Then receive HTTP 200 OK
-    And Camel-K integration broker-to-log should print ${message}
+    And Camel K integration broker-to-log should print ${message}
 
-  Scenario: Remove Camel-K resources
+  Scenario: Remove Camel K resources
     Given delete KameletBinding broker-to-log
     Given delete KameletBinding slack-to-broker

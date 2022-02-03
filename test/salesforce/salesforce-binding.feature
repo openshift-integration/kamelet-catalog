@@ -1,7 +1,7 @@
 Feature: Salesforce Kamelet binding
 
   Background:
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
     Given Disable auto removal of Kubernetes resources
     Given variable token_request is "grant_type=password&client_id=${camel.kamelet.salesforce-source.salesforce-credentials.clientId}&client_secret=${camel.kamelet.salesforce-source.salesforce-credentials.clientSecret}&username=${camel.kamelet.salesforce-source.salesforce-credentials.userName}&password=${camel.kamelet.salesforce-source.salesforce-credentials.password}"
@@ -35,9 +35,9 @@ Feature: Salesforce Kamelet binding
   Scenario: Verify Kamelet binding
     Given variable subject is "Case regarding citrus:randomString(10)"
     Given variable description is "Test for Salesforce Kamelet source"
-    Given Camel-K integration salesforce-to-uri is running
-    And Camel-K integration salesforce-to-uri should print Login successful
-    And Camel-K integration salesforce-to-uri should print Subscribed to channel /topic/CamelTestTopic
+    Given Camel K integration salesforce-to-uri is running
+    And Camel K integration salesforce-to-uri should print Login successful
+    And Camel K integration salesforce-to-uri should print Subscribed to channel /topic/CamelTestTopic
     And HTTP request header Authorization="Bearer ${access_token}"
     And HTTP request header Content-Type="application/json"
     And HTTP request body

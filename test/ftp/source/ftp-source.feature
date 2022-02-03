@@ -25,12 +25,12 @@ Feature: FTP Kamelet source
     Given load endpoint ftp-server.groovy
 
   Scenario: Create Kamelet binding
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     When load KameletBinding ftp-source-test.yaml
-    Then Camel-K integration ftp-source-test should be running
-    And Camel-K integration ftp-source-test should print Routes startup summary
+    Then Camel K integration ftp-source-test should be running
+    And Camel K integration ftp-source-test should print Routes startup summary
 
   Scenario: Create FTP file
     Given sleep 5000 ms

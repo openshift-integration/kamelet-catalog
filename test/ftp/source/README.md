@@ -20,7 +20,7 @@ The test performs the following high level steps:
 
 *Scenario* 
 - Configure and create the Kamelet binding that uses the source (kafka-source to uri)
-- Wait for the Camel-K integration to start
+- Wait for the Camel K integration to start
 - Provide proper file content on the FTP server instance
 - Verify that the binding has performed the Kamelet source as expected by verifying the Http service sink request data
 
@@ -30,12 +30,12 @@ The test performs the following high level steps:
 
 ## Installation
 
-The test assumes that you have access to a Kubernetes cluster and that the Camel-K operator as well as the YAKS operator is installed
+The test assumes that you have access to a Kubernetes cluster and that the Camel K operator as well as the YAKS operator is installed
 and running.
 
 You can review the installation steps for the operators in the documentation:
 
-- [Install Camel-K operator](https://camel.apache.org/camel-k/latest/installation/installation.html)
+- [Install Camel K operator](https://camel.apache.org/camel-k/latest/installation/installation.html)
 - [Install YAKS operator](https://github.com/citrusframework/yaks#installation)
 
 ## Preparations
