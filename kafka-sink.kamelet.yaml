@@ -58,12 +58,10 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
-        - urn:camel:group:credentials
   dependencies:
-    - camel:core
     - "camel:kafka"
     - "camel:kamelet"
-  template:
+  flow:
     from:
       uri: "kamelet:source"
       steps:
