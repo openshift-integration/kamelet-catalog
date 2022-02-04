@@ -17,7 +17,7 @@
 
 config:
   namespace:
-    temporary: true
+    temporary: false
   runtime:
     resources:
       - aws-kinesis-to-log-uri-based.groovy
@@ -38,9 +38,10 @@ config:
           artifactId: camel-gson
           version: "@camel.version@"
 pre:
-  - name: Install kamel
+  - name: Install Kamelets
     run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
+      kubectl delete kamelet aws-kinesis-source -n $YAKS_NAMESPACE
+      kubectl apply -f ../../aws-kinesis-source.kamelet.yaml -n $YAKS_NAMESPACE
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh

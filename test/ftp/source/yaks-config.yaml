@@ -16,6 +16,8 @@
 # ---------------------------------------------------------------------------
 
 config:
+  namespace:
+    temporary: false
   runtime:
     env:
       - name: YAKS_CAMELK_AUTO_REMOVE_RESOURCES
@@ -36,3 +38,8 @@ config:
       - ../ftp-server.groovy
       - ../ftp.server.properties
       - ftp-source-test.yaml
+pre:
+  - name: Install Kamelets
+    run: |
+      kubectl delete kamelet ftp-source -n $YAKS_NAMESPACE
+      kubectl apply -f ../../../ftp-source.kamelet.yaml -n $YAKS_NAMESPACE

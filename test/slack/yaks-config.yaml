@@ -17,7 +17,7 @@
 
 config:
   namespace:
-    temporary: true
+    temporary: false
   runtime:
     resources:
       - slack-to-log-uri-based.groovy
@@ -28,9 +28,10 @@ config:
       - slack-to-inmem.yaml
       - slack-to-broker.yaml
 pre:
-  - name: Install kamel
+  - name: Install Kamelets
     run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
+      kubectl delete kamelet slack-source -n $YAKS_NAMESPACE
+      kubectl apply -f ../../slack-source.kamelet.yaml -n $YAKS_NAMESPACE
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh
