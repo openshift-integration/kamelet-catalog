@@ -6,7 +6,7 @@ Feature: Extract field Kamelet action
     Given variable message is "Camel K rocks!"
 
   Scenario: Create Http server
-    Given create Kubernetes service sink-http-service with target port 8080
+    Given create Kubernetes service sink-http-service
 
   Scenario: Create Kamelet binding
     Given Camel K resource polling configuration

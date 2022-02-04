@@ -16,6 +16,8 @@
 # ---------------------------------------------------------------------------
 
 config:
+  namespace:
+    temporary: false
   runtime:
     env:
       - name: YAKS_CAMELK_AUTO_REMOVE_RESOURCES
@@ -24,3 +26,8 @@ config:
         value: false
     resources:
       - http-sink-test.yaml
+pre:
+  - name: Install Kamelets
+    run: |
+      kubectl delete kamelet http-sink -n $YAKS_NAMESPACE
+      kubectl apply -f ../../http-sink.kamelet.yaml -n $YAKS_NAMESPACE
