@@ -1,7 +1,7 @@
 Feature: Slack Kamelet
 
   Background:
-    Given Disable auto removal of Camel-K resources
+    Given Disable auto removal of Camel K resources
     Given Disable auto removal of Kamelet resources
     Given create Knative channel messages
 
@@ -10,11 +10,11 @@ Feature: Slack Kamelet
     Given load KameletBinding inmem-to-log.yaml
     And KameletBinding inmem-to-log should be available
     Given variable loginfo is "knative://channel/messages"
-    Then Camel-K integration inmem-to-log should print ${loginfo}
+    Then Camel K integration inmem-to-log should print ${loginfo}
 
     Given load KameletBinding slack-to-inmem.yaml
     Then KameletBinding slack-to-inmem should be available
-    And Camel-K integration slack-to-inmem should print Installed features
+    And Camel K integration slack-to-inmem should print Installed features
 
     Given variable message is "Hello from Kamelet source citrus:randomString(10)"
     Given URL: https://slack.com
@@ -29,9 +29,9 @@ Feature: Slack Kamelet
     """
     When send POST /api/chat.postMessage
     Then receive HTTP 200 OK
-    And Camel-K integration inmem-to-log should print ${message}
+    And Camel K integration inmem-to-log should print ${message}
 
-  Scenario: Remove Camel-K resources
+  Scenario: Remove Camel K resources
     Given delete KameletBinding inmem-to-log
     Given delete KameletBinding slack-to-inmem
     #NOTE: InMemoryChannel is autoremoved

@@ -31,8 +31,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      YAKS_IMAGE_NAME: "docker.io/citrusframework/yaks"
-      YAKS_VERSION: "0.8.0"
+      YAKS_IMAGE_NAME: "docker.io/yaks/yaks"
+      YAKS_VERSION: "0.9.0-202202040021"
       YAKS_RUN_OPTIONS: "--timeout=15m"
       KUBECTL_WAIT_TIMEOUT: "180s"
     steps:
@@ -85,7 +85,7 @@ jobs:
       - name: YAKS tools
         uses: citrusframework/yaks-install-action@v1.0
         with:
-          version: v${{ env.YAKS_VERSION }}
+          version: ${{ env.YAKS_VERSION }}
       - name: Install YAKS
         run: |
           yaks install --operator-image $YAKS_IMAGE_NAME:$YAKS_VERSION

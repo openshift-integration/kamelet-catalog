@@ -9,11 +9,11 @@ Feature: Extract field Kamelet action
     Given create Kubernetes service sink-http-service with target port 8080
 
   Scenario: Create Kamelet binding
-    Given Camel-K resource polling configuration
+    Given Camel K resource polling configuration
       | maxAttempts          | 200   |
       | delayBetweenAttempts | 2000  |
     When load KameletBinding http-sink-test.yaml
-    Then Camel-K integration http-sink-test should be running
+    Then Camel K integration http-sink-test should be running
 
   Scenario: Verify request message sent
     Given expect HTTP request body: ${message}

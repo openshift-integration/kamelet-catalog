@@ -14,12 +14,12 @@ The test itself provides a FTP server instance that can be used by the Kamelet s
 
 ## Installation
 
-The test assumes that you have access to a Kubernetes cluster and that the Camel-K operator as well as the YAKS operator is installed
+The test assumes that you have access to a Kubernetes cluster and that the Camel K operator as well as the YAKS operator is installed
 and running.
 
 You can review the installation steps for the operators in the documentation:
 
-- [Install Camel-K operator](https://camel.apache.org/camel-k/latest/installation/installation.html)
+- [Install Camel K operator](https://camel.apache.org/camel-k/latest/installation/installation.html)
 - [Install YAKS operator](https://github.com/citrusframework/yaks#installation)
 
 ## Preparations
