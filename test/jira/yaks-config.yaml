@@ -17,7 +17,7 @@
 
 config:
   namespace:
-    temporary: true
+    temporary: false
   runtime:
     resources:
       - jira-to-log-uri-based.groovy
@@ -29,11 +29,12 @@ config:
       - jira-to-inmem.yaml
       - jira-uri-binding.yaml
 pre:
-  - name: Install kamel
+  - name: Install Kamelets
     run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
-      oc apply -f inmem.yaml -n ${YAKS_NAMESPACE}
-      oc apply -f logger-sink.kamelet.yaml -n ${YAKS_NAMESPACE}
+      kubectl delete kamelet jira-source -n $YAKS_NAMESPACE
+      kubectl apply -f ../../jira-source.kamelet.yaml -n $YAKS_NAMESPACE
+      kubectl apply -f inmem.yaml -n ${YAKS_NAMESPACE}
+      kubectl apply -f logger-sink.kamelet.yaml -n ${YAKS_NAMESPACE}
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh
