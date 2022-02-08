@@ -24,3 +24,8 @@ config:
         value: false
     resources:
       - extract-field-test.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k

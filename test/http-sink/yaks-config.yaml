@@ -26,6 +26,11 @@ config:
         value: false
     resources:
       - http-sink-test.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |

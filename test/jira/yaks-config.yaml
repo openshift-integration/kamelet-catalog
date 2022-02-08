@@ -28,6 +28,11 @@ config:
       - inmem-to-log.yaml
       - jira-to-inmem.yaml
       - jira-uri-binding.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |

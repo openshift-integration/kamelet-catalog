@@ -25,6 +25,11 @@ config:
       - salesforce-credentials.properties
       - salesforce-to-inmem.yaml
       - ../utils/inmem-to-log.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |
