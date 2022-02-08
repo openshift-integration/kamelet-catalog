@@ -81,7 +81,7 @@ jobs:
           export KAMEL_INSTALL_REGISTRY=$KIND_REGISTRY
           export KAMEL_INSTALL_REGISTRY_INSECURE=true
 
-          kamel install
+          kamel install --operator-env-vars KAMEL_INSTALL_DEFAULT_KAMELETS=false
       - name: YAKS tools
         uses: citrusframework/yaks-install-action@v1.0
         with:
