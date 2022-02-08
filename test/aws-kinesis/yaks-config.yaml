@@ -37,6 +37,11 @@ config:
         - groupId: org.apache.camel
           artifactId: camel-gson
           version: "@camel.version@"
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |

@@ -38,6 +38,11 @@ config:
       - ../ftp-server.groovy
       - ../ftp.server.properties
       - ftp-source-test.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |
