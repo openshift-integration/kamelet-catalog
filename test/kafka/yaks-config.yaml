@@ -29,6 +29,11 @@ config:
     resources:
       - kafka-source-test.yaml
       - kafka-sink-test.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kafka
     if: env:CI=true

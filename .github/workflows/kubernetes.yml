@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       YAKS_IMAGE_NAME: "docker.io/yaks/yaks"
-      YAKS_VERSION: "0.9.0-202202040021"
+      YAKS_VERSION: "0.9.0-202202081449"
       YAKS_RUN_OPTIONS: "--timeout=15m"
       KUBECTL_WAIT_TIMEOUT: "180s"
     steps:
@@ -98,3 +98,12 @@ jobs:
           yaks run test/ftp/source $YAKS_RUN_OPTIONS
           yaks run test/kafka $YAKS_RUN_OPTIONS
           yaks run test/postgresql $YAKS_RUN_OPTIONS
+      - name: YAKS Report
+        if: failure()
+        run: |
+          yaks report
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: dumps
+          path: _output/*-dump.log

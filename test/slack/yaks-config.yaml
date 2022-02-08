@@ -27,6 +27,11 @@ config:
       - ../utils/broker-to-log.yaml
       - slack-to-inmem.yaml
       - slack-to-broker.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |
