@@ -86,7 +86,7 @@ jobs:
           # when we use camel k 1.8.0
           kubectl delete kamelets --all
           # Install the local kamelets
-          find . -maxdepth 1 -name '*.kamelet.yaml' -exec kubectl apply -f {}
+          find . -maxdepth 1 -name '*.kamelet.yaml' -exec kubectl apply -f {} \;
       - name: YAKS tools
         uses: citrusframework/yaks-install-action@v1.0
         with:
