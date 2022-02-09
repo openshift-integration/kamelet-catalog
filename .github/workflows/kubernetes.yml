@@ -121,7 +121,10 @@ jobs:
           export KAMEL_INSTALL_REGISTRY=$KIND_REGISTRY
           export KAMEL_INSTALL_REGISTRY_INSECURE=true
 
-          kamel install --operator-env-vars KAMEL_INSTALL_DEFAULT_KAMELETS=false
+          kamel install -w
+          # TODO replaces the below statement with --operator-env-vars KAMEL_INSTALL_DEFAULT_KAMELETS=false
+          # when we use camel k 1.8.0
+          kubectl delete kamelets --all
       - name: YAKS tools
         uses: citrusframework/yaks-install-action@v1.0
         with:
