@@ -51,6 +51,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       enableSSL:
         title: Enable SSL
         description: Do we want to connect using SSL?
@@ -79,13 +80,15 @@ spec:
     in:
       mediaType: application/json
   dependencies:
+    - camel:core
     - "camel:jackson"
     - "camel:kamelet"
     - "mvn:org.apache.camel.k:camel-k-kamelet-reify"
     - "camel:elasticsearch-rest"
     - "camel:gson"
     - "camel:bean"
-  flow:
+    - camel:kamelet-reify
+  template:
     from:
       uri: kamelet:source
       steps:

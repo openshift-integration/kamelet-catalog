@@ -51,6 +51,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       query:
         title: Query
         description: The Query to execute against the MySQL Database
@@ -69,7 +70,7 @@ spec:
   - "camel:sql"
   - "mvn:org.apache.commons:commons-dbcp2:2.7.0"
   - "mvn:mysql:mysql-connector-java"
-  flow:
+  template:
     beans:
       - name: dsBean
         type: "#class:org.apache.commons.dbcp2.BasicDataSource"

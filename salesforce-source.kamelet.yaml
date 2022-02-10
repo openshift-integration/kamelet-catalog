@@ -49,6 +49,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       userName:
         title: Username
         description: The Salesforce username
@@ -60,6 +61,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
   types:
     out:
       mediaType: application/json
@@ -68,7 +70,8 @@ spec:
   - "camel:salesforce"
   - "mvn:org.apache.camel.k:camel-k-kamelet-reify"
   - "camel:kamelet"
-  flow:
+  - camel:kamelet-reify
+  template:
     from:
       uri: "kamelet-reify:salesforce:{{topicName}}"
       parameters:

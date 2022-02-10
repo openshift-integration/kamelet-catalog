@@ -17,7 +17,7 @@
 
 config:
   namespace:
-    temporary: true
+    temporary: false
   runtime:
     resources:
       - aws-sqs-client.yaml
@@ -38,10 +38,16 @@ config:
         - groupId: org.apache.camel
           artifactId: camel-jackson
           version: "@camel.version@"
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
-  - name: Install kamel
+  - name: Install Kamelets
     run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
+      kubectl delete kamelet aws-sqs-source -n $YAKS_NAMESPACE
+      kubectl apply -f ../../aws-sqs-source.kamelet.yaml -n $YAKS_NAMESPACE
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh

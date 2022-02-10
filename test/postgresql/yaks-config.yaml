@@ -16,6 +16,8 @@
 # ---------------------------------------------------------------------------
 
 config:
+  namespace:
+    temporary: false
   runtime:
     settings:
     testcontainers:
@@ -29,3 +31,13 @@ config:
         value: false
     resources:
       - postgresql-sink-test.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
+pre:
+  - name: Install Kamelets
+    run: |
+      kubectl delete kamelet postgresql-sink -n $YAKS_NAMESPACE
+      kubectl apply -f ../../postgresql-sink.kamelet.yaml -n $YAKS_NAMESPACE

@@ -42,6 +42,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       directoryName:
         title: Directory Name
         description: The starting directory
@@ -71,7 +72,7 @@ spec:
     - "camel:ftp"
     - "camel:core"
     - "camel:kamelet"
-  flow:
+  template:
     from:
       uri: "sftp:{{username}}@{{connectionHost}}:{{connectionPort}}/{{directoryName}}"
       parameters:

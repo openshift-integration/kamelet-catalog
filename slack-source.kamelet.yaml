@@ -31,6 +31,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
   types:
     out:
       mediaType: application/json
@@ -38,7 +39,7 @@ spec:
   - "camel:kamelet"
   - "camel:slack"
   - "camel:jackson"
-  flow:
+  template:
     from:
       uri: "slack:{{channel}}"
       parameters:

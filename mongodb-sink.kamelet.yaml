@@ -41,6 +41,7 @@ spec:
         format: password
         x-descriptors:
           - urn:alm:descriptor:com.tectonic.ui:password
+          - urn:camel:group:credentials
       username:
         title: MongoDB Username
         description: Username for accessing MongoDB.
@@ -64,10 +65,11 @@ spec:
     in:
       mediaType: application/json
   dependencies:
+    - camel:core
     - "camel:kamelet"
     - "camel:mongodb"
     - "camel:jackson"
-  flow:
+  template:
     beans:
       - name: local-mongodb
         type: "#class:org.apache.camel.component.mongodb.MongoDbComponent"

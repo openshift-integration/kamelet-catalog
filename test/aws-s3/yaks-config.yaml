@@ -58,7 +58,13 @@ config:
         - groupId: org.apache.camel
           artifactId: camel-jackson
           version: "@camel.version@"
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
   - name: Install Kamelets
     run: |
+      kubectl delete kamelet aws-s3-source -n $YAKS_NAMESPACE
       kubectl apply -f ../../aws-s3-source.kamelet.yaml -n $YAKS_NAMESPACE

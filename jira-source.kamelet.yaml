@@ -36,11 +36,12 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       jql:
         title: JQL
         description: A query to filter issues
         type: string
-        example: project=MyProject   
+        example: project=MyProject
   types:
     out:
       mediaType: application/json
@@ -49,7 +50,7 @@ spec:
   - "camel:kamelet"
   - "camel:jira"
   - "mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda"
-  flow:
+  template:
     from:
       uri: "jira:newIssues"
       parameters:
@@ -59,7 +60,7 @@ spec:
         jql: "{{jql}}"
       steps:
       - marshal:
-          json: 
+          json:
             library: Jackson
             module-class-names: com.fasterxml.jackson.datatype.joda.JodaModule
       - to: "kamelet:sink"

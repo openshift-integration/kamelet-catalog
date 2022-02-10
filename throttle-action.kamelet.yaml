@@ -32,7 +32,7 @@ spec:
   dependencies:
     - "camel:core"
     - "camel:kamelet"
-  flow:
+  template:
     from:
       uri: kamelet:source
       steps:

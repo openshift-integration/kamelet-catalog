@@ -51,6 +51,7 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
       consistencyLevel:
         title: Consistency Level
         description: Consistency level to use. The value can be one of ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, SERIAL, LOCAL_SERIAL, LOCAL_ONE
@@ -67,7 +68,7 @@ spec:
   - "camel:jackson"
   - "camel:kamelet"
   - "camel:cassandraql"
-  flow:
+  template:
     from:
       uri: "kamelet:source"
       steps:

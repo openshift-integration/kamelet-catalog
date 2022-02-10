@@ -17,7 +17,7 @@
 
 config:
   namespace:
-    temporary: true
+    temporary: false
   runtime:
     resources:
       - telegram-to-log-uri-based.groovy
@@ -26,10 +26,16 @@ config:
       - telegram-uri-binding.yaml
       - telegram-to-inmem.yaml
       - ../utils/inmem-to-log.yaml
+  dump:
+    enabled: true
+    failedOnly: true
+    includes:
+      - app=camel-k
 pre:
-  - name: Install kamel
+  - name: Install Kamelets
     run: |
-      kamel install -w -n ${YAKS_NAMESPACE}
+      kubectl delete kamelet telegram-source -n $YAKS_NAMESPACE
+      kubectl apply -f ../../telegram-source.kamelet.yaml -n $YAKS_NAMESPACE
   - script: prepare-secret.sh
 post:
   - script: delete-secret.sh
