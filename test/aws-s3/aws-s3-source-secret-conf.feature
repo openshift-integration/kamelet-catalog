@@ -1,3 +1,4 @@
+@ignored
 Feature: AWS S3 Kamelet - secret based config
 
   Background:
