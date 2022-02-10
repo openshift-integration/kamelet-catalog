@@ -89,7 +89,7 @@ spec:
   - "camel:sql"
   - "mvn:com.amazon.redshift:redshift-jdbc42:2.1.0.3"
   - "mvn:org.apache.commons:commons-dbcp2:2.7.0"
-  flow:
+  template:
     beans:
       - name: dsBean
         type: "#class:org.apache.commons.dbcp2.BasicDataSource"
@@ -106,9 +106,9 @@ spec:
       uri: "kamelet:source"
       steps:
       - unmarshal:
-          json: 
+          json:
             library: Jackson
-      - to: 
+      - to:
           uri: "sql:{{query}}"
           parameters:
             dataSource: "#bean:{{dsBean}}"
