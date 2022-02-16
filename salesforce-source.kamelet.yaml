@@ -38,10 +38,17 @@ spec:
         description: The Salesforce instance login URL
         type: string
         default: https://login.salesforce.com
+      notifyForFields:
+        title: Notify For Fields
+        description: Notify for fields, options are ALL, REFERENCED, SELECT, WHERE.
+        type: string
+        default: ALL
       clientId:
         title: Consumer Key
         description: The Salesforce application consumer key
         type: string
+        x-descriptors:
+        - urn:camel:group:credentials
       clientSecret:
         title: Consumer Secret
         description: The Salesforce application consumer secret
@@ -54,6 +61,8 @@ spec:
         title: Username
         description: The Salesforce username
         type: string
+        x-descriptors:
+        - urn:camel:group:credentials
       password:
         title: Password
         description: The Salesforce user password
@@ -68,18 +77,19 @@ spec:
   dependencies:
   - "camel:jackson"
   - "camel:salesforce"
-  - "mvn:org.apache.camel.k:camel-k-kamelet-reify"
   - "camel:kamelet"
-  - camel:kamelet-reify
   template:
+    beans:
+      - name: local-salesforce
+        type: "#class:org.apache.camel.component.salesforce.SalesforceComponent"
     from:
-      uri: "kamelet-reify:salesforce:{{topicName}}"
+      uri: "{{local-salesforce}}:{{topicName}}"
       parameters:
         clientId: "{{clientId}}"
         clientSecret: "{{clientSecret}}"
         userName: "{{userName}}"
         password: "{{password}}"
-        notifyForFields: "ALL"
+        notifyForFields: "{{notifyForFields}}"
         updateTopic: "true"
         notifyForOperationCreate: "true"
         notifyForOperationUpdate: "false"
