@@ -78,26 +78,27 @@ spec:
   - "camel:jackson"
   - "camel:salesforce"
   - "camel:kamelet"
-  template:
-    beans:
-      - name: local-salesforce
-        type: "#class:org.apache.camel.component.salesforce.SalesforceComponent"
-    from:
-      uri: "{{local-salesforce}}:{{topicName}}"
-      parameters:
-        clientId: "{{clientId}}"
-        clientSecret: "{{clientSecret}}"
-        userName: "{{userName}}"
-        password: "{{password}}"
-        notifyForFields: "{{notifyForFields}}"
-        updateTopic: "true"
-        notifyForOperationCreate: "true"
-        notifyForOperationUpdate: "false"
-        notifyForOperationDelete: "false"
-        notifyForOperationUndelete: "false"
-        sObjectQuery: "{{query}}"
-        loginUrl: "{{loginUrl}}"
-      steps:
-      - marshal:
-          json: {}
-      - to: "kamelet:sink"
+  template:    
+    beans:    
+    - name: local-salesforce    
+      properties:    
+        clientId: '{{clientId}}'    
+        clientSecret: '{{clientSecret}}'    
+        loginUrl: '{{loginUrl}}'    
+        password: '{{password}}'    
+        userName: '{{userName}}'    
+      type: '#class:org.apache.camel.component.salesforce.SalesforceComponent'    
+    from:    
+      parameters:    
+        notifyForFields: '{{notifyForFields}}'    
+        notifyForOperationCreate: "true"    
+        notifyForOperationDelete: "false"    
+        notifyForOperationUndelete: "false"    
+        notifyForOperationUpdate: "false"    
+        sObjectQuery: '{{query}}'    
+        updateTopic: "true"    
+      steps:    
+      - marshal:    
+          json: {}    
+      - to: kamelet:sink    
+      uri: '{{local-salesforce}}:{{topicName}}'
