@@ -31,6 +31,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `azure-storage-blob-sink` Kamelet relies upon the presence of the following dependencies:
 
+- camel:core
 - camel:azure-storage-blob
 - camel:kamelet 
 

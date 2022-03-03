@@ -18,6 +18,8 @@ The following table summarizes the configuration options available for the `aws-
 | *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
 | autoCreateBucket| Autocreate Bucket| Setting the autocreation of the S3 bucket bucketName.| boolean| `false`| 
 | deleteAfterRead| Auto-delete Objects| Delete objects after consuming them| boolean| `true`| 
+| overrideEndpoint| Endpoint Overwrite| Set the need for overiding the endpoint URI. This option needs to be used in combination with uriEndpointOverride setting.| boolean| `false`| 
+| uriEndpointOverride| Overwritte Endpoint URI| Set the overriding endpoint URI. This option needs to be used in combination with overrideEndpoint option.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
