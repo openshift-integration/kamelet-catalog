@@ -25,7 +25,7 @@ At runtime, the `protobuf-deserialize-action` Kamelet relies upon the presence o
 - github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.6-SNAPSHOT
 - camel:kamelet
 - camel:core
-- camel:jackson-protobuf
+- camel:jackson-protobuf 
 
 == Usage
 

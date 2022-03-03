@@ -34,6 +34,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `mongodb-sink` Kamelet relies upon the presence of the following dependencies:
 
+- camel:core
 - camel:kamelet
 - camel:mongodb
 - camel:jackson 
