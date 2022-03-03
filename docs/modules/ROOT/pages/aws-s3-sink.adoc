@@ -32,6 +32,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-s3-sink` Kamelet relies upon the presence of the following dependencies:
 
+- camel:core
 - camel:aws2-s3
 - camel:kamelet 
 
