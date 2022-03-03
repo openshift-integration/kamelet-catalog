@@ -12,8 +12,8 @@ The following table summarizes the configuration options available for the `rege
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *regex {empty}* *| Regex| Regular Expression for destination| string| |
-| *replacement {empty}* *| Replacement| Replacement when matching| string| |
+| *regex {empty}* *| Regex| Regular Expression for destination| string| | 
+| *replacement {empty}* *| Replacement| Replacement when matching| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -25,7 +25,7 @@ At runtime, the `regex-router-action` Kamelet relies upon the presence of the fo
 
 - github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.6-SNAPSHOT
 - camel:kamelet
-- camel:core
+- camel:core 
 
 == Usage
 

@@ -12,8 +12,8 @@ The following table summarizes the configuration options available for the `mask
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *fields {empty}* *| Fields| Comma separated list of fields to mask| string| |
-| *replacement {empty}* *| Replacement| Replacement for the fields to be masked| string| |
+| *fields {empty}* *| Fields| Comma separated list of fields to mask| string| | 
+| *replacement {empty}* *| Replacement| Replacement for the fields to be masked| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -26,7 +26,7 @@ At runtime, the `mask-field-action` Kamelet relies upon the presence of the foll
 - github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.6-SNAPSHOT
 - camel:jackson
 - camel:kamelet
-- camel:core
+- camel:core 
 
 == Usage
 
