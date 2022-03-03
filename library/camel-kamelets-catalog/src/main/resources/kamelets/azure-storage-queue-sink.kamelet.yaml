@@ -43,9 +43,11 @@ spec:
         format: password
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:password
+        - urn:camel:group:credentials
   dependencies:
-  - "camel:azure-storage-queue"
-  - "camel:kamelet"
+    - camel:core
+    - "camel:azure-storage-queue"
+    - "camel:kamelet"
   template:
     from:
       uri: "kamelet:source"
