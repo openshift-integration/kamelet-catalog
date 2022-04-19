@@ -36,7 +36,11 @@ You can use the `{{ .Kamelet.ObjectMeta.Name }}` Kamelet as a Knative {{ index .
 .{{ .Kamelet.ObjectMeta.Name }}-binding.yaml
 [source,yaml]
 ----
-{{ template "kamelet-binding-sink-source.tmpl" . }}
+{{ if .GenerateExampleBinding }}
+{{- template "kamelet-binding-sink-source.tmpl" . -}}
+{{ else }}
+{{- .ReadKameletBindingExample "camel-k" .Kamelet.ObjectMeta.Name -}}
+{{ end }}
 ----
 
 ==== *Prerequisite*
@@ -75,7 +79,11 @@ You can use the `{{ .Kamelet.ObjectMeta.Name }}` Kamelet as a Kafka {{ index .Ka
 .{{ .Kamelet.ObjectMeta.Name }}-binding.yaml
 [source,yaml]
 ----
-{{ template "kamelet-binding-sink-source.tmpl" . }}
+{{ if .GenerateExampleBinding }}
+{{- template "kamelet-binding-sink-source.tmpl" . -}}
+{{ else }}
+{{- .ReadKameletBindingExample "camel-k" .Kamelet.ObjectMeta.Name -}}
+{{ end }}
 ----
 
 ==== *Prerequisites*
