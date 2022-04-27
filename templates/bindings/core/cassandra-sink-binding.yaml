@@ -12,6 +12,6 @@
             connectionPort: 9042
             keyspace: "customers"
             password: "The Password"
-            preparedStatement: "The Prepared Statement"
+            query: "The Query"
             username: "The Username"
     
