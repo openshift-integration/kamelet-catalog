@@ -4,7 +4,7 @@
 
 *Provided by: "Red Hat"*
 
-The Throttl action allows to ensure that a specific sink does not get overloaded.
+The Throttle action allows you to ensure that a specific sink does not get overloaded.
 
 == Configuration Options
 
