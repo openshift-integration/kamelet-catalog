@@ -91,6 +91,9 @@
     <a class="nav-link" href="aws-lambda-sink.html"><span class="image"><img src="_images/kamelets/aws-lambda-sink.svg" alt="aws lambda sink"></span> AWS Lambda Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-redshift-sink.html"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="aws-s3-sink.html"><span class="image"><img src="_images/kamelets/aws-s3-sink.svg" alt="aws s3 sink"></span> AWS S3 Sink</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -173,6 +176,12 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="jms-amqp-10-source.html"><span class="image"><img src="_images/kamelets/jms-amqp-10-source.svg" alt="jms amqp 10 source"></span> JMS - AMQP 1.0 Kamelet Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-ibm-mq-sink.html"><span class="image"><img src="_images/kamelets/jms-ibm-mq-sink.svg" alt="jms ibm mq sink"></span> JMS - IBM MQ Kamelet Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-ibm-mq-source.html"><span class="image"><img src="_images/kamelets/jms-ibm-mq-source.svg" alt="jms ibm mq source"></span> JMS - IBM MQ Kamelet Source</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="json-deserialize-action.html"><span class="image"><img src="_images/kamelets/json-deserialize-action.svg" alt="json deserialize action"></span> Json Deserialize Action</a>
@@ -350,7 +359,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>name </strong> *</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Header Name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The header name to evaluate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, the name of the header requires a CloudEvent (ce-) prefix.</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><code>"headerName"</code></p></td>
@@ -419,9 +428,16 @@ spec:
   - ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
+      name: insert-header-action
+    properties:
+      name: "my-header"
+      value: "my-value"
+  - ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
       name: has-header-filter-action
     properties:
-      name: "headerName"
+      name: "my-header"
   sink:
     ref:
       kind: Channel
@@ -492,9 +508,16 @@ spec:
   - ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1alpha1
+      name: insert-header-action
+    properties:
+      name: "my-header"
+      value: "my-value"
+  - ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
       name: has-header-filter-action
     properties:
-      name: "headerName"
+      name: "my-header"
   sink:
     ref:
       kind: KafkaTopic
