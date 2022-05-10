@@ -8,7 +8,7 @@
       - to:
           uri: "kamelet:jms-ibm-mq-sink"
           parameters:
-            serverName: "10.103.41.245"
+            serverName: "10.105.157.79"
             serverPort: "1414"
             destinationType: "queue"
             destinationName: "DEV.QUEUE.1"

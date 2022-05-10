@@ -17,7 +17,7 @@ The following table summarizes the configuration options available for the `jms-
 | *password {empty}* *| Password| Password to authenticate to IBM MQ server| string| | 
 | *queueManager {empty}* *| IBM MQ Queue Manager| Name of the IBM MQ Queue Manager| string| | 
 | *serverName {empty}* *| IBM MQ Server name| IBM MQ Server name or address| string| | 
-| *serverPort {empty}* *| IBM MQ Server Port| IBM MQ Server port| integer| | `1414`
+| *serverPort {empty}* *| IBM MQ Server Port| IBM MQ Server port| integer| `1414`| 
 | *username {empty}* *| Username| Username to authenticate to IBM MQ server| string| | 
 | clientId| IBM MQ Client ID| Name of the IBM MQ Client ID| string| | 
 | destinationType| Destination Type| The JMS destination type (queue or topic)| string| `"queue"`| 
@@ -93,7 +93,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel jms-ibm-mq-sink -p "sink.channel=The IBM MQ Channel" -p "sink.destinationName=The Destination Name" -p "sink.password=The Password" -p "sink.queueManager=The IBM MQ Queue Manager" -p "sink.serverName=The IBM MQ Server name" -p sink.serverPort=1414 -p "sink.username=The Username"
+kamel bind channel:mychannel jms-ibm-mq-sink -p "sink.channel=The IBM MQ Channel" -p "sink.destinationName=The Destination Name" -p "sink.password=The Password" -p "sink.queueManager=The IBM MQ Queue Manager" -p "sink.serverName=The IBM MQ Server name" -p "sink.username=The Username"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -154,7 +154,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic jms-ibm-mq-sink -p "sink.channel=The IBM MQ Channel" -p "sink.destinationName=The Destination Name" -p "sink.password=The Password" -p "sink.queueManager=The IBM MQ Queue Manager" -p "sink.serverName=The IBM MQ Server name" -p sink.serverPort=1414 -p "sink.username=The Username"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic jms-ibm-mq-sink -p "sink.channel=The IBM MQ Channel" -p "sink.destinationName=The Destination Name" -p "sink.password=The Password" -p "sink.queueManager=The IBM MQ Queue Manager" -p "sink.serverName=The IBM MQ Server name" -p "sink.username=The Username"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

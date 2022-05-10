@@ -17,7 +17,7 @@ The following table summarizes the configuration options available for the `jms-
 | *password {empty}* *| Password| Password to authenticate to IBM MQ server| string| | 
 | *queueManager {empty}* *| IBM MQ Queue Manager| Name of the IBM MQ Queue Manager| string| | 
 | *serverName {empty}* *| IBM MQ Server name| IBM MQ Server name or address| string| | 
-| *serverPort {empty}* *| IBM MQ Server Port| IBM MQ Server port| integer| | `1414`
+| *serverPort {empty}* *| IBM MQ Server Port| IBM MQ Server port| integer| `1414`| 
 | *username {empty}* *| Username| Username to authenticate to IBM MQ server| string| | 
 | clientId| IBM MQ Client ID| Name of the IBM MQ Client ID| string| | 
 | destinationType| Destination Type| The JMS destination type (queue or topic)| string| `"queue"`| 
@@ -69,7 +69,6 @@ spec:
       kind: Channel
       apiVersion: messaging.knative.dev/v1
       name: mychannel
-  
 
 ----
 
@@ -94,7 +93,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind jms-ibm-mq-source -p "source.channel=The IBM MQ Channel" -p "source.destinationName=The Destination Name" -p "source.password=The Password" -p "source.queueManager=The IBM MQ Queue Manager" -p "source.serverName=The IBM MQ Server name" -p source.serverPort=1414 -p "source.username=The Username" channel:mychannel
+kamel bind jms-ibm-mq-source -p "source.channel=The IBM MQ Channel" -p "source.destinationName=The Destination Name" -p "source.password=The Password" -p "source.queueManager=The IBM MQ Queue Manager" -p "source.serverName=The IBM MQ Server name" -p "source.username=The Username" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -130,7 +129,6 @@ spec:
       kind: KafkaTopic
       apiVersion: kafka.strimzi.io/v1beta1
       name: my-topic
-  
 
 ----
 
@@ -156,7 +154,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind jms-ibm-mq-source -p "source.channel=The IBM MQ Channel" -p "source.destinationName=The Destination Name" -p "source.password=The Password" -p "source.queueManager=The IBM MQ Queue Manager" -p "source.serverName=The IBM MQ Server name" -p source.serverPort=1414 -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind jms-ibm-mq-source -p "source.channel=The IBM MQ Channel" -p "source.destinationName=The Destination Name" -p "source.password=The Password" -p "source.queueManager=The IBM MQ Queue Manager" -p "source.serverName=The IBM MQ Server name" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
