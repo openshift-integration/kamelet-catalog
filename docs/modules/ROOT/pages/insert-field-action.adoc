@@ -92,7 +92,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step insert-field-action -p "step-0.field=The Field" -p "step-0.value=The Value" channel:mychannel
+kamel bind --name insert-field-action-binding timer-source?message='{"foo":"John"}' --step json-deserialize-action --step insert-field-action -p step-1.field='The Field' -p step-1.value='The Value' channel:mychannel
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -158,7 +159,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step insert-field-action -p "step-0.field=The Field" -p "step-0.value=The Value" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind --name insert-field-action-binding timer-source?message='{"foo":"John"}' --step json-deserialize-action --step insert-field-action -p step-1.field='The Field' -p step-1.value='The Value' kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
