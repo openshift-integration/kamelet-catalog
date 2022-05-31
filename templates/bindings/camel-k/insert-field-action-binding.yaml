@@ -1,4 +1,4 @@
-# dont_overwrite
+# kamel bind --name insert-field-action-binding timer-source?message='{"foo":"John"}' --step json-deserialize-action --step insert-field-action -p step-1.field='The Field' -p step-1.value='The Value' log:info
 apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:
