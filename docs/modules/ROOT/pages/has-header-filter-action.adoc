@@ -12,7 +12,7 @@ The following table summarizes the configuration options available for the `has-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *name {empty}* *| Header Name| The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, the name of the header requires a CloudEvent (ce-) prefix.| string| | `"headerName"`
+| *name {empty}* *| Header Name| The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, if you are using Cloud Events, you must include the CloudEvent (ce-) prefix in the header name.| string| | `"headerName"`
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -91,7 +91,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step has-header-filter-action -p "step-0.name=headerName" channel:mychannel
+kamel bind --name has-header-filter-action-binding timer-source?message="Hello" --step insert-header-action -p "step-0.name=my-header" -p "step-0.value=my-value" --step has-header-filter-action -p "step-1.name=my-header" channel:mychannel
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -159,7 +160,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step has-header-filter-action -p "step-0.name=headerName" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind --name has-header-filter-action-binding timer-source?message="Hello" --step insert-header-action -p "step-0.name=my-header" -p "step-0.value=my-value" --step has-header-filter-action -p "step-1.name=my-header" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

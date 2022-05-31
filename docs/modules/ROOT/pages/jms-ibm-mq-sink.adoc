@@ -93,7 +93,8 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel jms-ibm-mq-sink -p "sink.channel=The IBM MQ Channel" -p "sink.destinationName=The Destination Name" -p "sink.password=The Password" -p "sink.queueManager=The IBM MQ Queue Manager" -p "sink.serverName=The IBM MQ Server name" -p "sink.username=The Username"
+kamel bind --name jms-ibm-mq-sink-binding timer-source?message="Hello IBM MQ!" 'jms-ibm-mq-sink?serverName=10.103.41.245&serverPort=1414&destinationType=queue&destinationName=DEV.QUEUE.1&queueManager=QM1&channel=DEV.APP.SVRCONN&username=app&password=passw0rd'
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -154,7 +155,8 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic jms-ibm-mq-sink -p "sink.channel=The IBM MQ Channel" -p "sink.destinationName=The Destination Name" -p "sink.password=The Password" -p "sink.queueManager=The IBM MQ Queue Manager" -p "sink.serverName=The IBM MQ Server name" -p "sink.username=The Username"
+kamel bind --name jms-ibm-mq-sink-binding timer-source?message="Hello IBM MQ!" 'jms-ibm-mq-sink?serverName=10.103.41.245&serverPort=1414&destinationType=queue&destinationName=DEV.QUEUE.1&queueManager=QM1&channel=DEV.APP.SVRCONN&username=app&password=passw0rd'
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

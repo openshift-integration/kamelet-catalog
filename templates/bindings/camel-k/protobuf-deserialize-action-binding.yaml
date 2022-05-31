@@ -1,4 +1,4 @@
-# dont_overwrite
+# kamel bind --name protobuf-deserialize-action-binding timer-source?message='{"first":"John","last":"Doe"}' --step json-deserialize-action --step protobuf-serialize-action -p step-1.schema='message Person { required string first = 1; required string last = 2; }' --step protobuf-deserialize-action -p step-2.schema='message Person { required string first = 1; required string last = 2; }' log:info
 apiVersion: camel.apache.org/v1alpha1
 kind: KameletBinding
 metadata:

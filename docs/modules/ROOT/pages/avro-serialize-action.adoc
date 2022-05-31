@@ -91,7 +91,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step avro-serialize-action -p "step-0.schema={\"type\": \"record\", \"namespace\": \"com.example\", \"name\": \"FullName\", \"fields\": [{\"name\": \"first\", \"type\": \"string\"},{\"name\": \"last\", \"type\": \"string\"}]}" channel:mychannel
+kamel bind --name avro-serialize-action-binding timer-source?message='{"first":"Ada","last":"Lovelace"}' --step json-deserialize-action --step avro-serialize-action -p step-1.schema='{"type": "record", "namespace": "com.example", "name": "FullName", "fields": [{"name": "first", "type": "string"},{"name": "last", "type": "string"}]}' channel:mychannel
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -156,7 +157,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step avro-serialize-action -p "step-0.schema={\"type\": \"record\", \"namespace\": \"com.example\", \"name\": \"FullName\", \"fields\": [{\"name\": \"first\", \"type\": \"string\"},{\"name\": \"last\", \"type\": \"string\"}]}" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind --name avro-serialize-action-binding timer-source?message='{"first":"Ada","last":"Lovelace"}' --step json-deserialize-action --step avro-serialize-action -p step-1.schema='{"type": "record", "namespace": "com.example", "name": "FullName", "fields": [{"name": "first", "type": "string"},{"name": "last", "type": "string"}]}' kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
