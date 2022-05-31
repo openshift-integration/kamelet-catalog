@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -24,9 +25,10 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
-// marker added to the first line of kamelet binding files in templates/bindings/camel-k
+// marker added to the first line of kamelet binding files in templates/bindings/camel-k directory
 // generator will not generate a kamelet binding example and will source this kamelet binding file into the generated doc
-const DONT_OVERWRITE_MARKER = "dont_overwrite"
+// if the developer provides a kamelet binding file, a "kamel bind" example command must also be provided as a comment in the first line
+const DONT_OVERWRITE_MARKER = "kamel bind"
 
 var generateExampleBinding bool
 var projectBaseDir string
@@ -75,6 +77,7 @@ func main() {
 		// check if the kamelet binding example should be generated
 		bindingFile := path.Join(projectBaseDir, "templates/bindings/camel-k", k.Name + "-binding.yaml")
 		generateExampleBinding = shouldGenerateKameletBindingExample(bindingFile)
+		ctx.SetVal("GenerateExampleBinding", strconv.FormatBool(generateExampleBinding))
 
 		processDocTemplate(k, docBaseDir, err, docTemplate, &ctx)
 		links = updateImageLink(k, img, links)
@@ -305,45 +308,49 @@ func (ctx *TemplateContext) Properties() string {
 }
 
 func (ctx *TemplateContext) ExampleKamelBindCommand(ref string) string {
-	tp := ctx.Kamelet.ObjectMeta.Labels["camel.apache.org/kamelet.type"]
-	var prefix string
-	switch tp {
-	case "source":
-		prefix = "source."
-	case "sink":
-		prefix = "sink."
-	case "action":
-		prefix = "step-0."
-	default:
-		handleGeneralError("unknown kamelet type", errors.New(tp))
-	}
+	if generate, _ := strconv.ParseBool(ctx.GetVal("GenerateExampleBinding")); generate {
+		tp := ctx.Kamelet.ObjectMeta.Labels["camel.apache.org/kamelet.type"]
+		var prefix string
+		switch tp {
+		case "source":
+			prefix = "source."
+		case "sink":
+			prefix = "sink."
+		case "action":
+			prefix = "step-0."
+		default:
+			handleGeneralError("unknown kamelet type", errors.New(tp))
+		}
 
-	cmd := "kamel bind "
-	timer := "timer-source?message=Hello"
-	kamelet := ctx.Kamelet.Name
-	propDefs := getSortedProps(ctx.Kamelet)
-	for _, p := range propDefs {
-		if p.Required && p.Default == nil {
-			val := p.GetSampleValue()
-			if strings.HasPrefix(val, `"`) {
-				kamelet += fmt.Sprintf(` -p "%s%s=%s`, prefix, p.Name, val[1:])
-			} else {
-				kamelet += fmt.Sprintf(" -p %s%s=%s", prefix, p.Name, val)
+		cmd := "kamel bind "
+		timer := "timer-source?message=Hello"
+		kamelet := ctx.Kamelet.Name
+		propDefs := getSortedProps(ctx.Kamelet)
+		for _, p := range propDefs {
+			if p.Required && p.Default == nil {
+				val := p.GetSampleValue()
+				if strings.HasPrefix(val, `"`) {
+					kamelet += fmt.Sprintf(` -p "%s%s=%s`, prefix, p.Name, val[1:])
+				} else {
+					kamelet += fmt.Sprintf(" -p %s%s=%s", prefix, p.Name, val)
+				}
 			}
 		}
-	}
 
-	switch tp {
-	case "source":
-		return cmd + kamelet + " " + ref
-	case "sink":
-		return cmd + ref + " " + kamelet
-	case "action":
-		return cmd + timer + " --step " + kamelet + " " + ref
-	default:
-		handleGeneralError("unknown kamelet type", errors.New(tp))
+		switch tp {
+		case "source":
+			return cmd + kamelet + " " + ref
+		case "sink":
+			return cmd + ref + " " + kamelet
+		case "action":
+			return cmd + timer + " --step " + kamelet + " " + ref
+		default:
+			handleGeneralError("unknown kamelet type", errors.New(tp))
+		}
+		return ""
+	} else {
+		return ctx.ReadKamelBindExample(ctx.Kamelet.Name, ref)
 	}
-	return ""
 }
 
 func (ctx *TemplateContext) GenerateExampleBinding() bool {
@@ -352,8 +359,8 @@ func (ctx *TemplateContext) GenerateExampleBinding() bool {
 
 // this is called from kamelet.adoc.tmpl to source the kamelet binding example from a file
 // skip the first line and replace the sink kind when the kind is a knative channel
-func (ctx *TemplateContext) ReadKameletBindingExample(kameletType string, kamletName string) string {
-	f := path.Join(projectBaseDir, "templates/bindings", kameletType, kamletName + "-binding.yaml")
+func (ctx *TemplateContext) ReadKameletBindingExample(kameletName string) string {
+	f := path.Join(projectBaseDir, "templates/bindings/camel-k/", kameletName + "-binding.yaml")
 	file, _ := os.Open(f)
 	defer file.Close()
 	// skip the first line, as it contains the comment marker
@@ -368,6 +375,20 @@ func (ctx *TemplateContext) ReadKameletBindingExample(kameletType string, kamlet
 		var re = regexp.MustCompile(`(  sink:\n\s*ref:\n)(\s*kind:)(.*)(\n\s*apiVersion:)(.*)(\n\s*name:)(.*)`)
 		content = re.ReplaceAllString(content, fmt.Sprintf(`$1$2 %s$4 %s$6 %s`, ctx.GetVal("RefKind"), ctx.GetVal("RefApiVersion"), ctx.GetVal("RefName")))
 	}
+	return content
+}
+
+// this is called from kamelet.adoc.tmpl to source the "kamel bind" command example from the kamelet binding example file
+// replace the sink kind when the kind is a knative channel
+func (ctx *TemplateContext) ReadKamelBindExample(kameletName string, ref string) string {
+	f := path.Join(projectBaseDir, "templates/bindings/camel-k/", kameletName + "-binding.yaml")
+	file, _ := os.Open(f)
+	defer file.Close()
+	// skip the first line, as it contains the comment marker
+	line, _ := bufio.NewReader(file).ReadSlice('\n')
+	content := string(line)
+	content = strings.ReplaceAll(content, "log:info", ref)
+	content = strings.ReplaceAll(content, "# ", "")
 	return content
 }
 

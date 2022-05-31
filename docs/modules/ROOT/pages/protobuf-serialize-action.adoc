@@ -90,7 +90,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step protobuf-serialize-action -p "step-0.schema=message Person { required string first = 1; required string last = 2; }" channel:mychannel
+kamel bind --name protobuf-serialize-action-binding timer-source?message='{"first":"John","last":"Doe"}' --step json-deserialize-action --step protobuf-serialize-action -p step-1.schema='message Person { required string first = 1; required string last = 2; }' channel:mychannel
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -155,7 +156,8 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step protobuf-serialize-action -p "step-0.schema=message Person { required string first = 1; required string last = 2; }" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind --name protobuf-serialize-action-binding timer-source?message='{"first":"John","last":"Doe"}' --step json-deserialize-action --step protobuf-serialize-action -p step-1.schema='message Person { required string first = 1; required string last = 2; }' kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

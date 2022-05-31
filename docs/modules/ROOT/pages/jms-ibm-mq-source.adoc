@@ -93,7 +93,8 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind jms-ibm-mq-source -p "source.channel=The IBM MQ Channel" -p "source.destinationName=The Destination Name" -p "source.password=The Password" -p "source.queueManager=The IBM MQ Queue Manager" -p "source.serverName=The IBM MQ Server name" -p "source.username=The Username" channel:mychannel
+kamel bind --name jms-ibm-mq-source-binding 'jms-ibm-mq-source?serverName=10.103.41.245&serverPort=1414&destinationType=queue&destinationName=DEV.QUEUE.1&queueManager=QM1&channel=DEV.APP.SVRCONN&username=app&password=passw0rd' channel:mychannel
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -154,7 +155,8 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind jms-ibm-mq-source -p "source.channel=The IBM MQ Channel" -p "source.destinationName=The Destination Name" -p "source.password=The Password" -p "source.queueManager=The IBM MQ Queue Manager" -p "source.serverName=The IBM MQ Server name" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind --name jms-ibm-mq-source-binding 'jms-ibm-mq-source?serverName=10.103.41.245&serverPort=1414&destinationType=queue&destinationName=DEV.QUEUE.1&queueManager=QM1&channel=DEV.APP.SVRCONN&username=app&password=passw0rd' kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
