@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.apache.camel.kamelets</groupId>
         <artifactId>camel-kamelets-parent</artifactId>
-        <version>1.9.0</version>
+        <version>kamelet-catalog-1.9-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -72,6 +72,13 @@
             <artifactId>camel-kafka</artifactId>
         </dependency>
 
+        <!-- AWS Dynamo DB camel component -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-aws2-ddb</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Test scoped dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -85,6 +92,26 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
             <version>${junit.jupiter.version}</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
