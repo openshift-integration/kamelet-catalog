@@ -22,7 +22,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `value-to-key-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.9.0
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.9-SNAPSHOT
 - camel:core
 - camel:jackson
 - camel:kamelet 
