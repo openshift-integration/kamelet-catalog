@@ -1,0 +1,14 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:jira-update-issue-sink"
+          parameters:
+            jiraUrl: "http://my_jira.com:8081"
+            password: "The Password"
+            username: "The Username"
+    
