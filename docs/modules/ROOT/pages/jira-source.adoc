@@ -13,7 +13,7 @@ The following table summarizes the configuration options available for the `jira
 |===
 | Property| Name| Description| Type| Default| Example
 | *jiraUrl {empty}* *| Jira URL| The URL of your instance of Jira| string| | `"http://my_jira.com:8081"`
-| *password {empty}* *| Password| The password to access Jira| string| | 
+| *password {empty}* *| Password| The password or the API Token to access Jira| string| | 
 | *username {empty}* *| Username| The username to access Jira| string| | 
 | jql| JQL| A query to filter issues| string| | `"project=MyProject"`
 |===
@@ -27,7 +27,8 @@ At runtime, the `jira-source` Kamelet relies upon the presence of the following 
 
 - camel:jackson
 - camel:kamelet
-- camel:jira 
+- camel:jira
+- mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.5 
 
 == Usage
 
