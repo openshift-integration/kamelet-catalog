@@ -56,7 +56,7 @@ spec:
   - "camel:jackson"
   - "camel:jira"
   - "camel:kamelet"
-  - "mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.5"
+  - "mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.4.redhat-00001"
   template:
     from:
       uri: "kamelet:source"

@@ -24,7 +24,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `timestamp-router-action` Kamelet relies upon the presence of the following dependencies:
 
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:kamelet-catalog-1.9-SNAPSHOT
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.8.0
 - camel:kamelet
 - camel:core 
 
