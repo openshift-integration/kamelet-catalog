@@ -1,0 +1,17 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:salesforce-update-sink"
+          parameters:
+            clientId: "The Consumer Key"
+            clientSecret: "The Consumer Secret"
+            password: "The Password"
+            sObjectId: "The Object Id"
+            sObjectName: "Contact"
+            userName: "The Username"
+    

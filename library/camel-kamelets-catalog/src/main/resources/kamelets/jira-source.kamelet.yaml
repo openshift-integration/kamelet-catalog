@@ -52,7 +52,7 @@ spec:
   - "camel:jackson"
   - "camel:kamelet"
   - "camel:jira"
-  - "mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.5"
+  - "mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.4.redhat-00001"
   template:
     from:
       uri: "jira:newIssues"

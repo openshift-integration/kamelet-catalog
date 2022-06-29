@@ -1,0 +1,13 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:splunk-hec-sink"
+          parameters:
+            splunkUrl: "my_server.splunkcloud.com:8088"
+            token: "The Token"
+    
