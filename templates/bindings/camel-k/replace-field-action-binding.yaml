@@ -16,8 +16,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
