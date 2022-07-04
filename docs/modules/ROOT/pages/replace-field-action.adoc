@@ -12,9 +12,9 @@ The following table summarizes the configuration options available for the `repl
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *disabled {empty}* *| Disabled| Comma separated list of fields to be disabled| string| | 
-| *enabled {empty}* *| Enabled| Comma separated list of fields to be enabled| string| | 
 | *renames {empty}* *| Renames| Comma separated list of field with new value to be renamed| string| | `"foo:bar,c1:c2"`
+| disabled| Disabled| Comma separated list of fields to be disabled| string| `"none"`| 
+| enabled| Enabled| Comma separated list of fields to be enabled| string| `"all"`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -58,8 +58,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
@@ -90,7 +88,7 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.disabled=The Disabled" -p "step-0.enabled=The Enabled" -p "step-0.renames=foo:bar,c1:c2" channel:mychannel
+kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.renames=foo:bar,c1:c2" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -120,8 +118,6 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: replace-field-action
     properties:
-      disabled: "The Disabled"
-      enabled: "The Enabled"
       renames: "foo:bar,c1:c2"
   sink:
     ref:
@@ -153,7 +149,7 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.disabled=The Disabled" -p "step-0.enabled=The Enabled" -p "step-0.renames=foo:bar,c1:c2" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind timer-source?message=Hello --step replace-field-action -p "step-0.renames=foo:bar,c1:c2" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
