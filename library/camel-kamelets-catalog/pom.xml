@@ -102,7 +102,7 @@
                 <executions>
                     <execution>
                         <id>copy-resource-one</id>
-                        <phase>install</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
