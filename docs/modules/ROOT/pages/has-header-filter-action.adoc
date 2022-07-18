@@ -13,6 +13,7 @@ The following table summarizes the configuration options available for the `has-
 |===
 | Property| Name| Description| Type| Default| Example
 | *name {empty}* *| Header Name| The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, if you are using Cloud Events, you must include the CloudEvent (ce-) prefix in the header name.| string| | `"headerName"`
+| value| Header Value| An optional header value to compare the header to| string| | `"headerValue"`
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
