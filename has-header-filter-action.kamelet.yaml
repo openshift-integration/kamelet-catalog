@@ -21,6 +21,11 @@ spec:
         description: The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, if you are using Cloud Events, you must include the CloudEvent (ce-) prefix in the header name.
         type: string
         example: headerName
+      value:
+        title: Header Value
+        description: An optional header value to compare the header to
+        type: string
+        example: headerValue
     type: object
   dependencies:
   - "camel:core"
@@ -29,7 +34,21 @@ spec:
     from:
       uri: kamelet:source
       steps:
-      - filter:
-          simple: "${header[{{name}}]} == null"
-          steps:
+      - set-property:
+          name: hasHeaderFilterActionValue
+          constant: "{{value:}}"
+      - choice:
+          when:
+          - simple: "${exchangeProperty[hasHeaderFilterActionValue]} != ''"
+            steps:
+            - filter:
+                simple: "${header[{{name}}]} != ${exchangeProperty[hasHeaderFilterActionValue]}"
+                steps:
+                  - stop: {}
+          otherwise:
+            steps:
+            - filter:
+                simple: "${header[{{name}}]} == null"
+                steps:
+                  - stop: {}
             - stop: {}
