@@ -57,6 +57,11 @@
                 <artifactId>redshift-jdbc42</artifactId>
                 <version>${version.com.amazon.redshift.redshift-jdbc42}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ibm.mq</groupId>
+                <artifactId>com.ibm.mq.allclient</artifactId>
+                <version>${version.com.ibm.mq.com.ibm.mq.allclient}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
