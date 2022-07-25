@@ -25,6 +25,6 @@ spec:
       - unmarshal:
           json: 
             library: Jackson
-            unmarshalTypeName: com.fasterxml.jackson.databind.JsonNode
+            unmarshalType: com.fasterxml.jackson.databind.JsonNode
       - remove-header:
-          header-name: "Content-Type"
+          name: "Content-Type"
