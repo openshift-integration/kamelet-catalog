@@ -13,21 +13,21 @@ spec:
   definition:
     title: "AWS DynamoDB Streams Source"
     description: |-
-      Receive events from AWS DynamoDB Streams.
+      Receive events from Amazon DynamoDB Streams.
+      The basic authentication method for the AWS DynamoDB Streams service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
+      If you use the default credentials provider, the DynamoDB Streams client loads the credentials through this provider and doesn't use the basic authentication method.
     required:
       - table
-      - accessKey
-      - secretKey
       - region
     type: object
     properties:
       table:
         title: Table
-        description: Name of the DynamoDB table to look at
+        description: The name of the DynamoDB table.
         type: string
       accessKey:
         title: Access Key
-        description: The access key obtained from AWS
+        description: The access key obtained from AWS.
         type: string
         format: password
         x-descriptors:
@@ -35,7 +35,7 @@ spec:
         - urn:camel:group:credentials
       secretKey:
         title: Secret Key
-        description: The secret key obtained from AWS
+        description: The secret key obtained from AWS.
         type: string
         format: password
         x-descriptors:
@@ -43,38 +43,59 @@ spec:
         - urn:camel:group:credentials
       region:
         title: AWS Region
-        description: The AWS region to connect to
+        description: The AWS region to access.
         type: string
         example: eu-west-1
-      iteratorType:
-        title: Iterator Type
-        description: Defines where in the DynaboDB stream to start getting records. Note that using TRIM_HORIZON can cause a significant delay before the stream has caught up to real-time. if {AT,AFTER}_SEQUENCE_NUMBER are used, then a sequenceNumberProvider MUST be supplied. There are 4 enums and the value can be one of TRIM_HORIZON, LATEST, AT_SEQUENCE_NUMBER, AFTER_SEQUENCE_NUMBER
+        enum: ["af-south-1", "ap-east-1", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ca-central-1", "eu-central-1", "eu-north-1", "eu-south-1", "eu-west-1", "eu-west-2", "eu-west-3", "fips-us-east-1", "fips-us-east-2", "fips-us-west-1", "fips-us-west-2", "me-south-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2", "cn-north-1", "cn-northwest-1", "us-gov-east-1", "us-gov-west-1", "us-iso-east-1", "us-iso-west-1", "us-isob-east-1"]
+      streamIteratorType:
+        title: Stream Iterator Type
+        description: Defines where in the DynamoDB stream to start getting records. There are two enums and the value can be one of FROM_LATEST and FROM_START. Note that using FROM_START can cause a significant delay before the stream has caught up to real-time. 
         type: string
-        default: LATEST
-      sequenceNumberProvider:
-        title: Sequence Number Provider
-        description: Provider for the sequence number when using one of the two ShardIteratorType AT_SEQUENCE_NUMBER or AFTER_SEQUENCE_NUMBER iterator types. Can be a registry reference or a literal sequence number.
+        default: FROM_LATEST
+      useDefaultCredentialsProvider:
+        title: Default Credentials Provider
+        description: If true, the DynamoDB client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
+      uriEndpointOverride:
+        title: Overwrite Endpoint URI
+        description: The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.
         type: string
-        example: "900000000005745712447"
-        default: "000000000000000000000"
+      overrideEndpoint:
+        title: Endpoint Overwrite
+        description: Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.
+        type: boolean
+        x-descriptors:
+          - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
+      delay:
+        title: Delay
+        description: The number of milliseconds before the next poll from the database.
+        type: integer
+        default: 500
   types:
     out:
       mediaType: application/json
   dependencies:
-  - "camel:kamelet"
-  - "camel:aws2-ddb"
   - "camel:gson"
+  - "camel:aws2-ddb"
+  - "camel:kamelet"
   template:
     from:
       uri: "aws2-ddbstream:{{table}}"
       parameters:
-        secretKey: "{{secretKey}}"
-        accessKey: "{{accessKey}}"
+        secretKey: "{{?secretKey}}"
+        accessKey: "{{?accessKey}}"
         region: "{{region}}"
-        iteratorType: "{{iteratorType}}"
-        sequenceNumberProvider: "{{sequenceNumberProvider}}"
+        streamIteratorType: "{{streamIteratorType}}"
+        useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
+        uriEndpointOverride: "{{?uriEndpointOverride}}"
+        overrideEndpoint: "{{overrideEndpoint}}"
+        delay: "{{delay}}"
       steps:
       - marshal:
-          json: 
+          json:
             library: Gson
       - to: "kamelet:sink"
