@@ -51,4 +51,3 @@ spec:
                 simple: "${header[{{name}}]} == null"
                 steps:
                   - stop: {}
-            - stop: {}
