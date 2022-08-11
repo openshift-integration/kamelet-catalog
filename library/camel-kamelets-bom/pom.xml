@@ -33,6 +33,7 @@
     <name>Camel Kamelets BOM</name>
     <description>Camel Kamelets BOM</description>
 
+    <dependencyManagement>
         <dependencies>
             <!-- Dependencies used in Kamelets must be listed here -->
             <dependency>
@@ -63,26 +64,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-
-            <!-- Validate Kamelets -->
-            <plugin>
-                <groupId>org.apache.camel.kamelets</groupId>
-                <artifactId>kamelets-maven-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>validate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
-
-    </build>
 </project>
