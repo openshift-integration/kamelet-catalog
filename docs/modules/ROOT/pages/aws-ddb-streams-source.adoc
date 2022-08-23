@@ -4,7 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Receive events from AWS DynamoDB Streams.
+Receive events from Amazon DynamoDB Streams.
+The basic authentication method for the AWS DynamoDB Streams service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
+If you use the default credentials provider, the DynamoDB Streams client loads the credentials through this provider and doesn't use the basic authentication method.
 
 == Configuration Options
 
@@ -12,12 +14,15 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
-| *table {empty}* *| Table| Name of the DynamoDB table to look at| string| | 
-| iteratorType| Iterator Type| Defines where in the DynaboDB stream to start getting records. Note that using TRIM_HORIZON can cause a significant delay before the stream has caught up to real-time. if {AT,AFTER}_SEQUENCE_NUMBER are used, then a sequenceNumberProvider MUST be supplied. There are 4 enums and the value can be one of TRIM_HORIZON, LATEST, AT_SEQUENCE_NUMBER, AFTER_SEQUENCE_NUMBER| string| `"LATEST"`| 
-| sequenceNumberProvider| Sequence Number Provider| Provider for the sequence number when using one of the two ShardIteratorType AT_SEQUENCE_NUMBER or AFTER_SEQUENCE_NUMBER iterator types. Can be a registry reference or a literal sequence number.| string| `"000000000000000000000"`| `"900000000005745712447"`
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | `"eu-west-1"`
+| *table {empty}* *| Table| The name of the DynamoDB table.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| delay| Delay| The number of milliseconds before the next poll from the database.| integer| `500`| 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| streamIteratorType| Stream Iterator Type| Defines where in the DynamoDB stream to start getting records. There are two enums and the value can be one of FROM_LATEST and FROM_START. Note that using FROM_START can cause a significant delay before the stream has caught up to real-time.| string| `"FROM_LATEST"`| 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
+| useDefaultCredentialsProvider| Default Credentials Provider| If true, the DynamoDB client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -27,9 +32,9 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-ddb-streams-source` Kamelet relies upon the presence of the following dependencies:
 
-- camel:kamelet
+- camel:gson
 - camel:aws2-ddb
-- camel:gson 
+- camel:kamelet 
 
 == Usage
 
@@ -53,9 +58,7 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: aws-ddb-streams-source
     properties:
-      accessKey: "The Access Key"
       region: "eu-west-1"
-      secretKey: "The Secret Key"
       table: "The Table"
   sink:
     ref:
@@ -86,7 +89,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind aws-ddb-streams-source -p "source.accessKey=The Access Key" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" -p "source.table=The Table" channel:mychannel
+kamel bind aws-ddb-streams-source -p "source.region=eu-west-1" -p "source.table=The Table" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -109,9 +112,7 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: aws-ddb-streams-source
     properties:
-      accessKey: "The Access Key"
       region: "eu-west-1"
-      secretKey: "The Secret Key"
       table: "The Table"
   sink:
     ref:
@@ -143,7 +144,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind aws-ddb-streams-source -p "source.accessKey=The Access Key" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" -p "source.table=The Table" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind aws-ddb-streams-source -p "source.region=eu-west-1" -p "source.table=The Table" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

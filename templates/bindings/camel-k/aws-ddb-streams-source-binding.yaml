@@ -9,9 +9,7 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: aws-ddb-streams-source
     properties:
-      accessKey: "The Access Key"
       region: "eu-west-1"
-      secretKey: "The Secret Key"
       table: "The Table"
   sink:
     ref:
