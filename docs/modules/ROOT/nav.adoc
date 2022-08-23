@@ -22,6 +22,8 @@
 * xref:ROOT:azure-storage-queue-source.adoc[image:kamelets/azure-storage-queue-source.svg[] Azure Storage Queue Source]
 * xref:ROOT:cassandra-sink.adoc[image:kamelets/cassandra-sink.svg[] Cassandra Sink]
 * xref:ROOT:cassandra-source.adoc[image:kamelets/cassandra-source.svg[] Cassandra Source]
+* xref:ROOT:ceph-sink.adoc[image:kamelets/ceph-sink.svg[] Ceph Sink]
+* xref:ROOT:ceph-source.adoc[image:kamelets/ceph-source.svg[] Ceph Source]
 * xref:ROOT:elasticsearch-index-sink.adoc[image:kamelets/elasticsearch-index-sink.svg[] ElasticSearch Index Sink]
 * xref:ROOT:extract-field-action.adoc[image:kamelets/extract-field-action.svg[] Extract Field Action]
 * xref:ROOT:ftp-sink.adoc[image:kamelets/ftp-sink.svg[] FTP Sink]

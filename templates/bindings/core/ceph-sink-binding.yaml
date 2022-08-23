@@ -1,0 +1,16 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:ceph-sink"
+          parameters:
+            accessKey: "The Access Key"
+            bucketName: "The Bucket Name"
+            cephUrl: "http://ceph-storage-address.com"
+            secretKey: "The Secret Key"
+            zoneGroup: "The Bucket Zone Group"
+    
