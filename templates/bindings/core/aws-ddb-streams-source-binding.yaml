@@ -2,9 +2,7 @@
     from:
       uri: "kamelet:aws-ddb-streams-source"
       parameters:
-        accessKey: "The Access Key"
         region: "eu-west-1"
-        secretKey: "The Secret Key"
         table: "The Table"
     steps:
       - to:
