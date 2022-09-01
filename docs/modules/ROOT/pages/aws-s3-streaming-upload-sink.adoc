@@ -22,7 +22,6 @@ The following table summarizes the configuration options available for the `aws-
 | batchSize| Batch Size| The batch size (in bytes) in streaming upload mode| int| `1000000`| 
 | namingStrategy| Naming Strategy| The naming strategy to use in streaming upload mode. There are 2 enums and the value can be one of progressive, random| string| `"progressive"`| 
 | restartingPolicy| Restarting Policy| The restarting policy to use in streaming upload mode. There are 2 enums and the value can be one of override, lastPart| string| `"lastPart"`| 
-| streamingUploadMode| Streaming Upload Mode| Setting the Streaming Upload Mode| boolean| `true`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
