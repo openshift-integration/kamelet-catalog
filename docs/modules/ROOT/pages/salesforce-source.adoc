@@ -20,6 +20,10 @@ The following table summarizes the configuration options available for the `sale
 | *userName {empty}* *| Username| The Salesforce username| string| | 
 | loginUrl| Login URL| The Salesforce instance login URL| string| `"https://login.salesforce.com"`| 
 | notifyForFields| Notify For Fields| Notify for fields, options are ALL, REFERENCED, SELECT, WHERE.| string| `"ALL"`| 
+| notifyForOperationCreate| Notify Operation Create| Notify for create operation.| boolean| `true`| 
+| notifyForOperationDelete| Notify Operation Delete| Notify for delete operation.| boolean| `false`| 
+| notifyForOperationUndelete| Notify Operation Undelete| Notify for undelete operation.| boolean| `false`| 
+| notifyForOperationUpdate| Notify Operation Update| Notify for update operation.| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
