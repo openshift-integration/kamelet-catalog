@@ -1,0 +1,22 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: ceph-source-binding
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: ceph-source
+    properties:
+      accessKey: "The Access Key"
+      bucketName: "The Bucket Name"
+      cephUrl: "http://ceph-storage-address.com"
+      secretKey: "The Secret Key"
+      zoneGroup: "The Bucket Zone Group"
+  sink:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  

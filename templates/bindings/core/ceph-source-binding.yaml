@@ -1,0 +1,13 @@
+- route:
+    from:
+      uri: "kamelet:ceph-source"
+      parameters:
+        accessKey: "The Access Key"
+        bucketName: "The Bucket Name"
+        cephUrl: "http://ceph-storage-address.com"
+        secretKey: "The Secret Key"
+        zoneGroup: "The Bucket Zone Group"
+    steps:
+      - to:
+          uri: "log:info"
+    
