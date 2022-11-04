@@ -47,7 +47,7 @@
         <failIfNoTests>false</failIfNoTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovy-maven-plugin.version>2.0</groovy-maven-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
@@ -55,7 +55,8 @@
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-checksum-maven-plugin.version>1.7</maven-checksum-maven-plugin.version>
 
-        <camel.version>3.11.5</camel.version>
+        <!-- maintain the same version as defined in camel-k-runtime release-1.12.x -->
+        <camel.version>3.14.2</camel.version>
         <log4j.version>2.17.2</log4j.version>
         <jackson.version>2.13.1</jackson.version>
         <camel.k.extension.version>5.12.1</camel.k.extension.version>
