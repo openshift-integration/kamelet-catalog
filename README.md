@@ -1,6 +1,8 @@
-# Apache Camel - Kamelet Catalog
+# Openshift - Kamelet Catalog
 
-This repository contains the default Kamelet catalog used by Apache Camel and its sub-projects.
+This repository contains the default Kamelet catalog used by Red Hat Integration and its sub-projects.
+
+See upstream [Apache Camel K Kamelets repository](https://github.com/apache/camel-kamelets/) for a general overview of Kamelets.
 
 Kamelets in this repository can be used natively in [Apache Camel K](https://github.com/apache/camel-k) integrations, without additional configuration steps:
 users just need to reference the Kamelets by name in the URI (e.g. `kamelet:timer-source?message=Hello`), or use them in a `KameletBinding`.
@@ -9,7 +11,18 @@ users just need to reference the Kamelets by name in the URI (e.g. `kamelet:time
 
 Documents and guides about Kamelets can be found in the [Kamelets User and Developer Guides](https://camel.apache.org/camel-k/latest/kamelets/kamelets.html).
 
-## Guidelines for contributions
+## Guidelines for Contributions
+
+To productise a kamelet from upstream, the name of the kamelet must be listed in the 'product-kamelets.txt' file. During build any kamelet not listed in this file will be moved to an 'unsupported' directory and not packaged.
+
+During the build all product kamelets will be annotated with the following (where x.y.z is the product version):
+```
+camel.apache.org/catalog.version: "x.y.z"
+camel.apache.org/provider: "Red Hat"
+```
+You can also add any closed source dependency to the Kamelet Binding, for example the MSSQL JDBC Driver `com.microsoft.sqlserver:mssql-jdbc:9.2.1.jre11`, see `sqlserver-sink.kamelet.yaml`.
+
+## Upstream Contribution Guidelines
 
 Kamelets in this repository are intended to be generic connectors that any external platform can embed in order to leverage the Apache Camel integration capabilities.
 

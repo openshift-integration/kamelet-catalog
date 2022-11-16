@@ -8,6 +8,7 @@ target
 .DS_Store
 .classpath
 .ekstazi
+.metadata
 .project
 .settings
 .checkstyle
@@ -32,4 +33,11 @@ terraform.*
 .terraform*
 .camel-jbang*
 
+# YAKS output folders
 _output
+
+# IDE source libraries folder
+lib/
+
+# Unsupported kamelet directory
+unsupported/
