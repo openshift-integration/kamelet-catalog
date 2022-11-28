@@ -1,6 +1,17 @@
 <project name="camel-kamelets" basedir=".">
-    
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+    <property name="unsupported" value="unsupported" />
+    <property name="unsupportedKamelets" value="${unsupported}/kamelets" />
+
+    <property name="templates" value="templates" />
+    <property name="bindings" value="${templates}/bindings" />
+    <property name="bindingsCamelk" value="${bindings}/camel-k" />
+    <property name="bindingsCore" value="${bindings}/core" />
+
     <property name="releaseVersion" value="${project.version}" />
+
+    <property name="productKameletsFile" value="product-kamelets.txt"/>
 
     <target name="context">
         <echo message="Project version: ${project.version}, release version: ${releaseVersion}"/>
@@ -31,6 +42,146 @@
         </replaceregexp>
     </target>
 
-    <target name="update.kamelets" depends="replace.snapshot" />
+    <target name="replace.provider">
+        <replaceregexp match="&quot;Apache Software Foundation&quot;" replace="&quot;Red Hat&quot;" byline="true">
+            <fileset dir=".">
+                <include name="kamelets/**.kamelet.yaml"/>
+                <include name="**/*.java"/>
+                <include name="**/*.go"/>
+            </fileset>
+        </replaceregexp>
+    </target>
+
+    <target name="if.supported.kamelet">
+        <propertyregex property="kameletName"  input="${kamelet}"
+          regexp=".*/(.*).kamelet.yaml" replace="\1" casesensitive="false" />
+
+        <condition property="is.supported.kamelet">
+            <resourcecontains resource="${productKameletsFile}" substring="${kameletName}"/>
+        </condition>
+    </target>
+
+    <target name="check.supported.kamelet" depends="if.supported.kamelet" unless="is.supported.kamelet">
+        <echo message="Moving aside unsupported ${kamelet}"/>
+        <mkdir dir="${unsupportedKamelets}"/>
+        <move file="${kamelet}" todir="${unsupportedKamelets}"/>
+    </target>
+
+    <target name="filter.unsupported.kamelets">
+        <foreach target="check.supported.kamelet" param="kamelet">
+            <path>
+                <fileset dir="kamelets" includes="*.kamelet.yaml"/>
+            </path>
+        </foreach>
+    </target>
+
+    <target name="check.supported.binding.camelk">
+        <!-- convert the binding path into a kamelet path to see if it is still present -->
+        <propertyregex property="kamelet"  input="${binding}"
+            regexp="(.*)/${bindingsCamelk}/(.*)-binding.yaml"
+            replace="\1/kamelets/\2.kamelet.yaml" casesensitive="false" />
+
+        <echo message="Checking binding ${binding} maps to supported kamelet ${kamelet}"/>
+        <if>
+            <available file="${kamelet}"/>
+            <then>
+                <echo message="Binding ${binding} is part of supported kamelet"/>
+            </then>
+            <else>
+                <echo message="Moving aside unsupported ${binding}"/>
+                <move file="${binding}" todir="${unsupported}/${bindingsCamelk}"/>
+            </else>
+        </if>
+    </target>
+
+    <target name="filter.unsupported.bindings.camelk">
+        <mkdir dir="${unsupported}/${bindingsCamelk}"/>
+        <foreach target="check.supported.binding.camelk" param="binding">
+            <path>
+                <fileset dir="${bindingsCamelk}" includes="*binding.yaml"/>
+            </path>
+        </foreach>
+    </target>
+
+    <target name="check.supported.binding.core">
+        <!-- convert the binding path into a kamelet path to see if it is still present -->
+        <propertyregex property="kamelet"  input="${binding}"
+            regexp="(.*)/${bindingsCore}/(.*)-binding.yaml"
+            replace="\1/kamelets/\2.kamelet.yaml" casesensitive="false" />
+
+        <echo message="Checking binding ${binding} maps to supported kamelet ${kamelet}"/>
+        <if>
+            <available file="${kamelet}"/>
+            <then>
+                <echo message="Binding ${binding} is part of supported kamelet"/>
+            </then>
+            <else>
+                <echo message="Moving aside unsupported ${binding}"/>
+                <move file="${binding}" todir="${unsupported}/${bindingsCore}"/>
+            </else>
+        </if>
+    </target>
+
+    <target name="filter.unsupported.bindings.core">
+        <mkdir dir="${unsupported}/${bindingsCore}"/>
+        <foreach target="check.supported.binding.core" param="binding">
+            <path>
+                <fileset dir="${bindingsCore}" includes="*binding.yaml"/>
+            </path>
+        </foreach>
+    </target>
+
+    <target name="filter.unsupported"
+            depends="filter.unsupported.kamelets, filter.unsupported.bindings.camelk, filter.unsupported.bindings.core"/>
+
+    <target name="update.kamelets" depends="filter.unsupported, replace.snapshot, replace.provider" />
+
+    <target name="restore.kamelets">
+      <if>
+        <available file="${unsupportedKamelets}"/>
+        <then>
+          <move todir="kamelets">
+            <fileset dir="${unsupportedKamelets}"/>
+          </move>
+          <delete dir="${unsupportedKamelets}"/>
+        </then>
+      </if>
+    </target>
+
+    <target name="restore.bindings.camelk">
+      <echo message="Restoring unsupported camel-k bindings" />
+      <if>
+        <available file="${unsupported}/${bindingsCamelk}"/>
+        <then>
+          <move todir="${bindingsCamelk}">
+            <fileset dir="${unsupported}/${bindingsCamelk}"/>
+          </move>
+          <delete dir="${unsupported}/${bindingsCamelk}"/>
+        </then>
+      </if>
+    </target>
+
+    <target name="restore.bindings.core">
+      <echo message="Restoring unsupported core bindings" />
+      <if>
+        <available file="${unsupported}/${bindingsCore}"/>
+        <then>
+          <move todir="${bindingsCore}">
+            <fileset dir="${unsupported}/${bindingsCore}"/>
+          </move>
+          <delete dir="${unsupported}/${bindingsCore}"/>
+        </then>
+      </if>
+    </target>
+
+    <target name="restore.unsupported" depends="restore.kamelets,restore.bindings.camelk,restore.bindings.core">
+      <if>
+        <available file="${unsupported}"/>
+        <then>
+          <delete dir="${unsupported}"/>
+        </then>
+      </if>
+    </target>
+
 
 </project>

@@ -1,0 +1,13 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:aws-ddb-sink"
+          parameters:
+            region: "eu-west-1"
+            table: "The Table"
+    
