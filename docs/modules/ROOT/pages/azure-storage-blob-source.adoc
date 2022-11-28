@@ -16,6 +16,7 @@ The following table summarizes the configuration options available for the `azur
 | *accountName {empty}* *| Account Name| The Azure Storage Blob account name.| string| | 
 | *containerName {empty}* *| Container Name| The Azure Storage Blob container name.| string| | 
 | *period {empty}* *| Period Between Polls| The interval between fetches to the Azure Storage Container in milliseconds| integer| `10000`| 
+| credentialType| Credential Type| Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY| string| `"SHARED_ACCOUNT_KEY"`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
