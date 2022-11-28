@@ -66,6 +66,17 @@
         <artifactId>activemq-http</artifactId>
         <version>${version.org.apache.activemq.activemq-http}</version>
       </dependency>
+      <dependency>
+        <groupId>com.ibm.mq</groupId>
+        <artifactId>com.ibm.mq.allclient</artifactId>
+        <version>${version.com.ibm.mq.com.ibm.mq.allclient}</version>
+      </dependency>
+      <dependency>
+        <!-- Quarkus default one is targeted for jdk8 -->
+        <groupId>com.microsoft.sqlserver</groupId>
+        <artifactId>mssql-jdbc</artifactId>
+        <version>${version.com.microsoft.sqlserver.mssql-jdbc}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

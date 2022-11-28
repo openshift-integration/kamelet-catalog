@@ -42,6 +42,10 @@
     </modules>
 
     <properties>
+        <!-- Production-only versions are added here to maximise ability to sync them with upstream changes -->
+        <version.com.ibm.mq.com.ibm.mq.allclient>9.2.5.0</version.com.ibm.mq.com.ibm.mq.allclient>
+        <version.com.microsoft.sqlserver.mssql-jdbc>9.2.1.jre11</version.com.microsoft.sqlserver.mssql-jdbc>
+
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
@@ -341,6 +345,7 @@
                     <source>
                     import UpdateDepsVersionKamelets
                     new UpdateDepsVersionKamelets().updateKameletDirectory("./kamelets/",  [
+                        "version.com.microsoft.sqlserver.mssql-jdbc": "${version.com.microsoft.sqlserver.mssql-jdbc}",
                         "version.org.apache.commons.commons-dbcp2": "${version.org.apache.commons.commons-dbcp2}",
                         "version.com.amazon.redshift.redshift-jdbc42": "${version.com.amazon.redshift.redshift-jdbc42}",
                         "version.org.apache.qpid.qpid-jms-client": "${version.org.apache.qpid.qpid-jms-client}",
