@@ -21,6 +21,7 @@ The following table summarizes the configuration options available for the `azur
 | *accessKey {empty}* *| Access Key| The Azure Storage Blob access Key.| string| | 
 | *accountName {empty}* *| Account Name| The Azure Storage Blob account name.| string| | 
 | *containerName {empty}* *| Container Name| The Azure Storage Blob container name.| string| | 
+| credentialType| Credential Type| Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY| string| `"SHARED_ACCOUNT_KEY"`| 
 | operation| Operation Name| The operation to perform.| string| `"uploadBlockBlob"`| 
 |===
 
