@@ -23,7 +23,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `mask-field-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.8.0
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.10.0
 - camel:jackson
 - camel:kamelet
 - camel:core 
