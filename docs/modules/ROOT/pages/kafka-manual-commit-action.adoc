@@ -15,7 +15,7 @@ The `kafka-manual-commit-action` Kamelet does not specify any configuration opti
 
 At runtime, the `kafka-manual-commit-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.8.0
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.10.0
 - camel:kamelet 
 
 == Usage
