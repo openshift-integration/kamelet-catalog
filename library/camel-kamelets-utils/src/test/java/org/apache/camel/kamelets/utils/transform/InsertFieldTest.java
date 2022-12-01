@@ -50,9 +50,9 @@ class InsertFieldTest {
 
         processor.process("age", "29", exchange);
 
-        Assertions.assertEquals(exchange.getMessage().getBody(String.class), "{" +
-                        "\"name\":\"Rajesh Koothrappali\"," +
-                        "\"age\":\"29\"" +
+        Assertions.assertEquals(exchange.getMessage().getBody(String.class), "{" + "\n" +
+                        "  \"name\" : \"Rajesh Koothrappali\"," + "\n" +
+                        "  \"age\" : \"29\"" + "\n" +
                         "}");
     }
 
@@ -66,6 +66,6 @@ class InsertFieldTest {
         processor.process("heroes", "green lantern", exchange);
 
         Assertions.assertEquals(exchange.getMessage().getBody(String.class),
-                "[\"batman\",\"spiderman\",\"wonderwoman\",\"green lantern\"]");
+                "[ \"batman\", \"spiderman\", \"wonderwoman\", \"green lantern\" ]");
     }
 }
