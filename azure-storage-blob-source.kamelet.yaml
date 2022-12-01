@@ -15,17 +15,11 @@ spec:
     description: |-
       Consume Files from Azure Storage Blob.
     required:
-      - period
       - accountName
       - containerName
       - accessKey
     type: object
     properties:
-      period:
-        title: Period Between Polls
-        description: The interval between fetches to the Azure Storage Container in milliseconds
-        type: integer
-        default: 10000
       accountName:
         title: Account Name
         description: The Azure Storage Blob account name.
@@ -47,6 +41,18 @@ spec:
         description: Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY
         type: string
         default: SHARED_ACCOUNT_KEY
+      delay:
+        title: Delay
+        description: The number of milliseconds before the next poll of the selected blob.
+        type: integer
+        default: 500
+      deleteAfterRead:
+        title: Auto-delete Blob 
+        description: Specifies to delete blobs after consuming them
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
   dependencies:
   - "camel:azure-storage-blob"
   - "camel:jsonpath"
@@ -55,38 +61,22 @@ spec:
   - "camel:kamelet"
   template:
     from:
-      uri: "timer:azure-storage-blob-stream"
+      uri: "azure-storage-blob:{{accountName}}/{{containerName}}"
       parameters:
-        period: "{{period}}"
+        accessKey: "{{accessKey}}"
+        credentialType: "{{credentialType}}"
+        delay: "{{delay}}"
       steps:
-      - to:
-          uri: "azure-storage-blob:{{accountName}}/{{containerName}}"
-          parameters:
-            operation: "listBlobs"
-            accessKey: "{{accessKey}}"
-            credentialType: "{{credentialType}}"
-      - split:
-          jsonpath: "$.*"
-          steps:
-          - set-property:
-              name: azureBlobName
-              simple: ${body.name}
-          - set-header:
-              name: CamelAzureStorageBlobBlobName
-              simple: ${exchangeProperty.azureBlobName}
-          - to:
-              uri: "azure-storage-blob:{{accountName}}/{{containerName}}"
-              parameters:
-                operation: "getBlob"
-                accessKey: "{{accessKey}}"
-          - to: "kamelet:sink"
-          - set-header:
-              name: CamelAzureStorageBlobBlobName
-              simple: ${exchangeProperty.azureBlobName}
-          - to:
-              uri: "azure-storage-blob:{{accountName}}/{{containerName}}"
-              parameters:
-                operation: "deleteBlob"
-                accessKey: "{{accessKey}}"
-                credentialType: "{{credentialType}}"
+        - to: "kamelet:sink"
+        - choice:
+            precondition: true
+            when:
+              - simple: '${properties:deleteAfterRead:true}'
+                steps:
+                  - to:
+                      uri: "azure-storage-blob:{{accountName}}/{{containerName}}"
+                      parameters:
+                        operation: "deleteBlob"
+                        accessKey: "{{accessKey}}"
+                        credentialType: "{{credentialType}}"
 
