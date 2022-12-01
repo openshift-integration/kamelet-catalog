@@ -19,7 +19,7 @@ package org.apache.camel.kamelets.utils.transform.kafka;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.component.kafka.KafkaConstants;
-import org.apache.camel.component.kafka.KafkaManualCommit;
+org.apache.camel.component.kafka.consumer.KafkaManualCommit;
 
 public class ManualCommit implements Processor {
 
