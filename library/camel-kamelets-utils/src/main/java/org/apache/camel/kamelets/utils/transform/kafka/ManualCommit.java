@@ -27,7 +27,7 @@ public class ManualCommit implements Processor {
     public void process(Exchange exchange) throws Exception {
         KafkaManualCommit manual = exchange.getMessage().getHeader(KafkaConstants.MANUAL_COMMIT, KafkaManualCommit.class);
         if (manual != null) {
-            manual.commitSync();
+            manual.commit();
         }
     }
 }
