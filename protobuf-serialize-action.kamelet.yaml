@@ -40,7 +40,7 @@ spec:
             unmarshalType: com.fasterxml.jackson.databind.JsonNode
             schemaResolver: "#class:org.apache.camel.kamelets.utils.serialization.InflightProtobufSchemaResolver"
       - remove-property:
-          property-name: schema
+          name: schema
       - set-header:
           name: "Content-Type"
           constant: "application/protobuf"
