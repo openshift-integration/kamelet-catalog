@@ -27,7 +27,7 @@ spec:
         title: Show Streams
         description: Show the stream bodies (they may not be available in following steps)
         type: boolean
-        default: false
+        default: true
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
   dependencies:
