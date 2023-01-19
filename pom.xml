@@ -343,8 +343,8 @@
                     <path>${project.basedir}/script/version</path>
                 </scriptpath>
                     <source>
-                    import UpdateDepsVersionKamelets
-                    new UpdateDepsVersionKamelets().updateKameletDirectory("./kamelets/",  [
+                    import Update
+                    new Update().updateKameletDirectory("./kamelets/",  [
                         "version.com.microsoft.sqlserver.mssql-jdbc": "${version.com.microsoft.sqlserver.mssql-jdbc}",
                         "version.org.apache.commons.commons-dbcp2": "${version.org.apache.commons.commons-dbcp2}",
                         "version.com.amazon.redshift.redshift-jdbc42": "${version.com.amazon.redshift.redshift-jdbc42}",
