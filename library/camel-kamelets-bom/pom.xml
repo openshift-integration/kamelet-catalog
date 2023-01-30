@@ -53,6 +53,11 @@
                 <version>${version.org.apache.qpid.qpid-jms-client}</version>
             </dependency>
             <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${version.org.postgresql.postgresql}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.amazon.redshift</groupId>
                 <artifactId>redshift-jdbc42</artifactId>
                 <version>${version.com.amazon.redshift.redshift-jdbc42}</version>
