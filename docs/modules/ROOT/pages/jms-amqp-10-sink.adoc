@@ -25,8 +25,8 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 At runtime, the `jms-amqp-10-sink` Kamelet relies upon the presence of the following dependencies:
 
 - camel:jms
-- camel:kamelet
-- mvn:org.apache.qpid:qpid-jms-client:0.55.0 
+- camel:amqp
+- camel:kamelet 
 
 == Usage
 
