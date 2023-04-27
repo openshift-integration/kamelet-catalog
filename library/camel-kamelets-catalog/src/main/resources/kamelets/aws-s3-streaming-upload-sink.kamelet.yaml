@@ -78,6 +78,13 @@ spec:
         title: Key Name
         description: Setting the key name for an element in the bucket through endpoint parameter. In Streaming Upload, with the default configuration, this will be the base for the progressive creation of files.
         type: string
+      useDefaultCredentialsProvider:
+        title: Default Credentials Provider
+        description: If true, the S3 client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
   dependencies:
     - "camel:aws2-s3"
     - "camel:kamelet"
@@ -91,6 +98,7 @@ spec:
             secretKey: "{{secretKey}}"
             accessKey: "{{accessKey}}"
             region: "{{region}}"
+            useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
             autoCreateBucket: "{{autoCreateBucket}}"
             streamingUploadMode: "true"
             restartingPolicy: "{{restartingPolicy}}"

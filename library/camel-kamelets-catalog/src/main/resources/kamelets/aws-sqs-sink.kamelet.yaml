@@ -53,6 +53,13 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
+      useDefaultCredentialsProvider:
+        title: Default Credentials Provider
+        description: If true, the SQS client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
   dependencies:
   - "camel:aws2-sqs"
   - "camel:core"
@@ -68,3 +75,4 @@ spec:
             accessKey: "{{accessKey}}"
             secretKey: "{{secretKey}}"
             region: "{{region}}"
+            useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"

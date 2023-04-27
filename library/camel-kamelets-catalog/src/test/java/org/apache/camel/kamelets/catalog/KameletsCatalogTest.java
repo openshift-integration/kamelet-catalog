@@ -55,7 +55,7 @@ public class KameletsCatalogTest {
     @Test
     void testGetKameletsDefinition() throws Exception {
         JSONSchemaProps props = catalog.getKameletDefinition("aws-sqs-source");
-        assertEquals(6, props.getProperties().keySet().size());
+        assertEquals(7, props.getProperties().keySet().size());
         assertTrue(props.getProperties().keySet().contains("queueNameOrArn"));
     }
 
