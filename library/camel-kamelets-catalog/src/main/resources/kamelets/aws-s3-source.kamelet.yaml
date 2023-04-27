@@ -60,6 +60,13 @@ spec:
         x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
         default: false
+      useDefaultCredentialsProvider:
+        title: Default Credentials Provider
+        description: If true, the S3 client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
   dependencies:
   - "camel:kamelet"
   - "camel:aws2-s3"
@@ -71,6 +78,7 @@ spec:
         secretKey: "{{secretKey}}"
         accessKey: "{{accessKey}}"
         region: "{{region}}"
+        useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
         deleteAfterRead: "{{deleteAfterRead}}"
       steps:
       - to: "kamelet:sink"
