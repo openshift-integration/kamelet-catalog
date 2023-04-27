@@ -58,6 +58,13 @@ spec:
         description: The AWS region to connect to
         type: string
         example: eu-west-1
+      useDefaultCredentialsProvider:
+        title: Default Credentials Provider
+        description: If true, the Kinesis client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).
+        type: boolean
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:checkbox'
+        default: false
   dependencies:
     - camel:core
     - "camel:aws2-kinesis"
@@ -101,3 +108,4 @@ spec:
             secretKey: "{{secretKey}}"
             accessKey: "{{accessKey}}"
             region: "{{region}}"
+            useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
