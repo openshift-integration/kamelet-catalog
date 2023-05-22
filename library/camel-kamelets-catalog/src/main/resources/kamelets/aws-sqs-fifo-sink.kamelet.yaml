@@ -103,8 +103,8 @@ spec:
                 uri: "aws2-sqs:{{queueNameOrArn}}"
                 parameters:
                   autoCreateQueue: "{{autoCreateQueue}}"
-                  accessKey: "{{accessKey}}"
-                  secretKey: "{{secretKey}}"
+                  accessKey: "{{?accessKey}}"
+                  secretKey: "{{?secretKey}}"
                   region: "{{region}}"
                   useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
                   messageGroupIdStrategy: "usePropertyValue"
@@ -115,8 +115,8 @@ spec:
                 uri: "aws2-sqs:{{queueNameOrArn}}"
                 parameters:
                   autoCreateQueue: "{{autoCreateQueue}}"
-                  accessKey: "{{accessKey}}"
-                  secretKey: "{{secretKey}}"
+                  accessKey: "{{?accessKey}}"
+                  secretKey: "{{?secretKey}}"
                   region: "{{region}}"
                   useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
                   messageGroupIdStrategy: "usePropertyValue"
