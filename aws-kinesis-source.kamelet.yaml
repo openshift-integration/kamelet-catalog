@@ -64,8 +64,8 @@ spec:
     from:
       uri: aws2-kinesis:{{stream}}
       parameters:
-        secretKey: "{{secretKey}}"
-        accessKey: "{{accessKey}}"
+        secretKey: "{{?secretKey}}"
+        accessKey: "{{?accessKey}}"
         region: "{{region}}"
         useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
       steps:

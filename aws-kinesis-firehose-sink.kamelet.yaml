@@ -63,7 +63,7 @@ spec:
       - to:
           uri: "aws2-kinesis-firehose:{{streamName}}"
           parameters:
-            accessKey: "{{accessKey}}"
-            secretKey: "{{secretKey}}"
+            accessKey: "{{?accessKey}}"
+            secretKey: "{{?secretKey}}"
             region: "{{region}}"
             useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"

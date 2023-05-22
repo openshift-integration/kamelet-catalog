@@ -71,7 +71,7 @@ spec:
           uri: "aws2-sns:{{topicNameOrArn}}"
           parameters:
             autoCreateTopic: "{{autoCreateTopic}}"
-            accessKey: "{{accessKey}}"
-            secretKey: "{{secretKey}}"
+            accessKey: "{{?accessKey}}"
+            secretKey: "{{?secretKey}}"
             region: "{{region}}"
             useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"

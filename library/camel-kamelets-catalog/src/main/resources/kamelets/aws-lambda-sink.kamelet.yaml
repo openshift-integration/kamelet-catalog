@@ -63,7 +63,7 @@ spec:
       - to:
           uri: "aws2-lambda:{{function}}"
           parameters:
-            accessKey: "{{accessKey}}"
-            secretKey: "{{secretKey}}"
+            accessKey: "{{?accessKey}}"
+            secretKey: "{{?secretKey}}"
             region: "{{region}}"
             useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"

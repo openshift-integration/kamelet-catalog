@@ -80,8 +80,8 @@ spec:
       uri: "aws2-sqs:{{queueNameOrArn}}"
       parameters:
         autoCreateQueue: "{{autoCreateQueue}}"
-        secretKey: "{{secretKey}}"
-        accessKey: "{{accessKey}}"
+        secretKey: "{{?secretKey}}"
+        accessKey: "{{?accessKey}}"
         region: "{{region}}"
         useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
         deleteAfterRead: "{{deleteAfterRead}}"

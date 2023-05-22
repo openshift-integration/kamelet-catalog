@@ -95,8 +95,8 @@ spec:
       - to:
           uri: "aws2-s3:{{bucketNameOrArn}}"
           parameters:
-            secretKey: "{{secretKey}}"
-            accessKey: "{{accessKey}}"
+            secretKey: "{{?secretKey}}"
+            accessKey: "{{?accessKey}}"
             region: "{{region}}"
             useDefaultCredentialsProvider: "{{useDefaultCredentialsProvider}}"
             autoCreateBucket: "{{autoCreateBucket}}"
