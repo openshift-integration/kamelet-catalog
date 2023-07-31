@@ -22,6 +22,7 @@ The following table summarizes the configuration options available for the `aws-
 | batchSize| Batch Size| The batch size (in bytes) in streaming upload mode| int| `1000000`| 
 | namingStrategy| Naming Strategy| The naming strategy to use in streaming upload mode. There are 2 enums and the value can be one of progressive, random| string| `"progressive"`| 
 | restartingPolicy| Restarting Policy| The restarting policy to use in streaming upload mode. There are 2 enums and the value can be one of override, lastPart| string| `"lastPart"`| 
+| useDefaultCredentialsProvider| Default Credentials Provider| If true, the S3 client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.

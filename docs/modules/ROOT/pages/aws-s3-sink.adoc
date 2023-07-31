@@ -23,6 +23,7 @@ The following table summarizes the configuration options available for the `aws-
 | *region {empty}* *| AWS Region| The AWS region to connect to.| string| | `"eu-west-1"`
 | *secretKey {empty}* *| Secret Key| The secret key obtained from AWS.| string| | 
 | autoCreateBucket| Autocreate Bucket| Setting the autocreation of the S3 bucket bucketName.| boolean| `false`| 
+| useDefaultCredentialsProvider| Default Credentials Provider| If true, the S3 client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.

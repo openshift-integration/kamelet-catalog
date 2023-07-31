@@ -17,6 +17,7 @@ The following table summarizes the configuration options available for the `aws-
 | *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
 | *topicNameOrArn {empty}* *| Topic Name| The SQS Topic name or ARN| string| | 
 | autoCreateTopic| Autocreate Topic| Setting the autocreation of the SNS topic.| boolean| `false`| 
+| useDefaultCredentialsProvider| Default Credentials Provider| If true, the SNS client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
