@@ -33,7 +33,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `kafka-source` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.10.0
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
 - camel:core
 - camel:kafka
 - camel:kamelet 

@@ -13,6 +13,7 @@ The following table summarizes the configuration options available for the `extr
 |===
 | Property| Name| Description| Type| Default| Example
 | *field {empty}* *| Field| The name of the field to be added| string| | 
+| trimField| Trim Field| If enabled we return the Raw extracted field| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -22,7 +23,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `extract-field-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.10.0
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
 - camel:kamelet
 - camel:core
 - camel:jackson 

@@ -40,7 +40,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-ddb-sink` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:1.10.0
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
 - camel:core
 - camel:jackson
 - camel:aws2-ddb
