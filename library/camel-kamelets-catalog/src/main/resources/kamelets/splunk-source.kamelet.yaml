@@ -22,6 +22,7 @@ spec:
       - username
       - password
       - query
+      - initEarliestTime
     type: object
     properties:
       serverHostname:
@@ -131,7 +132,7 @@ spec:
         delay: "{{?delay}}"
         search: "{{?query}}"
         earliestTime: "{{?earliestTime}}"
-        initEarliestTime: "{{?initEarliestTime}}"
+        initEarliestTime: "{{initEarliestTime}}"
         latestTime: "{{?latestTime}}"
         raw: true
       steps:
