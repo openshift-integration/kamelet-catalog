@@ -35,4 +35,4 @@ spec:
       steps:
       - set-header:
           name: "{{name}}"
-          constant: "{{value}}"
+          simple: "{{value}}"
