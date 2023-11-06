@@ -284,6 +284,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
                 <scriptpath>
                     <path>${project.basedir}/script/version</path>
                 </scriptpath>

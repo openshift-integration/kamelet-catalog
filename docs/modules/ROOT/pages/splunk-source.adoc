@@ -14,6 +14,7 @@ The following table summarizes the configuration options available for the `splu
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
+| *initEarliestTime {empty}* *| Init Earliest Time| Initial start offset of the first search.| string| | `"05/17/22 08:35:46:456"`
 | *password {empty}* *| Password| The password to authenticate to Splunk Server.| string| | 
 | *query {empty}* *| Query| The Splunk query to run.| string| | 
 | *serverHostname {empty}* *| Splunk Server Address| The address of your Splunk server.| string| | `"my_server_splunk.com"`
@@ -24,7 +25,6 @@ The following table summarizes the configuration options available for the `splu
 | delay| Delay| Milliseconds before the next poll.| integer| | 
 | earliestTime| Earliest Time| Earliest time of the search time window.| string| | `"05/17/22 08:35:46:456"`
 | index| Index| Splunk index to write to.| string| | 
-| initEarliestTime| Init Earliest Time| Initial start offset of the first search.| string| | `"05/17/22 08:35:46:456"`
 | latestTime| Latest Time| Latest time of the search time window.| string| | `"05/17/22 08:35:46:456"`
 | protocol| Protocol| Connection Protocol to Splunk server.| string| `"https"`| 
 | repeat| Repeat| The maximum number of fires.| integer| | 
@@ -68,6 +68,7 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: splunk-source
     properties:
+      initEarliestTime: "05/17/22 08:35:46:456"
       password: "The Password"
       query: "The Query"
       serverHostname: "my_server_splunk.com"
@@ -101,7 +102,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind splunk-source -p "source.password=The Password" -p "source.query=The Query" -p "source.serverHostname=my_server_splunk.com" -p "source.username=The Username" channel:mychannel
+kamel bind splunk-source -p "source.initEarliestTime=05/17/22 08:35:46:456" -p "source.password=The Password" -p "source.query=The Query" -p "source.serverHostname=my_server_splunk.com" -p "source.username=The Username" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -124,6 +125,7 @@ spec:
       apiVersion: camel.apache.org/v1alpha1
       name: splunk-source
     properties:
+      initEarliestTime: "05/17/22 08:35:46:456"
       password: "The Password"
       query: "The Query"
       serverHostname: "my_server_splunk.com"
@@ -158,7 +160,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind splunk-source -p "source.password=The Password" -p "source.query=The Query" -p "source.serverHostname=my_server_splunk.com" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind splunk-source -p "source.initEarliestTime=05/17/22 08:35:46:456" -p "source.password=The Password" -p "source.query=The Query" -p "source.serverHostname=my_server_splunk.com" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
