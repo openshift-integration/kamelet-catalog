@@ -18,6 +18,7 @@
 * xref:ROOT:aws-sqs-source.adoc[image:kamelets/aws-sqs-source.svg[] AWS SQS Source]
 * xref:ROOT:azure-servicebus-sink.adoc[image:kamelets/azure-servicebus-sink.svg[] Azure Servicebus Sink]
 * xref:ROOT:azure-servicebus-source.adoc[image:kamelets/azure-servicebus-source.svg[] Azure Servicebus Source]
+* xref:ROOT:azure-storage-blob-append-sink.adoc[image:kamelets/azure-storage-blob-append-sink.svg[] Azure Storage Blob Append Sink]
 * xref:ROOT:azure-storage-blob-sink.adoc[image:kamelets/azure-storage-blob-sink.svg[] Azure Storage Blob Sink]
 * xref:ROOT:azure-storage-blob-source.adoc[image:kamelets/azure-storage-blob-source.svg[] Azure Storage Blob Source]
 * xref:ROOT:azure-storage-queue-sink.adoc[image:kamelets/azure-storage-queue-sink.svg[] Azure Storage Queue Sink]
