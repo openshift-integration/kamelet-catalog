@@ -34,10 +34,6 @@
     <name>Camel Kamelets Utils</name>
     <description>Camel Kamelets Utilities</description>
 
-    <properties>
-        <camel-quarkus-version>2.13.1</camel-quarkus-version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -59,25 +55,25 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson-protobuf</artifactId>
-            <version>${camel-quarkus-version}</version>
+            <version>${camel-quarkus.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson</artifactId>
-            <version>${camel-quarkus-version}</version>
+            <version>${camel-quarkus.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson-avro</artifactId>
-            <version>${camel-quarkus-version}</version>
+            <version>${camel-quarkus.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-kafka</artifactId>
-            <version>${camel-quarkus-version}</version>
+            <version>${camel-quarkus.version}</version>
         </dependency>
 
         <!-- AWS Dynamo DB camel component -->
