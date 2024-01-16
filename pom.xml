@@ -29,7 +29,7 @@
     <groupId>org.apache.camel.kamelets</groupId>
     <artifactId>camel-kamelets-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.0</version>
+    <version>2.2.0</version>
     <name>Camel Kamelets Parent</name>
     <description>Camel Kamelets Library Parent</description>
 
