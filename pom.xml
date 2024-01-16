@@ -41,12 +41,12 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <failIfNoTests>false</failIfNoTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <groovy-maven-plugin.version>2.0</groovy-maven-plugin.version>
+        <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
