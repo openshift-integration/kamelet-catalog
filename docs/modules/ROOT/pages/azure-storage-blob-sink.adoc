@@ -6,11 +6,7 @@
 
 Upload data to Azure Storage Blob.
 
-The Kamelet expects the following headers to be set:
-
-- `file` / `ce-file`: as the file name to upload
-
-If the header won't be set the exchange ID will be used as file name.
+In the header, you can set the `file` / `ce-file` property to specify the filename to upload. If you do set property in the header, the Kamelet uses the exchange ID as filename.
 
 == Configuration Options
 
@@ -18,11 +14,10 @@ The following table summarizes the configuration options available for the `azur
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The Azure Storage Blob access Key.| string| | 
 | *accountName {empty}* *| Account Name| The Azure Storage Blob account name.| string| | 
 | *containerName {empty}* *| Container Name| The Azure Storage Blob container name.| string| | 
-| credentialType| Credential Type| Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY| string| `"SHARED_ACCOUNT_KEY"`| 
-| operation| Operation Name| The operation to perform.| string| `"uploadBlockBlob"`| 
+| accessKey| Access Key| The Azure Storage Blob access key.| string| | 
+| credentialType| Credential Type| Determines the credential strategy to adopt.| string| `"SHARED_ACCOUNT_KEY"`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -47,7 +42,7 @@ You can use the `azure-storage-blob-sink` Kamelet as a Knative sink by binding i
 .azure-storage-blob-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-blob-sink-binding
@@ -60,10 +55,9 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-blob-sink
     properties:
-      accessKey: "The Access Key"
       accountName: "The Account Name"
       containerName: "The Container Name"
   
@@ -90,7 +84,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel azure-storage-blob-sink -p "sink.accessKey=The Access Key" -p "sink.accountName=The Account Name" -p "sink.containerName=The Container Name"
+kamel bind channel:mychannel azure-storage-blob-sink -p "sink.accountName=The Account Name" -p "sink.containerName=The Container Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -102,7 +96,7 @@ You can use the `azure-storage-blob-sink` Kamelet as a Kafka sink by binding it 
 .azure-storage-blob-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-blob-sink-binding
@@ -115,10 +109,9 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-blob-sink
     properties:
-      accessKey: "The Access Key"
       accountName: "The Account Name"
       containerName: "The Container Name"
   
@@ -146,7 +139,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic azure-storage-blob-sink -p "sink.accessKey=The Access Key" -p "sink.accountName=The Account Name" -p "sink.containerName=The Container Name"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic azure-storage-blob-sink -p "sink.accountName=The Account Name" -p "sink.containerName=The Container Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

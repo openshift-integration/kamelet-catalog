@@ -8,7 +8,7 @@
       - to:
           uri: "kamelet:insert-header-action"
           parameters:
-            name: "The Name"
+            name: "headername"
         value: "The Value"
       - to:
           uri: "log:info"

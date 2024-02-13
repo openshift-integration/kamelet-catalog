@@ -2,10 +2,8 @@
     from:
       uri: "kamelet:aws-s3-source"
       parameters:
-        accessKey: "The Access Key"
         bucketNameOrArn: "The Bucket Name"
-        region: "eu-west-1"
-        secretKey: "The Secret Key"
+        region: "The AWS Region"
     steps:
       - to:
           uri: "log:info"

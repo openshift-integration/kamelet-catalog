@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.support.SimpleTypeConverter;
 
 /**
@@ -32,17 +33,27 @@ import org.apache.camel.support.SimpleTypeConverter;
  */
 public class KafkaHeaderDeserializer implements Processor {
 
+    boolean enabled = false;
+
+    private final SimpleTypeConverter defaultTypeConverter = new SimpleTypeConverter(true, KafkaHeaderDeserializer::convert);
+
     @Override
     public void process(Exchange exchange) throws Exception {
+        if (!enabled) {
+            return;
+        }
+
         Map<String, Object> headers = exchange.getMessage().getHeaders();
 
         TypeConverter typeConverter = exchange.getContext().getTypeConverter();
         if (typeConverter == null) {
-            typeConverter = new SimpleTypeConverter(true, this::convert);
+            typeConverter = defaultTypeConverter;
         }
 
         for (Map.Entry<String, Object> header : headers.entrySet()) {
-            header.setValue(typeConverter.convertTo(String.class, header.getValue()));
+            if (shouldDeserialize(header)) {
+                header.setValue(typeConverter.convertTo(String.class, header.getValue()));
+            }
         }
     }
 
@@ -54,7 +65,7 @@ public class KafkaHeaderDeserializer implements Processor {
      * @param value the current value to convert.
      * @return String representation of given value or null if value itself is null.
      */
-    private Object convert(Class<?> type, Exchange exchange, Object value) {
+    private static Object convert(Class<?> type, Exchange exchange, Object value) {
         if (value == null) {
             return null;
         }
@@ -68,5 +79,18 @@ public class KafkaHeaderDeserializer implements Processor {
         }
 
         return value.toString();
+    }
+
+    /**
+     * Exclude special Kafka headers from auto deserialization.
+     * @param entry
+     * @return
+     */
+    private boolean shouldDeserialize(Map.Entry<String, Object> entry) {
+        return !entry.getKey().equals(KafkaConstants.HEADERS) && !entry.getKey().equals(KafkaConstants.MANUAL_COMMIT);
+    }
+
+    public void setEnabled(String enabled) {
+        this.enabled = Boolean.parseBoolean(enabled);
     }
 }

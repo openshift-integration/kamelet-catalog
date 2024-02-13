@@ -67,4 +67,20 @@ class MaskFieldTest {
         JsonNode s = processor.process("name", null, exchange);
         Assertions.assertEquals("\"\"" , s.get("name").toString());
     }
+
+    @Test
+    void shouldMaskFieldList() throws Exception {
+        Map<String, List<String>> names = new HashMap<>();
+        Exchange exchange = new DefaultExchange(camelContext);
+        List<String> els = new ArrayList<>();
+        els.add("Sheldon");
+        els.add("Rajesh");
+        els.add("Leonard");
+        names.put("names", els);
+
+        exchange.getMessage().setBody(mapper.writeValueAsString(names));
+
+        JsonNode s = processor.process("names", null, exchange);
+        Assertions.assertEquals("[]" , s.get("names").toString());
+    }
 }

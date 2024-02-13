@@ -16,21 +16,20 @@
  */
 package org.apache.camel.kamelets.catalog;
 
-import io.fabric8.camelk.v1alpha1.Kamelet;
-import io.fabric8.kubernetes.api.model.apiextensions.v1.JSONSchemaProps;
-import io.github.classgraph.ClassGraph;
+import java.util.List;
+import java.util.Map;
 
+
+import io.github.classgraph.ClassGraph;
 import org.apache.camel.kamelets.catalog.model.KameletTypeEnum;
+import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.v1.Kamelet;
+import org.apache.camel.v1.kameletspec.Definition;
+import org.apache.camel.v1.kameletspec.Template;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class KameletsCatalogTest {
     static KameletsCatalog catalog;
@@ -43,39 +42,39 @@ public class KameletsCatalogTest {
     @Test
     void testGetKameletsName() throws Exception {
         List<String> names = catalog.getKameletsName();
-        assertTrue(!names.isEmpty());
+        assertFalse(names.isEmpty());
     }
 
     @Test
     void testGetKamelets() throws Exception {
         Map<String, Kamelet> kamelets = catalog.getKamelets();
-        assertTrue(!kamelets.isEmpty());
+        assertFalse(kamelets.isEmpty());
     }
 
     @Test
     void testGetKameletsDefinition() throws Exception {
-        JSONSchemaProps props = catalog.getKameletDefinition("aws-sqs-source");
-        assertEquals(7, props.getProperties().keySet().size());
-        assertTrue(props.getProperties().keySet().contains("queueNameOrArn"));
+        Definition props = catalog.getKameletDefinition("aws-sqs-source");
+        assertEquals(14, props.getProperties().keySet().size());
+        assertTrue(props.getProperties().containsKey("queueNameOrArn"));
     }
 
     @Test
-    void testGetKameletsRequiredProperties() throws Exception {
+    void testGetKameletsRequiredProperties() {
         List<String> props = catalog.getKameletRequiredProperties("aws-sqs-source");
-        assertEquals(4, props.size());
+        assertEquals(2, props.size());
         assertTrue(props.contains("queueNameOrArn"));
     }
 
     @Test
     void testGetKameletsDefinitionNotExists() throws Exception {
-        JSONSchemaProps props = catalog.getKameletDefinition("word");
+        Definition props = catalog.getKameletDefinition("word");
         assertNull(props);
     }
 
     @Test
     void testGetKameletsByProvider() throws Exception {
         List<Kamelet> c = catalog.getKameletByProvider("Red Hat");
-        assertTrue(!c.isEmpty());
+        assertFalse(c.isEmpty());
         c = catalog.getKameletByProvider("Eclipse");
         assertTrue(c.isEmpty());
     }
@@ -83,19 +82,28 @@ public class KameletsCatalogTest {
     @Test
     void testGetKameletsByType() throws Exception {
         List<Kamelet> c = catalog.getKameletsByType(KameletTypeEnum.SOURCE.type());
-        assertTrue(!c.isEmpty());
+        assertFalse(c.isEmpty());
         c = catalog.getKameletsByType(KameletTypeEnum.SINK.type());
-        assertTrue(!c.isEmpty());
+        assertFalse(c.isEmpty());
         c = catalog.getKameletsByType(KameletTypeEnum.ACTION.type());
-        assertTrue(!c.isEmpty());
+        assertFalse(c.isEmpty());
     }
 
     @Test
     void testGetKameletsByGroup() throws Exception {
         List<Kamelet> c = catalog.getKameletsByGroups("AWS S3");
-        assertTrue(!c.isEmpty());
+        assertFalse(c.isEmpty());
         c = catalog.getKameletsByGroups("AWS SQS");
-        assertTrue(!c.isEmpty());
+        assertFalse(c.isEmpty());
+        c = catalog.getKameletsByGroups("Not-existing-group");
+        assertTrue(c.isEmpty());
+    }
+
+    @Test
+    void testGetKameletsByNamespace() throws Exception {
+        List<Kamelet> c = catalog.getKameletsByNamespace("AWS");
+        assertFalse(c.isEmpty());
+        assertEquals(12, c.size());
         c = catalog.getKameletsByGroups("Not-existing-group");
         assertTrue(c.isEmpty());
     }
@@ -106,11 +114,12 @@ public class KameletsCatalogTest {
         assertEquals(4, deps.size());
         deps = catalog.getKameletDependencies("cassandra-sink");
         assertEquals(3, deps.size());
+        assertEquals("camel:jackson", deps.get(0));
     }
 
     @Test
     void testGetKameletsTemplate() throws Exception {
-        Map<String, Object> template = catalog.getKameletTemplate("aws-sqs-source");
+        Template template = catalog.getKameletTemplate("aws-sqs-source");
         assertNotNull(template);
     }
 
@@ -123,5 +132,60 @@ public class KameletsCatalogTest {
     @Test
     void testAllKameletDependencies() throws Exception {
         catalog.getAllKameletDependencies();
+    }
+
+    @Test
+    void testSupportedHeaders() {
+        verifyHeaders("aws-s3-source", 20);
+        verifyHeaders("aws-s3-sink", 27);
+        verifyHeaders("aws-redshift-source", 0);
+        verifyHeaders("aws-not-exists", 0);
+        verifyHeaders("azure-storage-blob-sink", 33);
+        verifyHeaders("azure-storage-blob-source", 34);
+        verifyHeaders("azure-storage-queue-sink", 16);
+        verifyHeaders("azure-storage-queue-source", 6);
+        verifyHeaders("cassandra-sink", 1);
+        verifyHeaders("cassandra-source", 1);
+        verifyHeaders("elasticsearch-index-sink", 10);
+        verifyHeaders("ftp-source", 10);
+        verifyHeaders("ftp-sink", 8);
+        verifyHeaders("http-sink", 14);
+        verifyHeaders("jira-add-comment-sink", 17);
+        verifyHeaders("jira-add-issue-sink", 17);
+        verifyHeaders("jira-source", 3);
+        verifyHeaders("jms-amqp-10-source", 14);
+        verifyHeaders("jms-amqp-10-sink", 17);
+        verifyHeaders("jms-ibm-mq-source", 14);
+        verifyHeaders("jms-ibm-mq-sink", 17);
+        verifyHeaders("kafka-source", 9);
+        verifyHeaders("kafka-sink", 5);
+        verifyHeaders("log-sink", 0);
+        verifyHeaders("mariadb-sink", 8);
+        verifyHeaders("mongodb-sink", 12);
+        verifyHeaders("mongodb-source", 3);
+        verifyHeaders("mysql-sink", 8);
+        verifyHeaders("postgresql-sink", 8);
+        verifyHeaders("salesforce-create-sink", 1);
+        verifyHeaders("salesforce-delete-sink", 1);
+        verifyHeaders("salesforce-update-sink", 1);
+        verifyHeaders("salesforce-source", 19);
+        verifyHeaders("sftp-sink", 8);
+        verifyHeaders("sftp-source", 10);
+        verifyHeaders("slack-source", 0);
+        verifyHeaders("sqlserver-sink", 8);
+        verifyHeaders("telegram-source", 5);
+        verifyHeaders("timer-source", 2);
+    }
+
+    void verifyHeaders(String name, int expected) {
+        List<ComponentModel.EndpointHeaderModel> headers = catalog.getKameletSupportedHeaders(name);
+        assertEquals(expected, headers.size(), "Component: " + name);
+    }
+
+    @Test
+    void testGetKameletScheme() throws Exception {
+        assertEquals("aws2-s3", catalog.getKameletScheme("aws-s3"));
+        assertEquals("aws2-sqs", catalog.getKameletScheme("aws-sqs"));
+        assertNull(catalog.getKameletScheme("not-known"));
     }
 }

@@ -4,7 +4,11 @@
 
 *Provided by: "Red Hat"*
 
-Adds a custom field with a constant value to the message in transit
+Adds a custom field with a simple language parsed value to the message in transit.
+
+The extract field action expected an application/json content type.
+
+If for example you have an array like '{ "foo":"John", "bar":30 }' and your action has been configured with field as 'element' and value as 'hello', you'll get '{ "foo":"John", "bar":30, "element":"hello" }'
 
 == Configuration Options
 
@@ -23,7 +27,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `insert-field-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
 - camel:core
 - camel:jackson
 - camel:kamelet 
@@ -39,7 +43,7 @@ You can use the `insert-field-action` Kamelet as an intermediate step in a Knati
 .insert-field-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: insert-field-action-binding
@@ -47,18 +51,18 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: '{"foo":"John"}'
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: json-deserialize-action
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-field-action
     properties:
       field: "The Field"
@@ -105,7 +109,7 @@ You can use the `insert-field-action` Kamelet as an intermediate step in a Kafka
 .insert-field-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: insert-field-action-binding
@@ -113,18 +117,18 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: '{"foo":"John"}'
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: json-deserialize-action
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-field-action
     properties:
       field: "The Field"

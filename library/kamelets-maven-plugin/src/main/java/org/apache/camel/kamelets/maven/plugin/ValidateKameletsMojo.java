@@ -17,13 +17,18 @@
 package org.apache.camel.kamelets.maven.plugin;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.kamelets.catalog.KameletsCatalog;
 import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.v1.kameletspec.Template;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -58,18 +63,21 @@ public class ValidateKameletsMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        String[] bannedDeps = {"mvn:", "camel:gson", "camel:core", "camel:kamelet", "github:apache.camel-kamelets:camel-kamelets-utils:main-SNAPSHOT"};
+        String[] bannedDeps = {"mvn:", "camel:gson", "camel:core", "camel:kamelet"};
         List<String> bannedDepsList = Arrays.asList(bannedDeps);
         KameletsCatalog catalog = new KameletsCatalog();
         DefaultCamelCatalog cc = new DefaultCamelCatalog();
         List<String> names = catalog.getKameletsName();
-        for (String name:
-                names) {
-            Map<String, Object> kd = catalog.getKameletTemplate(name);
-            Map<String,Object> f = (Map) kd.get("from");
+        ObjectMapper om = new ObjectMapper();
+        for (String name: names) {
+            Map<Object, Object> templateJson;
+            Template kd = catalog.getKameletTemplate(name);
+            templateJson = om.convertValue(kd, new TypeReference<Map<Object, Object>>(){});
+            Map<String,Object> f = (Map) templateJson.get("from");
             Map<String,Object> p = (Map) f.get("parameters");
             List<String> deps = catalog.getKameletDependencies(name).stream()
-                    .filter(Predicate.not(bannedDepsList::contains)).collect(Collectors.toList());
+                    .filter(Predicate.not(bannedDepsList::contains))
+                    .collect(Collectors.toList());
             String cleanName;
             if (!deps.isEmpty()) {
                 if (deps.get(0).equals("camel:jackson") && deps.size() > 1) {
@@ -99,14 +107,18 @@ public class ValidateKameletsMojo extends AbstractMojo {
                         List<String> ceInternal =
                                 ce.stream()
                                         .map(ComponentModel.EndpointOptionModel::getName)
+                                        .sorted()
                                         .collect(Collectors.toList());
+                        StringBuilder availableParams = new StringBuilder();
+                        ceInternal.forEach(_param -> availableParams.append(_param).append(" "));
                         for (Map.Entry<String, Object> entry : p.entrySet()) {
-                            if (!entry.getKey().equals("period") && (!name.equals("kafka-ssl-source") && !name.equals("timer-source") && !name.equals("cron-source") && !name.equals("fhir-source"))) {
+                            if (!entry.getKey().equals("period") && (!name.equals("set-kafka-key-action") && !name.equals("sftp-source") && !name.equals("kafka-ssl-source") && !name.equals("timer-source") && !name.equals("cron-source") && !name.equals("fhir-source") && !name.equals("beer-source") && !name.equals("cassandra-source") && !name.equals("cassandra-sink"))) {
                                 if (!ceInternal.contains(entry.getKey())) {
                                     getLog().error("Kamelet Name: " + name);
                                     getLog().error("Scheme Name: " + cleanName);
                                     getLog().error("Parameter: " + entry.getKey());
                                     getLog().error("The parameter " + entry.getKey() + " doesn't exist in the endpoint options of " + cleanName + " component");
+                                    getLog().error("Available endpoint options: " + availableParams);
                                     if (failOnError) {
                                         throw new MojoExecutionException("The Kamelets Validation failed. See logs for more information." + "\n");
                                     }

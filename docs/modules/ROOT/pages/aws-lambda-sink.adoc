@@ -4,7 +4,11 @@
 
 *Provided by: "Red Hat"*
 
-Send a payload to an AWS Lambda function
+Send a payload to an AWS Lambda function.
+
+The basic authentication method for the Lambda service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
+
+If you use the default credentials provider, the Lambda client loads the credentials through this provider and doesn't use the basic authentication method.
 
 == Configuration Options
 
@@ -12,10 +16,10 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
-| *function {empty}* *| Function Name| The Lambda Function name| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
+| *function {empty}* *| Function Name| The Lambda Function name.| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
 | useDefaultCredentialsProvider| Default Credentials Provider| If true, the Lambda client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
@@ -26,8 +30,8 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-lambda-sink` Kamelet relies upon the presence of the following dependencies:
 
-- camel:kamelet
-- camel:aws2-lambda 
+- camel:aws2-lambda
+- camel:kamelet 
 
 == Usage
 
@@ -40,7 +44,7 @@ You can use the `aws-lambda-sink` Kamelet as a Knative sink by binding it to a K
 .aws-lambda-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-lambda-sink-binding
@@ -53,13 +57,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-lambda-sink
     properties:
-      accessKey: "The Access Key"
       function: "The Function Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   
 ----
 
@@ -84,7 +86,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel aws-lambda-sink -p "sink.accessKey=The Access Key" -p "sink.function=The Function Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"
+kamel bind channel:mychannel aws-lambda-sink -p "sink.function=The Function Name" -p "sink.region=The AWS Region"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -96,7 +98,7 @@ You can use the `aws-lambda-sink` Kamelet as a Kafka sink by binding it to a Kaf
 .aws-lambda-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-lambda-sink-binding
@@ -109,13 +111,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-lambda-sink
     properties:
-      accessKey: "The Access Key"
       function: "The Function Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   
 ----
 
@@ -141,7 +141,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-lambda-sink -p "sink.accessKey=The Access Key" -p "sink.function=The Function Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-lambda-sink -p "sink.function=The Function Name" -p "sink.region=The AWS Region"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

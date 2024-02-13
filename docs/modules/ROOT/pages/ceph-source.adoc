@@ -46,7 +46,7 @@ You can use the `ceph-source` Kamelet as a Knative source by binding it to a Kna
 .ceph-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: ceph-source-binding
@@ -54,7 +54,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: ceph-source
     properties:
       accessKey: "The Access Key"
@@ -103,7 +103,7 @@ You can use the `ceph-source` Kamelet as a Kafka source by binding it to a Kafka
 .ceph-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: ceph-source-binding
@@ -111,7 +111,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: ceph-source
     properties:
       accessKey: "The Access Key"

@@ -1,4 +1,4 @@
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: cassandra-source-binding
@@ -6,15 +6,13 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: cassandra-source
     properties:
       connectionHost: "localhost"
       connectionPort: 9042
       keyspace: "customers"
-      password: "The Password"
       query: "The Query"
-      username: "The Username"
   sink:
     ref:
       kind: KafkaTopic

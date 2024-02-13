@@ -24,7 +24,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `timestamp-router-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
 - camel:kamelet
 - camel:core 
 
@@ -39,7 +39,7 @@ You can use the `timestamp-router-action` Kamelet as an intermediate step in a K
 .timestamp-router-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: timestamp-router-action-binding
@@ -47,14 +47,14 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timestamp-router-action
   sink:
     ref:
@@ -97,7 +97,7 @@ You can use the `timestamp-router-action` Kamelet as an intermediate step in a K
 .timestamp-router-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: timestamp-router-action-binding
@@ -105,14 +105,14 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timestamp-router-action
   sink:
     ref:

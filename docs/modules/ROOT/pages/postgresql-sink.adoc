@@ -6,11 +6,11 @@
 
 Send data to a PostgreSQL Database.
 
-This Kamelet expects a JSON as body. The mapping between the JSON fields and parameters is done by key, so if you have the following query:
+This Kamelet expects a JSON-formatted body. Use key:value pairs to map the JSON fields and parameters. For example, here is a query:
 
 'INSERT INTO accounts (username,city) VALUES (:#username,:#city)'
 
-The Kamelet needs to receive as input something like:
+Here is example input for the example query:
 
 '{ "username":"oscerd", "city":"Rome"}'
 
@@ -20,12 +20,12 @@ The following table summarizes the configuration options available for the `post
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *databaseName {empty}* *| Database Name| The Database Name we are pointing| string| | 
-| *password {empty}* *| Password| The password to use for accessing a secured PostgreSQL Database| string| | 
-| *query {empty}* *| Query| The Query to execute against the PostgreSQL Database| string| | `"INSERT INTO accounts (username,city) VALUES (:#username,:#city)"`
-| *serverName {empty}* *| Server Name| Server Name for the data source| string| | `"localhost"`
-| *username {empty}* *| Username| The username to use for accessing a secured PostgreSQL Database| string| | 
-| serverPort| Server Port| Server Port for the data source| string| `5432`| 
+| *databaseName {empty}* *| Database Name| The name of the PostgreSQL Database.| string| | 
+| *password {empty}* *| Password| The password to access a secured PostgreSQL Database.| string| | 
+| *query {empty}* *| Query| The query to execute against the PostgreSQL Database.| string| | `"INSERT INTO accounts (username,city) VALUES (:#username,:#city)"`
+| *serverName {empty}* *| Server Name| The server name for the data source.| string| | `"localhost"`
+| *username {empty}* *| Username| The username to access a secured PostgreSQL Database.| string| | 
+| serverPort| Server Port| The server port for the data source.| string| `5432`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -38,8 +38,8 @@ At runtime, the `postgresql-sink` Kamelet relies upon the presence of the follow
 - camel:jackson
 - camel:kamelet
 - camel:sql
-- mvn:org.postgresql:postgresql:42.5.1
-- mvn:org.apache.commons:commons-dbcp2:2.7.0 
+- mvn:org.postgresql:postgresql:42.6.0
+- mvn:org.apache.commons:commons-dbcp2:2.10.0 
 
 == Usage
 
@@ -52,7 +52,7 @@ You can use the `postgresql-sink` Kamelet as a Knative sink by binding it to a K
 .postgresql-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: postgresql-sink-binding
@@ -65,7 +65,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: postgresql-sink
     properties:
       databaseName: "The Database Name"
@@ -109,7 +109,7 @@ You can use the `postgresql-sink` Kamelet as a Kafka sink by binding it to a Kaf
 .postgresql-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: postgresql-sink-binding
@@ -122,7 +122,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: postgresql-sink
     properties:
       databaseName: "The Database Name"

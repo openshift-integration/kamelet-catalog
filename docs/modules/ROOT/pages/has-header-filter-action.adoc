@@ -4,7 +4,7 @@
 
 *Provided by: "Red Hat"*
 
-Filter based on the presence of one header
+Filter message based on the presence of one header
 
 == Configuration Options
 
@@ -12,7 +12,7 @@ The following table summarizes the configuration options available for the `has-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *name {empty}* *| Header Name| The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, if you are using Cloud Events, you must include the CloudEvent (ce-) prefix in the header name.| string| | `"headerName"`
+| *name {empty}* *| Header Name| The header name to evaluate. The header name must be passed by the source Kamelet. For Knative only, the name of the header requires a CloudEvent (ce-) prefix.| string| | `"headerName"`
 | value| Header Value| An optional header value to compare the header to| string| | `"headerValue"`
 |===
 
@@ -37,7 +37,7 @@ You can use the `has-header-filter-action` Kamelet as an intermediate step in a 
 .has-header-filter-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: has-header-filter-action-binding
@@ -45,21 +45,21 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "my-header"
       value: "my-value"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: has-header-filter-action
     properties:
       name: "my-header"
@@ -105,7 +105,7 @@ You can use the `has-header-filter-action` Kamelet as an intermediate step in a 
 .has-header-filter-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: has-header-filter-action-binding
@@ -113,21 +113,21 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "my-header"
       value: "my-value"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: has-header-filter-action
     properties:
       name: "my-header"

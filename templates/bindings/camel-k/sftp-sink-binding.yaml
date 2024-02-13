@@ -1,4 +1,4 @@
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: sftp-sink-binding
@@ -11,11 +11,9 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: sftp-sink
     properties:
       connectionHost: "The Connection Host"
       directoryName: "The Directory Name"
-      password: "The Password"
-      username: "The Username"
   

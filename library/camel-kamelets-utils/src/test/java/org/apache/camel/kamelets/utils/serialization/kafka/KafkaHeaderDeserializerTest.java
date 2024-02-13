@@ -18,6 +18,7 @@
 package org.apache.camel.kamelets.utils.serialization.kafka;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -27,9 +28,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author Christoph Deppisch
- */
 class KafkaHeaderDeserializerTest {
 
     private DefaultCamelContext camelContext;
@@ -50,6 +48,7 @@ class KafkaHeaderDeserializerTest {
         exchange.getMessage().setHeader("fooNull", null);
         exchange.getMessage().setHeader("number", 1L);
 
+        processor.enabled = true;
         processor.process(exchange);
 
         Assertions.assertTrue(exchange.getMessage().hasHeaders());
@@ -70,11 +69,44 @@ class KafkaHeaderDeserializerTest {
         exchange.getMessage().setHeader("fooBytes", "barBytes".getBytes(StandardCharsets.UTF_8));
         exchange.getMessage().setHeader("fooNull", null);
 
+        processor.enabled = true;
         processor.process(exchange);
 
         Assertions.assertTrue(exchange.getMessage().hasHeaders());
         Assertions.assertEquals("converted", exchange.getMessage().getHeader("foo"));
         Assertions.assertEquals("converted", exchange.getMessage().getHeader("fooBytes"));
         Assertions.assertEquals("converted", exchange.getMessage().getHeader("fooNull"));
+    }
+
+    @Test
+    void shouldFallbackToDefaultConverter() throws Exception {
+        camelContext.setTypeConverter(null);
+        Exchange exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setHeader("foo", "bar");
+        exchange.getMessage().setHeader("fooBytes", "barBytes".getBytes(StandardCharsets.UTF_8));
+
+        processor.enabled = true;
+        processor.process(exchange);
+
+        Assertions.assertTrue(exchange.getMessage().hasHeaders());
+        Assertions.assertEquals("bar", exchange.getMessage().getHeader("foo"));
+        Assertions.assertEquals("barBytes", exchange.getMessage().getHeader("fooBytes"));
+    }
+
+    @Test
+    void shouldNotDeserializeHeadersWhenDisabled() throws Exception {
+        Exchange exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setHeader("foo", "bar");
+        exchange.getMessage().setHeader("fooBytes", "barBytes".getBytes(StandardCharsets.UTF_8));
+
+        processor.enabled = false;
+        processor.process(exchange);
+
+        Assertions.assertTrue(exchange.getMessage().hasHeaders());
+        Assertions.assertEquals("bar", exchange.getMessage().getHeader("foo"));
+        Assertions.assertTrue(exchange.getMessage().getHeader("fooBytes") instanceof byte[]);
+        Assertions.assertEquals(Arrays.toString("barBytes".getBytes(StandardCharsets.UTF_8)), Arrays.toString((byte[]) exchange.getMessage().getHeader("fooBytes")));
     }
 }

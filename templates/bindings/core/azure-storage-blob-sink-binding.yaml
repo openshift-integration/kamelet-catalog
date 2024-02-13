@@ -8,7 +8,6 @@
       - to:
           uri: "kamelet:azure-storage-blob-sink"
           parameters:
-            accessKey: "The Access Key"
             accountName: "The Account Name"
             containerName: "The Container Name"
     

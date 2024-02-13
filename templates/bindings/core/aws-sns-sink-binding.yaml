@@ -8,8 +8,6 @@
       - to:
           uri: "kamelet:aws-sns-sink"
           parameters:
-            accessKey: "The Access Key"
-            region: "eu-west-1"
-            secretKey: "The Secret Key"
+            region: "The AWS Region"
             topicNameOrArn: "The Topic Name"
     

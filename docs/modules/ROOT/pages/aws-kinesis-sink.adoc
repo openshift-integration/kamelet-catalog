@@ -6,17 +6,15 @@
 
 Send data to AWS Kinesis.
 
-The Kamelet expects the following header:
+The basic authentication method for the Kinesis service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
 
-- `partition` / `ce-partition`: to set the Kinesis partition key
+If you use the default credentials provider, the Kinesis client loads the credentials through this provider and doesn't use the basic authentication method.
 
-If the header won't be set the exchange ID will be used.
+In the header, you can optionally set the `file` / `ce-partition` property to set the Kinesis partition key.
 
-The Kamelet is also able to recognize the following header:
+If you do not set the property in the header, the Kamelet uses the exchange ID for the partition key.
 
-- `sequence-number` / `ce-sequencenumber`: to set the Sequence number
-
-This header is optional.
+You can also set the `sequence-number` / `ce-sequencenumber` property in the header to specify the Sequence number.
 
 == Configuration Options
 
@@ -24,10 +22,12 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
-| *stream {empty}* *| Stream Name| The Kinesis stream that you want to access (needs to be created in advance)| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| *stream {empty}* *| Stream Name| The Kinesis stream that you want to access. The Kinesis stream that you specify must already exist.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
 | useDefaultCredentialsProvider| Default Credentials Provider| If true, the Kinesis client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
@@ -53,7 +53,7 @@ You can use the `aws-kinesis-sink` Kamelet as a Knative sink by binding it to a 
 .aws-kinesis-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-kinesis-sink-binding
@@ -66,12 +66,10 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-kinesis-sink
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       stream: "The Stream Name"
   
 ----
@@ -97,7 +95,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel aws-kinesis-sink -p "sink.accessKey=The Access Key" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key" -p "sink.stream=The Stream Name"
+kamel bind channel:mychannel aws-kinesis-sink -p "sink.region=The AWS Region" -p "sink.stream=The Stream Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -109,7 +107,7 @@ You can use the `aws-kinesis-sink` Kamelet as a Kafka sink by binding it to a Ka
 .aws-kinesis-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-kinesis-sink-binding
@@ -122,12 +120,10 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-kinesis-sink
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       stream: "The Stream Name"
   
 ----
@@ -154,7 +150,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-kinesis-sink -p "sink.accessKey=The Access Key" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key" -p "sink.stream=The Stream Name"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-kinesis-sink -p "sink.region=The AWS Region" -p "sink.stream=The Stream Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

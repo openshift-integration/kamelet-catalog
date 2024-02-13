@@ -6,16 +6,19 @@
 
 Receive notifications about new issues from Jira.
 
+To authenticate a username/password or personal token must be defined. We recommend to use personal token as it is a safer way to get access to Jira.
+
 == Configuration Options
 
 The following table summarizes the configuration options available for the `jira-source` Kamelet:
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *jiraUrl {empty}* *| Jira URL| The URL of your instance of Jira| string| | `"http://my_jira.com:8081"`
-| *password {empty}* *| Password| The password or the API Token to access Jira| string| | 
-| *username {empty}* *| Username| The username to access Jira| string| | 
-| jql| JQL| A query to filter issues| string| | `"project=MyProject"`
+| *jiraUrl {empty}* *| Jira URL| The URL of your instance of Jira.| string| | `"http://my_jira.com:8081"`
+| jql| JQL| A query to filter issues.| string| | `"project=MyProject"`
+| password| Password| The password to access Jira.| string| | 
+| personal-token| Personal Token| Personal Token| string| | 
+| username| Username| The username to access Jira.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -26,9 +29,9 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 At runtime, the `jira-source` Kamelet relies upon the presence of the following dependencies:
 
 - camel:jackson
-- camel:kamelet
 - camel:jira
-- mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.4.redhat-00001 
+- camel:kamelet
+- mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.5 
 
 == Usage
 
@@ -41,7 +44,7 @@ You can use the `jira-source` Kamelet as a Knative source by binding it to a Kna
 .jira-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: jira-source-binding
@@ -49,12 +52,10 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: jira-source
     properties:
       jiraUrl: "http://my_jira.com:8081"
-      password: "The Password"
-      username: "The Username"
   sink:
     ref:
       kind: Channel
@@ -84,7 +85,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind jira-source -p "source.jiraUrl=http://my_jira.com:8081" -p "source.password=The Password" -p "source.username=The Username" channel:mychannel
+kamel bind jira-source -p "source.jiraUrl=http://my_jira.com:8081" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -96,7 +97,7 @@ You can use the `jira-source` Kamelet as a Kafka source by binding it to a Kafka
 .jira-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: jira-source-binding
@@ -104,12 +105,10 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: jira-source
     properties:
       jiraUrl: "http://my_jira.com:8081"
-      password: "The Password"
-      username: "The Username"
   sink:
     ref:
       kind: KafkaTopic
@@ -140,7 +139,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind jira-source -p "source.jiraUrl=http://my_jira.com:8081" -p "source.password=The Password" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind jira-source -p "source.jiraUrl=http://my_jira.com:8081" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

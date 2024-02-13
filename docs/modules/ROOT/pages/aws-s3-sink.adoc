@@ -4,13 +4,15 @@
 
 *Provided by: "Red Hat"*
 
-Upload data to AWS S3.
+Upload data to an Amazon S3 Bucket.
 
-The Kamelet expects the following headers to be set:
+The basic authentication method for the S3 service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
 
-- `file` / `ce-file`: as the file name to upload
+If you use the default credentials provider, the S3 client loads the credentials through this provider and doesn't use the basic authentication method.
 
-If the header won't be set the exchange ID will be used as file name.
+In the header, you can optionally set the `file` / `ce-partition` property to specify the name of the file to upload.
+
+If you do not set the property in the header, the Kamelet uses the exchange ID for the file name.
 
 == Configuration Options
 
@@ -18,11 +20,14 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS.| string| | 
-| *bucketNameOrArn {empty}* *| Bucket Name| The S3 Bucket name or ARN.| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to.| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS.| string| | 
-| autoCreateBucket| Autocreate Bucket| Setting the autocreation of the S3 bucket bucketName.| boolean| `false`| 
+| *bucketNameOrArn {empty}* *| Bucket Name| The S3 Bucket name or Amazon Resource Name (ARN).| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| autoCreateBucket| Autocreate Bucket| Specifies to automatically create the S3 bucket.| boolean| `false`| 
+| keyName| Key Name| The key name for saving an element in the bucket.| string| | 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
 | useDefaultCredentialsProvider| Default Credentials Provider| If true, the S3 client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
@@ -48,7 +53,7 @@ You can use the `aws-s3-sink` Kamelet as a Knative sink by binding it to a Knati
 .aws-s3-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-s3-sink-binding
@@ -61,13 +66,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-s3-sink
     properties:
-      accessKey: "The Access Key"
       bucketNameOrArn: "The Bucket Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   
 ----
 
@@ -92,7 +95,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel aws-s3-sink -p "sink.accessKey=The Access Key" -p "sink.bucketNameOrArn=The Bucket Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"
+kamel bind channel:mychannel aws-s3-sink -p "sink.bucketNameOrArn=The Bucket Name" -p "sink.region=The AWS Region"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -104,7 +107,7 @@ You can use the `aws-s3-sink` Kamelet as a Kafka sink by binding it to a Kafka t
 .aws-s3-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-s3-sink-binding
@@ -117,13 +120,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-s3-sink
     properties:
-      accessKey: "The Access Key"
       bucketNameOrArn: "The Bucket Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   
 ----
 
@@ -149,7 +150,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-s3-sink -p "sink.accessKey=The Access Key" -p "sink.bucketNameOrArn=The Bucket Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-s3-sink -p "sink.bucketNameOrArn=The Bucket Name" -p "sink.region=The AWS Region"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

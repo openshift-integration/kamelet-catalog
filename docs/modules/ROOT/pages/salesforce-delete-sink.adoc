@@ -4,10 +4,10 @@
 
 *Provided by: "Red Hat"*
 
-Removes an object from Salesforce. The body received must be a json
-containing two keys: sObjectId and sObjectName.
+Remove an object from Salesforce. 
 
-Example body: { "sObjectId": "XXXXX0", "sObjectName": "Contact" }
+The data body must be JSON-formatted and it must
+contain two keys: `sObjectId` and `sObjectName`. For example: `{ "sObjectId": "XXXXX0", "sObjectName": "Contact" }`
 
 == Configuration Options
 
@@ -15,11 +15,11 @@ The following table summarizes the configuration options available for the `sale
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *clientId {empty}* *| Consumer Key| The Salesforce application consumer key| string| | 
-| *clientSecret {empty}* *| Consumer Secret| The Salesforce application consumer secret| string| | 
-| *password {empty}* *| Password| The Salesforce user password| string| | 
-| *userName {empty}* *| Username| The Salesforce username| string| | 
-| loginUrl| Login URL| The Salesforce instance login URL| string| `"https://login.salesforce.com"`| 
+| *clientId {empty}* *| Consumer Key| The Salesforce application consumer key.| string| | 
+| *clientSecret {empty}* *| Consumer Secret| The Salesforce application consumer secret.| string| | 
+| *password {empty}* *| Password| The Salesforce user password.| string| | 
+| *userName {empty}* *| Username| The Salesforce username.| string| | 
+| loginUrl| Login URL| The Salesforce instance login URL.| string| `"https://login.salesforce.com"`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -45,7 +45,7 @@ You can use the `salesforce-delete-sink` Kamelet as a Knative sink by binding it
 .salesforce-delete-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: salesforce-delete-sink-binding
@@ -58,7 +58,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: salesforce-delete-sink
     properties:
       clientId: "The Consumer Key"
@@ -101,7 +101,7 @@ You can use the `salesforce-delete-sink` Kamelet as a Kafka sink by binding it t
 .salesforce-delete-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: salesforce-delete-sink-binding
@@ -114,7 +114,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: salesforce-delete-sink
     properties:
       clientId: "The Consumer Key"

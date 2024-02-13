@@ -6,16 +6,25 @@
 
 Receive data from AWS Kinesis.
 
+The basic authentication method for the Kinesis service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
+
+If you use the default credentials provider, the Kinesis client loads the credentials through this provider and doesn't use the basic authentication method.
+
+Two headers will be duplicated with different names for clarity at sink level, CamelAwsKinesisPartitionKey will be duplicated into aws.kinesis.partition.key and CamelAwsKinesisSequenceNumber will be duplicated in aws.kinesis.sequence.number
+
 == Configuration Options
 
 The following table summarizes the configuration options available for the `aws-kinesis-source` Kamelet:
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
-| *stream {empty}* *| Stream Name| The Kinesis stream that you want to access (needs to be created in advance)| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| *stream {empty}* *| Stream Name| The Kinesis stream that you want to access. The Kinesis stream that you specify must already exist.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| delay| Delay| The number of milliseconds before the next poll of the selected stream.| integer| `500`| 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
 | useDefaultCredentialsProvider| Default Credentials Provider| If true, the Kinesis client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
@@ -26,9 +35,10 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-kinesis-source` Kamelet relies upon the presence of the following dependencies:
 
-- camel:gson
+- camel:aws2-kinesis
 - camel:kamelet
-- camel:aws2-kinesis 
+- camel:core
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT 
 
 == Usage
 
@@ -41,7 +51,7 @@ You can use the `aws-kinesis-source` Kamelet as a Knative source by binding it t
 .aws-kinesis-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-kinesis-source-binding
@@ -49,12 +59,10 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-kinesis-source
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       stream: "The Stream Name"
   sink:
     ref:
@@ -85,7 +93,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind aws-kinesis-source -p "source.accessKey=The Access Key" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" -p "source.stream=The Stream Name" channel:mychannel
+kamel bind aws-kinesis-source -p "source.region=The AWS Region" -p "source.stream=The Stream Name" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -97,7 +105,7 @@ You can use the `aws-kinesis-source` Kamelet as a Kafka source by binding it to 
 .aws-kinesis-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-kinesis-source-binding
@@ -105,12 +113,10 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-kinesis-source
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       stream: "The Stream Name"
   sink:
     ref:
@@ -142,7 +148,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind aws-kinesis-source -p "source.accessKey=The Access Key" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" -p "source.stream=The Stream Name" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind aws-kinesis-source -p "source.region=The AWS Region" -p "source.stream=The Stream Name" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

@@ -1,4 +1,4 @@
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-kinesis-source-binding
@@ -6,12 +6,10 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-kinesis-source
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       stream: "The Stream Name"
   sink:
     ref:

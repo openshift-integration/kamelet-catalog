@@ -8,8 +8,6 @@
       - to:
           uri: "kamelet:aws-s3-sink"
           parameters:
-            accessKey: "The Access Key"
             bucketNameOrArn: "The Bucket Name"
-            region: "eu-west-1"
-            secretKey: "The Secret Key"
+            region: "The AWS Region"
     

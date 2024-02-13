@@ -1,4 +1,4 @@
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: mongodb-source-binding
@@ -6,14 +6,12 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: mongodb-source
     properties:
       collection: "The MongoDB Collection"
       database: "The MongoDB Database"
       hosts: "The MongoDB Hosts"
-      password: "The MongoDB Password"
-      username: "The MongoDB Username"
   sink:
     ref:
       kind: KafkaTopic

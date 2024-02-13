@@ -17,7 +17,7 @@ import (
 	"strings"
 	"text/template"
 
-	camel "github.com/apache/camel-k/pkg/apis/camel/v1alpha1"
+	camel "github.com/apache/camel-k/v2/pkg/apis/camel/v1"
 	"github.com/iancoleman/strcase"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -75,7 +75,7 @@ func main() {
 		ctx := NewTemplateContext(k, img)
 
 		// check if the kamelet binding example should be generated
-		bindingFile := path.Join(projectBaseDir, "templates/bindings/camel-k", k.Name + "-binding.yaml")
+		bindingFile := path.Join(projectBaseDir, "templates/bindings/camel-k", k.Name+"-binding.yaml")
 		generateExampleBinding = shouldGenerateKameletBindingExample(bindingFile)
 		ctx.SetVal("GenerateExampleBinding", strconv.FormatBool(generateExampleBinding))
 
@@ -120,15 +120,15 @@ func updateImageLink(k camel.Kamelet, img string, links []string) []string {
 }
 
 type TemplateContext struct {
-	Kamelet camel.Kamelet
-	Image   string
+	Kamelet            camel.Kamelet
+	Image              string
 	TemplateProperties map[string]string
 }
 
 func NewTemplateContext(kamelet camel.Kamelet, image string) TemplateContext {
 	return TemplateContext{
-		Kamelet: kamelet,
-		Image:   image,
+		Kamelet:            kamelet,
+		Image:              image,
 		TemplateProperties: map[string]string{},
 	}
 }
@@ -218,10 +218,10 @@ func (ctx *TemplateContext) PropertyList() string {
 			sampleConfig = append(sampleConfig, fmt.Sprintf("%s: %s", key, ex))
 		}
 	}
-	
+
 	/*
-	Creates the properties list in the YAML format.
-	 */
+		Creates the properties list in the YAML format.
+	*/
 	props := ""
 	if len(sampleConfig) > 0 {
 		props = fmt.Sprintf("\n    %s:\n      %s", "properties", strings.Join(sampleConfig, "\n      "))
@@ -360,7 +360,7 @@ func (ctx *TemplateContext) GenerateExampleBinding() bool {
 // this is called from kamelet.adoc.tmpl to source the kamelet binding example from a file
 // skip the first line and replace the sink kind when the kind is a knative channel
 func (ctx *TemplateContext) ReadKameletBindingExample(kameletName string) string {
-	f := path.Join(projectBaseDir, "templates/bindings/camel-k/", kameletName + "-binding.yaml")
+	f := path.Join(projectBaseDir, "templates/bindings/camel-k/", kameletName+"-binding.yaml")
 	file, _ := os.Open(f)
 	defer file.Close()
 	// skip the first line, as it contains the comment marker
@@ -381,7 +381,7 @@ func (ctx *TemplateContext) ReadKameletBindingExample(kameletName string) string
 // this is called from kamelet.adoc.tmpl to source the "kamel bind" command example from the kamelet binding example file
 // replace the sink kind when the kind is a knative channel
 func (ctx *TemplateContext) ReadKamelBindExample(kameletName string, ref string) string {
-	f := path.Join(projectBaseDir, "templates/bindings/camel-k/", kameletName + "-binding.yaml")
+	f := path.Join(projectBaseDir, "templates/bindings/camel-k/", kameletName+"-binding.yaml")
 	file, _ := os.Open(f)
 	defer file.Close()
 	// skip the first line, as it contains the comment marker
@@ -433,17 +433,17 @@ func saveImage(k camel.Kamelet, out string) string {
 func produceDocFile(k camel.Kamelet, baseDir string, content string) {
 	outputDir := filepath.Join(baseDir, "pages")
 
-	produceOutputFile(k, outputDir, content,".adoc")
+	produceOutputFile(k, outputDir, content, ".adoc")
 }
 
 func produceBindingFile(k camel.Kamelet, baseDir string, projectName string, content string) {
 	camelKOutputDir := filepath.Join(baseDir, "templates", "bindings", projectName)
 
-	produceOutputFile(k, camelKOutputDir, content,"-binding.yaml")
+	produceOutputFile(k, camelKOutputDir, content, "-binding.yaml")
 }
 
 func produceOutputFile(k camel.Kamelet, outputDir string, content string, extension string) {
-	outputFile := filepath.Join(outputDir, k.Name + extension)
+	outputFile := filepath.Join(outputDir, k.Name+extension)
 	if _, err := os.Stat(outputFile); err == nil {
 		err = os.Remove(outputFile)
 		handleGeneralError(fmt.Sprintf("cannot remove file %q", outputFile), err)

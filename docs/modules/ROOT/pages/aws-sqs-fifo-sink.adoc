@@ -4,7 +4,12 @@
 
 *Provided by: "Red Hat"*
 
-Send message to an AWS SQS FIFO Queue
+
+Send message to an AWS SQS FIFO Queue.
+
+Access Key/Secret Key are the basic method for authenticating to the AWS SQS Service. These parameters are optional because the Kamelet provides the 'useDefaultCredentialsProvider'.
+
+When using a default Credentials Provider the SQS client will load the credentials through this provider and won't use the static credential. This is reason for not having the access key and secret key as mandatory parameter for this Kamelet.
 
 == Configuration Options
 
@@ -12,13 +17,17 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
 | *queueNameOrArn {empty}* *| Queue Name| The SQS Queue name or ARN| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| amazonAWSHost| AWS Host| The hostname of the Amazon AWS cloud.| string| `"amazonaws.com"`| 
 | autoCreateQueue| Autocreate Queue| Setting the autocreation of the SQS queue.| boolean| `false`| 
 | contentBasedDeduplication| Content-Based Deduplication| Use content-based deduplication (should be enabled in the SQS FIFO queue first)| boolean| `false`| 
-| useDefaultCredentialsProvider| Default Credentials Provider| If true, the SQS client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| protocol| Protocol| The underlying protocol used to communicate with SQS| string| `"https"`| `"http or https"`
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
+| useDefaultCredentialsProvider| Default Credentials Provider| Set whether the SQS client should expect to load credentials through a default credentials provider or to expect static credentials to be passed in.| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -43,7 +52,7 @@ You can use the `aws-sqs-fifo-sink` Kamelet as a Knative sink by binding it to a
 .aws-sqs-fifo-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-sqs-fifo-sink-binding
@@ -56,13 +65,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-sqs-fifo-sink
     properties:
-      accessKey: "The Access Key"
       queueNameOrArn: "The Queue Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   
 ----
 
@@ -87,7 +94,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel aws-sqs-fifo-sink -p "sink.accessKey=The Access Key" -p "sink.queueNameOrArn=The Queue Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"
+kamel bind channel:mychannel aws-sqs-fifo-sink -p "sink.queueNameOrArn=The Queue Name" -p "sink.region=The AWS Region"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -99,7 +106,7 @@ You can use the `aws-sqs-fifo-sink` Kamelet as a Kafka sink by binding it to a K
 .aws-sqs-fifo-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-sqs-fifo-sink-binding
@@ -112,13 +119,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-sqs-fifo-sink
     properties:
-      accessKey: "The Access Key"
       queueNameOrArn: "The Queue Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   
 ----
 
@@ -144,7 +149,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-sqs-fifo-sink -p "sink.accessKey=The Access Key" -p "sink.queueNameOrArn=The Queue Name" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-sqs-fifo-sink -p "sink.queueNameOrArn=The Queue Name" -p "sink.region=The AWS Region"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

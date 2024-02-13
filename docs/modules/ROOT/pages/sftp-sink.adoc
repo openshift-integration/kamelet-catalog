@@ -6,11 +6,9 @@
 
 Send data to an SFTP Server.
 
-The Kamelet expects the following headers to be set:
+In the header, you can set the `file` / `ce-file` property to specify the filename to upload.
 
-- `file` / `ce-file`: as the file name to upload
-
-If the header won't be set the exchange ID will be used as file name.
+If you do not set the property in the header, the Kamelet uses the exchange ID for the filename.
 
 == Configuration Options
 
@@ -18,13 +16,20 @@ The following table summarizes the configuration options available for the `sftp
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *connectionHost {empty}* *| Connection Host| Hostname of the FTP server| string| | 
-| *connectionPort {empty}* *| Connection Port| Port of the FTP server| string| `22`| 
-| *directoryName {empty}* *| Directory Name| The starting directory| string| | 
-| *password {empty}* *| Password| The password to access the FTP server| string| | 
-| *username {empty}* *| Username| The username to access the FTP server| string| | 
-| fileExist| File Existence| How to behave in case of file already existent. There are 4 enums and the value can be one of Override, Append, Fail or Ignore| string| `"Override"`| 
-| passiveMode| Passive Mode| Sets passive mode connection| boolean| `false`| 
+| *connectionHost {empty}* *| Connection Host| The hostname of the FTP server| string| | 
+| *connectionPort {empty}* *| Connection Port| The port of the FTP server| string| `22`| 
+| *directoryName {empty}* *| Directory Name| The starting directory.| string| | 
+| autoCreate| Autocreate Missing Directories| Automatically create the directory the files should be written to.| boolean| `true`| 
+| binary| Binary| Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).| boolean| `false`| 
+| fileExist| File Existence| How to behave in case of file already existent.| string| `"Override"`| 
+| passiveMode| Passive Mode| Specifies to use passive mode connection.| boolean| `false`| 
+| password| Password| The password to access the FTP server.| string| | 
+| privateKeyFile| Private Key File| Set the private key file so that the SFTP endpoint can do private key verification.| string| | 
+| privateKeyPassphrase| Private Key Passphrase| Set the private key file passphrase so that the SFTP endpoint can do private key verification.| string| | 
+| privateKeyUri| Private Key URI| Set the private key file (loaded from classpath by default) so that the SFTP endpoint can do private key verification.| string| | 
+| strictHostKeyChecking| Strict Host Checking| Sets whether to use strict host key checking.| string| `false`| 
+| useUserKnownHostsFile| Use User Known Hosts File| If knownHostFile has not been explicit configured then use the host file from System.getProperty(user.home)/.ssh/known_hosts.| boolean| `true`| 
+| username| Username| The username to access the FTP server.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -49,7 +54,7 @@ You can use the `sftp-sink` Kamelet as a Knative sink by binding it to a Knative
 .sftp-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: sftp-sink-binding
@@ -62,13 +67,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: sftp-sink
     properties:
       connectionHost: "The Connection Host"
       directoryName: "The Directory Name"
-      password: "The Password"
-      username: "The Username"
   
 ----
 
@@ -93,7 +96,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel sftp-sink -p "sink.connectionHost=The Connection Host" -p "sink.directoryName=The Directory Name" -p "sink.password=The Password" -p "sink.username=The Username"
+kamel bind channel:mychannel sftp-sink -p "sink.connectionHost=The Connection Host" -p "sink.directoryName=The Directory Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -105,7 +108,7 @@ You can use the `sftp-sink` Kamelet as a Kafka sink by binding it to a Kafka top
 .sftp-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: sftp-sink-binding
@@ -118,13 +121,11 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: sftp-sink
     properties:
       connectionHost: "The Connection Host"
       directoryName: "The Directory Name"
-      password: "The Password"
-      username: "The Username"
   
 ----
 
@@ -150,7 +151,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic sftp-sink -p "sink.connectionHost=The Connection Host" -p "sink.directoryName=The Directory Name" -p "sink.password=The Password" -p "sink.username=The Username"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic sftp-sink -p "sink.connectionHost=The Connection Host" -p "sink.directoryName=The Directory Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

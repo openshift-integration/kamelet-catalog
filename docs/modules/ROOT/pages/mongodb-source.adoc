@@ -4,11 +4,13 @@
 
 *Provided by: "Red Hat"*
 
-Consume documents from MongoDB.
+Consume data from MongoDB.
 
-If the persistentTailTracking option will be enabled, the consumer will keep track of the last consumed message and on the next restart, the consumption will restart from that message. In case of persistentTailTracking enabled, the tailTrackIncreasingField must be provided (by default it is optional).
+If you enable the `persistentTailTracking` property, the consumer keeps track of the last consumed message and, on the next restart, the consumption restarts from that message. If you enable `persistentTailTracking`, you must provide a value for the `tailTrackIncreasingField` property (by default it is optional).
 
-If the persistentTailTracking option won't be enabled, the consumer will consume the whole collection and wait in idle for new documents to consume.
+If you disable the `persistentTailTracking` property, the consumer consumes the whole collection and waits in idle for new data to consume.
+
+The collection that provides the data must be a capped collection.
 
 == Configuration Options
 
@@ -16,13 +18,15 @@ The following table summarizes the configuration options available for the `mong
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *collection {empty}* *| MongoDB Collection| Sets the name of the MongoDB collection to bind to this endpoint.| string| | 
-| *database {empty}* *| MongoDB Database| Sets the name of the MongoDB database to target.| string| | 
-| *hosts {empty}* *| MongoDB Hosts| Comma separated list of MongoDB Host Addresses in host:port format.| string| | 
-| *password {empty}* *| MongoDB Password| User password for accessing MongoDB.| string| | 
-| *username {empty}* *| MongoDB Username| Username for accessing MongoDB. The username must be present in the MongoDB's authentication database (authenticationDatabase). By default, the MongoDB authenticationDatabase is 'admin'.| string| | 
-| persistentTailTracking| MongoDB Persistent Tail Tracking| Enable persistent tail tracking, which is a mechanism to keep track of the last consumed message across system restarts. The next time the system is up, the endpoint will recover the cursor from the point where it last stopped slurping records.| boolean| `false`| 
-| tailTrackIncreasingField| MongoDB Tail Track Increasing Field| Correlation field in the incoming record which is of increasing nature and will be used to position the tailing cursor every time it is generated.| string| | 
+| *collection {empty}* *| MongoDB Collection| The name of the MongoDB collection to bind to this endpoint.| string| | 
+| *database {empty}* *| MongoDB Database| The name of the MongoDB database.| string| | 
+| *hosts {empty}* *| MongoDB Hosts| A comma-separated list of MongoDB host addresses in `host:port` format.| string| | 
+| password| MongoDB Password| The user password for accessing MongoDB.| string| | 
+| persistentTailTracking| MongoDB Persistent Tail Tracking| Specifies to enable persistent tail tracking, which is a mechanism to keep track of the last consumed data across system restarts. The next time the system is up, the endpoint recovers the cursor from the point where it last stopped consuimg data. This option will only work on capped collections.| boolean| `false`| 
+| ssl| Enable Ssl for Mongodb Connection| whether to enable ssl connection to mongodb| boolean| `true`| 
+| sslValidationEnabled| Enables Ssl Certificates Validation and Host name checks.| IMPORTANT this should be disabled only in test environment since can pose security issues.| boolean| `true`| 
+| tailTrackIncreasingField| MongoDB Tail Track Increasing Field| The correlation field in the incoming data which is of increasing nature and is used to position the tailing cursor every time it is generated.| string| | 
+| username| MongoDB Username| The username for accessing MongoDB. The username must be present in the MongoDB's authentication database (`authenticationDatabase`). By default, the MongoDB `authenticationDatabase` is 'admin'.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -34,7 +38,8 @@ At runtime, the `mongodb-source` Kamelet relies upon the presence of the followi
 
 - camel:kamelet
 - camel:mongodb
-- camel:jackson 
+- camel:jackson
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT 
 
 == Usage
 
@@ -47,7 +52,7 @@ You can use the `mongodb-source` Kamelet as a Knative source by binding it to a 
 .mongodb-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: mongodb-source-binding
@@ -55,14 +60,12 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: mongodb-source
     properties:
       collection: "The MongoDB Collection"
       database: "The MongoDB Database"
       hosts: "The MongoDB Hosts"
-      password: "The MongoDB Password"
-      username: "The MongoDB Username"
   sink:
     ref:
       kind: Channel
@@ -92,7 +95,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind mongodb-source -p "source.collection=The MongoDB Collection" -p "source.database=The MongoDB Database" -p "source.hosts=The MongoDB Hosts" -p "source.password=The MongoDB Password" -p "source.username=The MongoDB Username" channel:mychannel
+kamel bind mongodb-source -p "source.collection=The MongoDB Collection" -p "source.database=The MongoDB Database" -p "source.hosts=The MongoDB Hosts" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -104,7 +107,7 @@ You can use the `mongodb-source` Kamelet as a Kafka source by binding it to a Ka
 .mongodb-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: mongodb-source-binding
@@ -112,14 +115,12 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: mongodb-source
     properties:
       collection: "The MongoDB Collection"
       database: "The MongoDB Database"
       hosts: "The MongoDB Hosts"
-      password: "The MongoDB Password"
-      username: "The MongoDB Username"
   sink:
     ref:
       kind: KafkaTopic
@@ -150,7 +151,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind mongodb-source -p "source.collection=The MongoDB Collection" -p "source.database=The MongoDB Database" -p "source.hosts=The MongoDB Hosts" -p "source.password=The MongoDB Password" -p "source.username=The MongoDB Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind mongodb-source -p "source.collection=The MongoDB Collection" -p "source.database=The MongoDB Database" -p "source.hosts=The MongoDB Hosts" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
