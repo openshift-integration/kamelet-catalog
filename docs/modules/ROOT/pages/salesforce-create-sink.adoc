@@ -4,10 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Creates an object in Salesforce. The body of the message must contain
-the JSON of the salesforce object.
+Create an object in Salesforce. 
 
-Example body: { "Phone": "555", "Name": "Antonia", "LastName": "Garcia" }
+The body of the message must contain the JSON of the Salesforce object, for example: `{ "Phone": "555", "Name": "Antonia", "LastName": "Garcia" }`.
 
 == Configuration Options
 
@@ -15,12 +14,12 @@ The following table summarizes the configuration options available for the `sale
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *clientId {empty}* *| Consumer Key| The Salesforce application consumer key| string| | 
-| *clientSecret {empty}* *| Consumer Secret| The Salesforce application consumer secret| string| | 
-| *password {empty}* *| Password| The Salesforce user password| string| | 
-| *userName {empty}* *| Username| The Salesforce username| string| | 
-| loginUrl| Login URL| The Salesforce instance login URL| string| `"https://login.salesforce.com"`| 
-| sObjectName| Object Name| Type of the object| string| | `"Contact"`
+| *clientId {empty}* *| Consumer Key| The Salesforce application consumer key.| string| | 
+| *clientSecret {empty}* *| Consumer Secret| The Salesforce application consumer secret.| string| | 
+| *password {empty}* *| Password| The Salesforce user password.| string| | 
+| *userName {empty}* *| Username| The Salesforce username.| string| | 
+| loginUrl| Login URL| The Salesforce instance login URL.| string| `"https://login.salesforce.com"`| 
+| sObjectName| Object Name| The type of the object.| string| | `"Contact"`
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -44,7 +43,7 @@ You can use the `salesforce-create-sink` Kamelet as a Knative sink by binding it
 .salesforce-create-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: salesforce-create-sink-binding
@@ -57,7 +56,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: salesforce-create-sink
     properties:
       clientId: "The Consumer Key"
@@ -100,7 +99,7 @@ You can use the `salesforce-create-sink` Kamelet as a Kafka sink by binding it t
 .salesforce-create-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: salesforce-create-sink-binding
@@ -113,7 +112,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: salesforce-create-sink
     properties:
       clientId: "The Consumer Key"

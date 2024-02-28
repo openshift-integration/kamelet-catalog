@@ -18,7 +18,6 @@ package org.apache.camel.kamelets.utils.transform;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.Exchange;
-import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.junit.jupiter.api.Assertions;
@@ -49,9 +48,86 @@ class ExtractFieldTest {
 
         exchange.getMessage().setBody(mapper.readTree(baseJson));
 
-        processor.process("name", exchange);
+        processor.setField("name");
+        processor.process(exchange);
 
         Assertions.assertEquals("Rajesh Koothrappali", exchange.getMessage().getBody(String.class));
+    }
+
+    @Test
+    void shouldExtractFieldToHeader() throws Exception {
+        Exchange exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setBody(mapper.readTree(baseJson));
+
+        processor.setField("name");
+        processor.setHeaderOutput(true);
+        processor.setHeaderOutputName("name");
+        processor.process(exchange);
+
+        Assertions.assertEquals(baseJson, exchange.getMessage().getBody(String.class));
+        Assertions.assertEquals("Rajesh Koothrappali", exchange.getMessage().getHeader("name"));
+    }
+
+    @Test
+    void shouldExtractFieldToHeaderWithStrictHeaderCheck() throws Exception {
+        Exchange exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setBody(mapper.readTree(baseJson));
+
+        processor.setField("name");
+        processor.setHeaderOutput(true);
+        processor.setHeaderOutputName("name");
+        processor.setStrictHeaderCheck(true);
+        processor.process(exchange);
+
+        Assertions.assertEquals(baseJson, exchange.getMessage().getBody(String.class));
+        Assertions.assertEquals("Rajesh Koothrappali", exchange.getMessage().getHeader("name"));
+
+        exchange.getMessage().setHeader("name", "somethingElse");
+
+        processor.process(exchange);
+
+        Assertions.assertEquals("Rajesh Koothrappali", exchange.getMessage().getBody(String.class));
+        Assertions.assertEquals("somethingElse", exchange.getMessage().getHeader("name"));
+    }
+
+    @Test
+    void shouldExtractFieldToDefaultHeader() throws Exception {
+        Exchange exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setBody(mapper.readTree(baseJson));
+
+        processor.setField("name");
+        processor.setHeaderOutput(true);
+        processor.process(exchange);
+
+        Assertions.assertEquals(baseJson, exchange.getMessage().getBody(String.class));
+        Assertions.assertEquals("Rajesh Koothrappali", exchange.getMessage().getHeader(ExtractField.EXTRACTED_FIELD_HEADER));
+
+        exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setBody(mapper.readTree(baseJson));
+
+        processor.setHeaderOutputName("none");
+        processor.process(exchange);
+
+        Assertions.assertEquals(baseJson, exchange.getMessage().getBody(String.class));
+        Assertions.assertEquals("Rajesh Koothrappali", exchange.getMessage().getHeader(ExtractField.EXTRACTED_FIELD_HEADER));
+    }
+
+    @Test
+    void shouldExtractFieldWithT() throws Exception {
+        final String baseJson = "{\"id\":\"1\",\"message\":\"Camel\\\\tRocks\"}";
+        Exchange exchange = new DefaultExchange(camelContext);
+
+        exchange.getMessage().setBody(mapper.readTree(baseJson));
+
+        processor.setField("message");
+        processor.setTrimField(true);
+        processor.process(exchange);
+
+        Assertions.assertEquals("Camel\\tRocks", exchange.getMessage().getBody());
     }
 
 }

@@ -4,13 +4,11 @@
 
 *Provided by: "Red Hat"*
 
-Send data to an FTP Server.
+Send data to an FTP server.
 
-The Kamelet expects the following headers to be set:
+In the header, you can set the `file` / `ce-file` property to specify the filename to upload.
 
-- `file` / `ce-file`: as the file name to upload
-
-If the header won't be set the exchange ID will be used as file name.
+If you do not set the property in the header, the Kamelet uses the exchange ID for the filename.
 
 == Configuration Options
 
@@ -18,13 +16,15 @@ The following table summarizes the configuration options available for the `ftp-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *connectionHost {empty}* *| Connection Host| Hostname of the FTP server| string| | 
-| *connectionPort {empty}* *| Connection Port| Port of the FTP server| string| `21`| 
-| *directoryName {empty}* *| Directory Name| The starting directory| string| | 
-| *password {empty}* *| Password| The password to access the FTP server| string| | 
-| *username {empty}* *| Username| The username to access the FTP server| string| | 
-| fileExist| File Existence| How to behave in case of file already existent. There are 4 enums and the value can be one of Override, Append, Fail or Ignore| string| `"Override"`| 
-| passiveMode| Passive Mode| Sets passive mode connection| boolean| `false`| 
+| *connectionHost {empty}* *| Connection Host| The hostname of the FTP server.| string| | 
+| *connectionPort {empty}* *| Connection Port| The port of the FTP server.| string| `21`| 
+| *directoryName {empty}* *| Directory Name| The starting directory.| string| | 
+| *password {empty}* *| Password| The password to access the FTP server.| string| | 
+| *username {empty}* *| Username| The username to access the FTP server.| string| | 
+| autoCreate| Autocreate Missing Directories| Automatically create the directory the files should be written to.| boolean| `true`| 
+| binary| Binary| Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).| boolean| `false`| 
+| fileExist| File Existence| How to behave in case of file already existent.| string| `"Override"`| 
+| passiveMode| Passive Mode| Specifies to use passive mode connection.| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -49,7 +49,7 @@ You can use the `ftp-sink` Kamelet as a Knative sink by binding it to a Knative 
 .ftp-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: ftp-sink-binding
@@ -62,7 +62,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: ftp-sink
     properties:
       connectionHost: "The Connection Host"
@@ -105,7 +105,7 @@ You can use the `ftp-sink` Kamelet as a Kafka sink by binding it to a Kafka topi
 .ftp-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: ftp-sink-binding
@@ -118,7 +118,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: ftp-sink
     properties:
       connectionHost: "The Connection Host"

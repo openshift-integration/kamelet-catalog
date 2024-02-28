@@ -4,7 +4,7 @@
 
 *Provided by: "Red Hat"*
 
-Produces periodic events with a custom payload.
+Produces periodic messages with a custom payload.
 
 == Configuration Options
 
@@ -12,9 +12,9 @@ The following table summarizes the configuration options available for the `time
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *message {empty}* *| Message| The message to generate| string| | `"hello world"`
-| contentType| Content Type| The content type of the message being generated| string| `"text/plain"`| 
-| period| Period| The interval between two events in milliseconds| integer| `1000`| 
+| *message {empty}* *| Message| The message to generate.| string| | `"hello world"`
+| contentType| Content Type| The content type of the generated message.| string| `"text/plain"`| 
+| period| Period| The interval (in milliseconds) to wait between producing the next message.| integer| `1000`| 
 | repeatCount| Repeat Count| Specifies a maximum limit of number of fires| integer| | 
 |===
 
@@ -40,7 +40,7 @@ You can use the `timer-source` Kamelet as a Knative source by binding it to a Kn
 .timer-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: timer-source-binding
@@ -48,7 +48,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "hello world"
@@ -93,7 +93,7 @@ You can use the `timer-source` Kamelet as a Kafka source by binding it to a Kafk
 .timer-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: timer-source-binding
@@ -101,7 +101,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "hello world"

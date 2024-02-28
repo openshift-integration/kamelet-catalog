@@ -4,7 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Receive Messages from Azure Storage queues.
+Receive events from Azure Storage queues.
+
+One header will be duplicated with different names for clarity at sink level, CamelAzureStorageQueueMessageId will be duplicated into azure.storage.queue.message.id
 
 == Configuration Options
 
@@ -12,10 +14,10 @@ The following table summarizes the configuration options available for the `azur
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The Azure Storage Queue access Key.| string| | 
+| *accessKey {empty}* *| Access Key| The Azure Storage Queue access key.| string| | 
 | *accountName {empty}* *| Account Name| The Azure Storage Queue account name.| string| | 
 | *queueName {empty}* *| Queue Name| The Azure Storage Queue container name.| string| | 
-| maxMessages| Maximum Messages| Maximum number of messages to get, if there are less messages exist in the queue than requested all the messages will be returned. By default it will consider 1 message to be retrieved, the allowed range is 1 to 32 messages.| int| `1`| 
+| maxMessages| Maximum Messages| The maximum number of messages to get. You can specify a value between 1 and 32. The default is 1 (one message). If there are fewer than the maximum number of messages in the queue, then all the messages are returned.| integer| `1`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -26,7 +28,9 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 At runtime, the `azure-storage-queue-source` Kamelet relies upon the presence of the following dependencies:
 
 - camel:azure-storage-queue
-- camel:kamelet 
+- camel:kamelet
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
+- camel:core 
 
 == Usage
 
@@ -39,7 +43,7 @@ You can use the `azure-storage-queue-source` Kamelet as a Knative source by bind
 .azure-storage-queue-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-queue-source-binding
@@ -47,7 +51,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-queue-source
     properties:
       accessKey: "The Access Key"
@@ -94,7 +98,7 @@ You can use the `azure-storage-queue-source` Kamelet as a Kafka source by bindin
 .azure-storage-queue-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-queue-source-binding
@@ -102,7 +106,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-queue-source
     properties:
       accessKey: "The Access Key"

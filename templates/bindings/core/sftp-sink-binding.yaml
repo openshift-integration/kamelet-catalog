@@ -10,6 +10,4 @@
           parameters:
             connectionHost: "The Connection Host"
             directoryName: "The Directory Name"
-            password: "The Password"
-            username: "The Username"
     

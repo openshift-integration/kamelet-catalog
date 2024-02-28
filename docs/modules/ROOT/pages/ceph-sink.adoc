@@ -47,7 +47,7 @@ You can use the `ceph-sink` Kamelet as a Knative sink by binding it to a Knative
 .ceph-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: ceph-sink-binding
@@ -60,7 +60,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: ceph-sink
     properties:
       accessKey: "The Access Key"
@@ -104,7 +104,7 @@ You can use the `ceph-sink` Kamelet as a Kafka sink by binding it to a Kafka top
 .ceph-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: ceph-sink-binding
@@ -117,7 +117,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: ceph-sink
     properties:
       accessKey: "The Access Key"

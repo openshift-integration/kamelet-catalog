@@ -4,7 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Consume Files from Azure Storage Blob.
+Consume files from Azure Storage Blob.
+
+Two headers will be duplicated with different names for clarity at sink level, CamelAzureStorageBlobETag will be duplicated into azure.storage.blob.e.tag and CamelAzureStorageBlobBlobSize will be duplicated in azure.storage.blob.blob.size
 
 == Configuration Options
 
@@ -12,10 +14,10 @@ The following table summarizes the configuration options available for the `azur
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The Azure Storage Blob access Key.| string| | 
 | *accountName {empty}* *| Account Name| The Azure Storage Blob account name.| string| | 
 | *containerName {empty}* *| Container Name| The Azure Storage Blob container name.| string| | 
-| credentialType| Credential Type| Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY| string| `"SHARED_ACCOUNT_KEY"`| 
+| accessKey| Access Key| The Azure Storage Blob access key.| string| | 
+| credentialType| Credential Type| Determines the credential strategy to adopt.| string| `"SHARED_ACCOUNT_KEY"`| 
 | delay| Delay| The number of milliseconds before the next poll of the selected blob.| integer| `500`| 
 | deleteAfterRead| Auto-delete Blob| Specifies to delete blobs after consuming them| boolean| `false`| 
 |===
@@ -28,10 +30,11 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 At runtime, the `azure-storage-blob-source` Kamelet relies upon the presence of the following dependencies:
 
 - camel:azure-storage-blob
-- camel:jsonpath
+- camel:kamelet
 - camel:core
+- camel:jsonpath
 - camel:timer
-- camel:kamelet 
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT 
 
 == Usage
 
@@ -44,7 +47,7 @@ You can use the `azure-storage-blob-source` Kamelet as a Knative source by bindi
 .azure-storage-blob-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-blob-source-binding
@@ -52,10 +55,9 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-blob-source
     properties:
-      accessKey: "The Access Key"
       accountName: "The Account Name"
       containerName: "The Container Name"
   sink:
@@ -87,7 +89,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind azure-storage-blob-source -p "source.accessKey=The Access Key" -p "source.accountName=The Account Name" -p "source.containerName=The Container Name" channel:mychannel
+kamel bind azure-storage-blob-source -p "source.accountName=The Account Name" -p "source.containerName=The Container Name" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -99,7 +101,7 @@ You can use the `azure-storage-blob-source` Kamelet as a Kafka source by binding
 .azure-storage-blob-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-blob-source-binding
@@ -107,10 +109,9 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-blob-source
     properties:
-      accessKey: "The Access Key"
       accountName: "The Account Name"
       containerName: "The Container Name"
   sink:
@@ -143,7 +144,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind azure-storage-blob-source -p "source.accessKey=The Access Key" -p "source.accountName=The Account Name" -p "source.containerName=The Container Name" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind azure-storage-blob-source -p "source.accountName=The Account Name" -p "source.containerName=The Container Name" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

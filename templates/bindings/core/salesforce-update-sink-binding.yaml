@@ -11,7 +11,5 @@
             clientId: "The Consumer Key"
             clientSecret: "The Consumer Secret"
             password: "The Password"
-            sObjectId: "The Object Id"
-            sObjectName: "Contact"
             userName: "The Username"
     

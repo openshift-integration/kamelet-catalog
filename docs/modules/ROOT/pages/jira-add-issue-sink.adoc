@@ -24,6 +24,8 @@ The Kamelet expects the following headers to be set:
 
 The issue description can be set from the body of the message or the `issueDescription`/`ce-issueDescription` in the header, however the body takes precedence.
 
+To authenticate a username/password or personal token must be defined. We recommend to use personal token as it is a safer way to get access to Jira.
+
 == Configuration Options
 
 The following table summarizes the configuration options available for the `jira-add-issue-sink` Kamelet:
@@ -31,8 +33,9 @@ The following table summarizes the configuration options available for the `jira
 |===
 | Property| Name| Description| Type| Default| Example
 | *jiraUrl {empty}* *| Jira URL| The URL of your instance of Jira| string| | `"http://my_jira.com:8081"`
-| *password {empty}* *| Password| The password or the API Token to access Jira| string| | 
-| *username {empty}* *| Username| The username to access Jira| string| | 
+| password| Password| The password to access Jira| string| | 
+| personal-token| Personal Token| Personal Token| string| | 
+| username| Username| The username to access Jira| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -46,7 +49,7 @@ At runtime, the `jira-add-issue-sink` Kamelet relies upon the presence of the fo
 - camel:jackson
 - camel:jira
 - camel:kamelet
-- mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.4.redhat-00001 
+- mvn:com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.5 
 
 == Usage
 
@@ -59,7 +62,7 @@ You can use the `jira-add-issue-sink` Kamelet as a Knative sink by binding it to
 .jira-add-issue-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: jira-add-issue-sink-binding
@@ -72,28 +75,28 @@ spec:
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "projectKey"
       value: "MYP"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "issueTypeName"
       value: "Bug"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "issueSummary"
       value: "The issue summary"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "issuePriorityName"
@@ -145,7 +148,7 @@ You can use the `jira-add-issue-sink` Kamelet as a Kafka sink by binding it to a
 .jira-add-issue-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: jira-add-issue-sink-binding
@@ -158,28 +161,28 @@ spec:
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "projectKey"
       value: "MYP"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "issueTypeName"
       value: "Bug"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "issueSummary"
       value: "The issue summary"
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
       name: "issuePriorityName"
@@ -187,7 +190,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: jira-add-issue-sink
     properties:
       jiraUrl: "jira server url"

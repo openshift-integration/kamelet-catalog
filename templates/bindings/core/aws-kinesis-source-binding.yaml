@@ -2,9 +2,7 @@
     from:
       uri: "kamelet:aws-kinesis-source"
       parameters:
-        accessKey: "The Access Key"
-        region: "eu-west-1"
-        secretKey: "The Secret Key"
+        region: "The AWS Region"
         stream: "The Stream Name"
     steps:
       - to:

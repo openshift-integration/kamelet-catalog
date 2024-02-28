@@ -4,7 +4,13 @@
 
 *Provided by: "Red Hat"*
 
-Receive data from AWS S3.
+Receive data from an Amazon S3 Bucket.
+
+The basic authentication method for the S3 service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
+
+If you use the default credentials provider, the S3 client loads the credentials through this provider and doesn't use the basic authentication method.
+
+Two headers will be duplicated with different names for clarity at sink level, CamelAwsS3Key will be duplicated into aws.s3.key and CamelAwsS3BucketName will be duplicated in aws.s3.bucket.name
 
 == Configuration Options
 
@@ -12,12 +18,18 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
-| *bucketNameOrArn {empty}* *| Bucket Name| The S3 Bucket name or ARN| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
-| autoCreateBucket| Autocreate Bucket| Setting the autocreation of the S3 bucket bucketName.| boolean| `false`| 
-| deleteAfterRead| Auto-delete Objects| Delete objects after consuming them| boolean| `true`| 
+| *bucketNameOrArn {empty}* *| Bucket Name| The S3 Bucket name or Amazon Resource Name (ARN).| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| autoCreateBucket| Autocreate Bucket| Specifies to automatically create the S3 bucket.| boolean| `false`| 
+| delay| Delay| The number of milliseconds before the next poll of the selected bucket.| integer| `500`| 
+| deleteAfterRead| Auto-delete Objects| Specifies to delete objects after consuming them.| boolean| `true`| 
+| ignoreBody| Ignore Body| If true, the S3 Object body is ignored. Setting this to true overrides any behavior defined by the `includeBody` option. If false, the S3 object is put in the body.| boolean| `false`| 
+| maxMessagesPerPoll| Max Messages Per Poll| Gets the maximum number of messages as a limit to poll at each polling. Gets the maximum number of messages as a limit to poll at each polling. The default value is 10. Use 0 or a negative number to set it as unlimited.| integer| `10`| 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| prefix| Prefix| The AWS S3 bucket prefix to consider while searching.| string| | `"folder/"`
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
 | useDefaultCredentialsProvider| Default Credentials Provider| If true, the S3 client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
@@ -28,8 +40,10 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-s3-source` Kamelet relies upon the presence of the following dependencies:
 
-- camel:kamelet
-- camel:aws2-s3 
+- camel:core
+- camel:aws2-s3
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
+- camel:kamelet 
 
 == Usage
 
@@ -42,7 +56,7 @@ You can use the `aws-s3-source` Kamelet as a Knative source by binding it to a K
 .aws-s3-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-s3-source-binding
@@ -50,13 +64,11 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-s3-source
     properties:
-      accessKey: "The Access Key"
       bucketNameOrArn: "The Bucket Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   sink:
     ref:
       kind: Channel
@@ -86,7 +98,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind aws-s3-source -p "source.accessKey=The Access Key" -p "source.bucketNameOrArn=The Bucket Name" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" channel:mychannel
+kamel bind aws-s3-source -p "source.bucketNameOrArn=The Bucket Name" -p "source.region=The AWS Region" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -98,7 +110,7 @@ You can use the `aws-s3-source` Kamelet as a Kafka source by binding it to a Kaf
 .aws-s3-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-s3-source-binding
@@ -106,13 +118,11 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-s3-source
     properties:
-      accessKey: "The Access Key"
       bucketNameOrArn: "The Bucket Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   sink:
     ref:
       kind: KafkaTopic
@@ -143,7 +153,7 @@ Configure and run the source by using the following command:
 
 [source,shell]
 ----
-kamel bind aws-s3-source -p "source.accessKey=The Access Key" -p "source.bucketNameOrArn=The Bucket Name" -p "source.region=eu-west-1" -p "source.secretKey=The Secret Key" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind aws-s3-source -p "source.bucketNameOrArn=The Bucket Name" -p "source.region=The AWS Region" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

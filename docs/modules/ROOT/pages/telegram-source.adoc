@@ -6,11 +6,11 @@
 
 Receive all messages that people send to your Telegram bot.
 
-To create a bot, contact the @botfather account using the Telegram app.
+To create a bot, contact the @botfather account by using the Telegram app.
 
-The source attaches the following headers to the messages:
+The source attaches the following header to the messages:
 
-- `chat-id` / `ce-chatid`: the ID of the chat where the message comes from
+- `chat-id` / `ce-chatid`: The ID of the chat where the message comes from.
 
 == Configuration Options
 
@@ -18,7 +18,7 @@ The following table summarizes the configuration options available for the `tele
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *authorizationToken {empty}* *| Token| The token to access your bot on Telegram. You you can obtain it from the Telegram @botfather.| string| | 
+| *authorizationToken {empty}* *| Token| The token to access your bot on Telegram. You can obtain it from the Telegram @botfather.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -44,7 +44,7 @@ You can use the `telegram-source` Kamelet as a Knative source by binding it to a
 .telegram-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: telegram-source-binding
@@ -52,7 +52,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: telegram-source
     properties:
       authorizationToken: "The Token"
@@ -97,7 +97,7 @@ You can use the `telegram-source` Kamelet as a Kafka source by binding it to a K
 .telegram-source-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: telegram-source-binding
@@ -105,7 +105,7 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: telegram-source
     properties:
       authorizationToken: "The Token"

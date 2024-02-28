@@ -4,7 +4,13 @@
 
 *Provided by: "Red Hat"*
 
-Send message to an AWS SNS Topic
+Send message to an Amazon Simple Notification Service (SNS) topic.
+
+The basic authentication method for the SNS service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
+
+If you use the default credentials provider, the SNS client loads the credentials through this provider and doesn't use the basic authentication method.
+
+In the header, you can optionally set the `subject` / `ce-subject` property to specify the subject of the message.
 
 == Configuration Options
 
@@ -12,11 +18,13 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The access key obtained from AWS| string| | 
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *secretKey {empty}* *| Secret Key| The secret key obtained from AWS| string| | 
-| *topicNameOrArn {empty}* *| Topic Name| The SQS Topic name or ARN| string| | 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| *topicNameOrArn {empty}* *| Topic Name| The SNS topic name name or Amazon Resource Name (ARN).| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
 | autoCreateTopic| Autocreate Topic| Setting the autocreation of the SNS topic.| boolean| `false`| 
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
 | useDefaultCredentialsProvider| Default Credentials Provider| If true, the SNS client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
@@ -27,8 +35,9 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-sns-sink` Kamelet relies upon the presence of the following dependencies:
 
-- camel:kamelet
-- camel:aws2-sns 
+- camel:core
+- camel:aws2-sns
+- camel:kamelet 
 
 == Usage
 
@@ -41,7 +50,7 @@ You can use the `aws-sns-sink` Kamelet as a Knative sink by binding it to a Knat
 .aws-sns-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-sns-sink-binding
@@ -54,12 +63,10 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-sns-sink
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       topicNameOrArn: "The Topic Name"
   
 ----
@@ -85,7 +92,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel aws-sns-sink -p "sink.accessKey=The Access Key" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key" -p "sink.topicNameOrArn=The Topic Name"
+kamel bind channel:mychannel aws-sns-sink -p "sink.region=The AWS Region" -p "sink.topicNameOrArn=The Topic Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -97,7 +104,7 @@ You can use the `aws-sns-sink` Kamelet as a Kafka sink by binding it to a Kafka 
 .aws-sns-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-sns-sink-binding
@@ -110,12 +117,10 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-sns-sink
     properties:
-      accessKey: "The Access Key"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
       topicNameOrArn: "The Topic Name"
   
 ----
@@ -142,7 +147,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-sns-sink -p "sink.accessKey=The Access Key" -p "sink.region=eu-west-1" -p "sink.secretKey=The Secret Key" -p "sink.topicNameOrArn=The Topic Name"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-sns-sink -p "sink.region=The AWS Region" -p "sink.topicNameOrArn=The Topic Name"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

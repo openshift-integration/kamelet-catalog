@@ -8,8 +8,6 @@
       - to:
           uri: "kamelet:aws-lambda-sink"
           parameters:
-            accessKey: "The Access Key"
             function: "The Function Name"
-            region: "eu-west-1"
-            secretKey: "The Secret Key"
+            region: "The AWS Region"
     

@@ -4,13 +4,11 @@
 
 *Provided by: "Red Hat"*
 
-Send documents to MongoDB.
+Send data to MongoDB.
 
-This Kamelet expects a JSON as body.
+This Kamelet expects a JSON-formatted body.
 
-Properties you can set as headers:
-
-- `db-upsert` / `ce-dbupsert`: if the database should create the element if it does not exist. Boolean value.
+In the header, you can set the `db-upsert` / `ce-dbupsert` property, a boolean value that specifies whether the database should create an element if it does not exist.
 
 == Configuration Options
 
@@ -18,13 +16,15 @@ The following table summarizes the configuration options available for the `mong
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *collection {empty}* *| MongoDB Collection| Sets the name of the MongoDB collection to bind to this endpoint.| string| | 
-| *database {empty}* *| MongoDB Database| Sets the name of the MongoDB database to target.| string| | 
-| *hosts {empty}* *| MongoDB Hosts| Comma separated list of MongoDB Host Addresses in host:port format.| string| | 
-| createCollection| Collection| Create collection during initialisation if it doesn't exist.| boolean| `false`| 
-| password| MongoDB Password| User password for accessing MongoDB.| string| | 
-| username| MongoDB Username| Username for accessing MongoDB.| string| | 
-| writeConcern| Write Concern| Configure the level of acknowledgment requested from MongoDB for write operations, possible values are ACKNOWLEDGED, W1, W2, W3, UNACKNOWLEDGED, JOURNALED, MAJORITY.| string| | 
+| *collection {empty}* *| MongoDB Collection| The name of the MongoDB collection to bind to this endpoint.| string| | 
+| *database {empty}* *| MongoDB Database| The name of the MongoDB database.| string| | 
+| *hosts {empty}* *| MongoDB Hosts| A comma-separated list of MongoDB host addresses in `host:port` format.| string| | 
+| createCollection| Collection| Create a collection during initialization if it doesn't exist.| boolean| `false`| 
+| password| MongoDB Password| A user password for accessing MongoDB.| string| | 
+| ssl| Enable Ssl for Mongodb Connection| whether to enable ssl connection to mongodb| boolean| `true`| 
+| sslValidationEnabled| Enables Ssl Certificates Validation and Host name checks.| IMPORTANT this should be disabled only in test environment since can pose security issues.| boolean| `true`| 
+| username| MongoDB Username| A username for accessing MongoDB.| string| | 
+| writeConcern| Write Concern| The level of acknowledgment requested from MongoDB for write operations.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -37,7 +37,8 @@ At runtime, the `mongodb-sink` Kamelet relies upon the presence of the following
 - camel:core
 - camel:kamelet
 - camel:mongodb
-- camel:jackson 
+- camel:jackson
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT 
 
 == Usage
 
@@ -50,7 +51,7 @@ You can use the `mongodb-sink` Kamelet as a Knative sink by binding it to a Knat
 .mongodb-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: mongodb-sink-binding
@@ -63,7 +64,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: mongodb-sink
     properties:
       collection: "The MongoDB Collection"
@@ -105,7 +106,7 @@ You can use the `mongodb-sink` Kamelet as a Kafka sink by binding it to a Kafka 
 .mongodb-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: mongodb-sink-binding
@@ -118,7 +119,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: mongodb-sink
     properties:
       collection: "The MongoDB Collection"

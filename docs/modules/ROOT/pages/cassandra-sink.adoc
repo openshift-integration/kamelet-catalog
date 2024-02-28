@@ -4,9 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Send data to a Cassandra Cluster.
+Send data to an Apache Cassandra cluster.
 
-This Kamelet expects the body as JSON Array. The content of the JSON Array will be used as input for the CQL Prepared Statement set in the query parameter.
+This Kamelet expects JSON Array formatted data. The content of the JSON Array is used as input for the CQL Prepared Statement set in the query parameter.
 
 == Configuration Options
 
@@ -14,13 +14,15 @@ The following table summarizes the configuration options available for the `cass
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *connectionHost {empty}* *| Connection Host| Hostname(s) cassandra server(s). Multiple hosts can be separated by comma.| string| | `"localhost"`
-| *connectionPort {empty}* *| Connection Port| Port number of cassandra server(s)| string| | `9042`
-| *keyspace {empty}* *| Keyspace| Keyspace to use| string| | `"customers"`
-| *password {empty}* *| Password| The password to use for accessing a secured Cassandra Cluster| string| | 
-| *query {empty}* *| Query| The Prepared statement to execute against the Cassandra cluster table| string| | 
-| *username {empty}* *| Username| The username to use for accessing a secured Cassandra Cluster| string| | 
-| consistencyLevel| Consistency Level| Consistency level to use. The value can be one of ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, SERIAL, LOCAL_SERIAL, LOCAL_ONE| string| `"ANY"`| 
+| *connectionHost {empty}* *| Connection Host| The hostname(s) for the Cassandra server(s). Use a comma to separate multiple hostnames.| string| | `"localhost"`
+| *connectionPort {empty}* *| Connection Port| The port number(s) of the cassandra server(s). Use a comma to separate multiple port numbers.| string| | `9042`
+| *keyspace {empty}* *| Keyspace| The keyspace to use.| string| | `"customers"`
+| *query {empty}* *| Query| The query to execute against the Cassandra cluster table.| string| | 
+| consistencyLevel| Consistency Level| The consistency level to use.| string| `"ANY"`| 
+| extraTypeCodecs| Extra Type Codecs| To use a specific comma separated list of Extra Type codecs.| string| | 
+| password| Password| The password for accessing a secured Cassandra cluster.| string| | 
+| prepareStatements| Prepare Statements| If true, specifies to use PreparedStatements as the query. If false, specifies to use regular Statements as the query.| boolean| `true`| 
+| username| Username| The username for accessing a secured Cassandra cluster.| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -45,7 +47,7 @@ You can use the `cassandra-sink` Kamelet as a Knative sink by binding it to a Kn
 .cassandra-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: cassandra-sink-binding
@@ -58,15 +60,13 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: cassandra-sink
     properties:
       connectionHost: "localhost"
       connectionPort: 9042
       keyspace: "customers"
-      password: "The Password"
       query: "The Query"
-      username: "The Username"
   
 ----
 
@@ -91,7 +91,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.query=The Query" -p "sink.username=The Username"
+kamel bind channel:mychannel cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.query=The Query"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -103,7 +103,7 @@ You can use the `cassandra-sink` Kamelet as a Kafka sink by binding it to a Kafk
 .cassandra-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: cassandra-sink-binding
@@ -116,15 +116,13 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: cassandra-sink
     properties:
       connectionHost: "localhost"
       connectionPort: 9042
       keyspace: "customers"
-      password: "The Password"
       query: "The Query"
-      username: "The Username"
   
 ----
 
@@ -150,7 +148,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.password=The Password" -p "sink.query=The Query" -p "sink.username=The Username"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic cassandra-sink -p "sink.connectionHost=localhost" -p sink.connectionPort=9042 -p "sink.keyspace=customers" -p "sink.query=The Query"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

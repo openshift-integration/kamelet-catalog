@@ -21,15 +21,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>23</version>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-dependencies</artifactId>
+        <version>4.0.3</version>
     </parent>
 
     <groupId>org.apache.camel.kamelets</groupId>
     <artifactId>camel-kamelets-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.2.0</version>
+    <version>2.2.0-SNAPSHOT</version>
     <name>Camel Kamelets Parent</name>
     <description>Camel Kamelets Library Parent</description>
 
@@ -47,30 +47,28 @@
         <failIfNoTests>false</failIfNoTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
-        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-        <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
-        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
-        <maven-checksum-maven-plugin.version>1.7</maven-checksum-maven-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <maven-deploy-plugin.version>3.0.0</maven-deploy-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-checksum-maven-plugin.version>1.11</maven-checksum-maven-plugin.version>
 
-        <camel.version>3.18.3</camel.version>
-        <log4j.version>2.17.2</log4j.version>
-        <jackson.version>2.14.2</jackson.version>
-        <camel.k.extension.version>5.12.1</camel.k.extension.version>
-        <commons.io.version>2.11.0</commons.io.version>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
-        <classgraph.version>4.8.138</classgraph.version>
+        <!-- don't forget to change the version in the parent declaration -->
+        <camel.version>4.0.3</camel.version>
+        <camel.k.crd.version>2.2.0</camel.k.crd.version>
+        <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
+        <!-- ENTESB-20660 rely on quakrus-camel-bom for native builds -->
+        <quarkus-platform-version>3.2.9.Final</quarkus-platform-version>
 
         <!-- Versions used inside Kamelets (add them also to the dependencyManagement section and the groovy script below) -->
         <!-- These properties must keep this same format "version.<groupId>.<artifactId>" -->
-        <version.com.microsoft.sqlserver.mssql-jdbc>9.2.1.jre11</version.com.microsoft.sqlserver.mssql-jdbc>
-        <version.org.apache.commons.commons-dbcp2>2.7.0</version.org.apache.commons.commons-dbcp2>
-        <version.org.apache.qpid.qpid-jms-client>0.55.0</version.org.apache.qpid.qpid-jms-client>
-        <version.org.postgresql.postgresql>42.5.1</version.org.postgresql.postgresql>
-        <version.com.amazon.redshift.redshift-jdbc42>2.1.0.5</version.com.amazon.redshift.redshift-jdbc42>
-        <version.com.ibm.mq.com.ibm.mq.allclient>9.2.5.0</version.com.ibm.mq.com.ibm.mq.allclient>
+        <version.com.microsoft.sqlserver.mssql-jdbc>11.2.3.jre17</version.com.microsoft.sqlserver.mssql-jdbc>
+        <version.org.apache.commons.commons-dbcp2>2.10.0</version.org.apache.commons.commons-dbcp2>
+        <version.org.apache.qpid.qpid-jms-client>2.4.0</version.org.apache.qpid.qpid-jms-client>
+        <version.org.postgresql.postgresql>42.6.0</version.org.postgresql.postgresql>
+        <version.com.amazon.redshift.redshift-jdbc42>2.1.0.18</version.com.amazon.redshift.redshift-jdbc42>
+        <version.com.ibm.mq.com.ibm.mq.allclient>9.3.4.1</version.com.ibm.mq.com.ibm.mq.allclient>
     </properties>
 
     <developers>
@@ -257,10 +255,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>8</source>
-                        <target>8</target>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
@@ -284,7 +278,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+<!--                <argLine>&#45;&#45;add-opens java.base/java.lang=ALL-UNNAMED</argLine>-->
                 <scriptpath>
                     <path>${project.basedir}/script/version</path>
                 </scriptpath>

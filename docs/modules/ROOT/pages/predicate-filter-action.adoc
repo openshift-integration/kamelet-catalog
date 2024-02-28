@@ -4,7 +4,7 @@
 
 *Provided by: "Red Hat"*
 
-Filter based on a JsonPath Expression
+Filter based on a JsonPath Expression. Since this is a filter, the expression will be a negation, this means that if the foo field of the example is equals to John, the message will go ahead, otherwise it will be filtered out.
 
 == Configuration Options
 
@@ -37,7 +37,7 @@ You can use the `predicate-filter-action` Kamelet as an intermediate step in a K
 .predicate-filter-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: predicate-filter-action-binding
@@ -45,14 +45,14 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: predicate-filter-action
     properties:
       expression: "@.foo =~ /.*John/"
@@ -97,7 +97,7 @@ You can use the `predicate-filter-action` Kamelet as an intermediate step in a K
 .predicate-filter-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: predicate-filter-action-binding
@@ -105,14 +105,14 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: predicate-filter-action
     properties:
       expression: "@.foo =~ /.*John/"

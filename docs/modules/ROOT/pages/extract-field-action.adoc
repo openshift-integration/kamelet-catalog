@@ -4,7 +4,20 @@
 
 *Provided by: "Red Hat"*
 
-Extract a field from the body
+Extract a field from the message body.
+
+The extract field action expects an application/json content type.
+
+The field parameter allows you to specify which field of the json the user wants to extract. By default the message body will be overriden with the extracted field.
+
+The optional parameter headerOutput allows the user to specify wheter the extracted field should be stored in a message header named 'CamelKameletsExtractFieldName', leaving the message body untouched.
+
+The optional parameter headerOutputName allows the user to specify a custom header name instead of the default 'CamelKameletsExtractFieldName'. This parameter must be used in conjunction with headerOutput.
+If no headerOutputName parameter will be provided, the default 'CamelKameletsExtractFieldName' will be used.
+
+The optional parameter strictHeaderCheck allows to user to enable a strict header name check. If enabled the action will check if the header output name (custom or default) has been used already in the     exchange. If so, the extracted field will be stored in the message body, if not, the extracted field will be stored in the selected header (custom or default).
+
+The headerOutput/headerOutputName/strictHeaderCheck parameters are particulary useful in case you would like to reuse an extracted field as parameter for another header, for example.
 
 == Configuration Options
 
@@ -12,7 +25,10 @@ The following table summarizes the configuration options available for the `extr
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *field {empty}* *| Field| The name of the field to be added| string| | 
+| *field {empty}* *| Field| The name of the field to extract| string| | 
+| headerOutput| Header Output| If enable the action will store the extracted field in an header named CamelKameletsExtractFieldName| boolean| `false`| 
+| headerOutputName| Header Output Name| A custom name for the header containing the extracted field| string| `"none"`| 
+| strictHeaderCheck| Strict Header Check| If enabled the action will check if the header output name (custom or default) has been used already in the exchange. If so, the extracted field will be stored in the message body, if not, the extracted field will be stored in the selected header (custom or default).| boolean| `false`| 
 | trimField| Trim Field| If enabled we return the Raw extracted field| boolean| `false`| 
 |===
 
@@ -23,7 +39,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `extract-field-action` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
 - camel:kamelet
 - camel:core
 - camel:jackson 
@@ -39,7 +55,7 @@ You can use the `extract-field-action` Kamelet as an intermediate step in a Knat
 .extract-field-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: extract-field-action-binding
@@ -47,14 +63,14 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: extract-field-action
     properties:
       field: "The Field"
@@ -99,7 +115,7 @@ You can use the `extract-field-action` Kamelet as an intermediate step in a Kafk
 .extract-field-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: extract-field-action-binding
@@ -107,14 +123,14 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: extract-field-action
     properties:
       field: "The Field"

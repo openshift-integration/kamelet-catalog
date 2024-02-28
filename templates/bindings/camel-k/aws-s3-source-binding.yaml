@@ -1,4 +1,4 @@
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-s3-source-binding
@@ -6,13 +6,11 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-s3-source
     properties:
-      accessKey: "The Access Key"
       bucketNameOrArn: "The Bucket Name"
-      region: "eu-west-1"
-      secretKey: "The Secret Key"
+      region: "The AWS Region"
   sink:
     ref:
       kind: KafkaTopic

@@ -18,7 +18,6 @@ package org.apache.camel.kamelets.utils.transform;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.Exchange;
-import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
 import org.junit.jupiter.api.Assertions;
@@ -48,7 +47,8 @@ class InsertFieldTest {
 
         exchange.getMessage().setBody(mapper.readTree(baseJson));
 
-        processor.process("age", "29", exchange);
+        processor = new InsertField("age", "29");
+        processor.process(exchange);
 
         Assertions.assertEquals(exchange.getMessage().getBody(String.class), "{" + "\n" +
                         "  \"name\" : \"Rajesh Koothrappali\"," + "\n" +
@@ -63,7 +63,8 @@ class InsertFieldTest {
         String arrayJson = "[\"batman\",\"spiderman\",\"wonderwoman\"]";
         exchange.getMessage().setBody(mapper.readTree(arrayJson));
 
-        processor.process("heroes", "green lantern", exchange);
+        processor.setValue("green lantern");
+        processor.process(exchange);
 
         Assertions.assertEquals(exchange.getMessage().getBody(String.class),
                 "[ \"batman\", \"spiderman\", \"wonderwoman\", \"green lantern\" ]");

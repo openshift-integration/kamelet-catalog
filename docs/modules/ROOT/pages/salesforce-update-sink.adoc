@@ -4,11 +4,15 @@
 
 *Provided by: "Red Hat"*
 
-Updates an object in  Salesforce. The body received must contain a
-JSON key-value pair for each property to update and sObjectName and
-sObjectId must be provided as parameters.
+Update an object in Salesforce. 
 
-Example of key-value pair: { "Phone": "1234567890", "Name": "Antonia" }
+The body received must contain a JSON key-value pair for each property to update inside the payload attribute, for example: 
+
+`{ "payload": { "Phone": "1234567890", "Name": "Antonia" } }`
+
+The body received must include the `sObjectName` and `sObjectId` properties, for example:
+
+`{ "payload": { "Phone": "1234567890", "Name": "Antonia" }, "sObjectId": "sObjectId", "sObjectName": "sObjectName" }`
 
 == Configuration Options
 
@@ -16,13 +20,11 @@ The following table summarizes the configuration options available for the `sale
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *clientId {empty}* *| Consumer Key| The Salesforce application consumer key| string| | 
-| *clientSecret {empty}* *| Consumer Secret| The Salesforce application consumer secret| string| | 
-| *password {empty}* *| Password| The Salesforce user password| string| | 
-| *sObjectId {empty}* *| Object Id| Id of the object. Only required if using key-value pair.| string| | 
-| *sObjectName {empty}* *| Object Name| Type of the object. Only required if using key-value pair.| string| | `"Contact"`
-| *userName {empty}* *| Username| The Salesforce username| string| | 
-| loginUrl| Login URL| The Salesforce instance login URL| string| `"https://login.salesforce.com"`| 
+| *clientId {empty}* *| Consumer Key| The Salesforce application consumer key.| string| | 
+| *clientSecret {empty}* *| Consumer Secret| The Salesforce application consumer secret.| string| | 
+| *password {empty}* *| Password| The Salesforce user password.| string| | 
+| *userName {empty}* *| Username| The Salesforce username.| string| | 
+| loginUrl| Login URL| The Salesforce instance login URL.| string| `"https://login.salesforce.com"`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -32,6 +34,9 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `salesforce-update-sink` Kamelet relies upon the presence of the following dependencies:
 
+- camel:core
+- camel:jsonpath
+- camel:jackson
 - camel:salesforce
 - camel:kamelet 
 
@@ -46,7 +51,7 @@ You can use the `salesforce-update-sink` Kamelet as a Knative sink by binding it
 .salesforce-update-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: salesforce-update-sink-binding
@@ -59,14 +64,12 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: salesforce-update-sink
     properties:
       clientId: "The Consumer Key"
       clientSecret: "The Consumer Secret"
       password: "The Password"
-      sObjectId: "The Object Id"
-      sObjectName: "Contact"
       userName: "The Username"
   
 ----
@@ -92,7 +95,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel salesforce-update-sink -p "sink.clientId=The Consumer Key" -p "sink.clientSecret=The Consumer Secret" -p "sink.password=The Password" -p "sink.sObjectId=The Object Id" -p "sink.sObjectName=Contact" -p "sink.userName=The Username"
+kamel bind channel:mychannel salesforce-update-sink -p "sink.clientId=The Consumer Key" -p "sink.clientSecret=The Consumer Secret" -p "sink.password=The Password" -p "sink.userName=The Username"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -104,7 +107,7 @@ You can use the `salesforce-update-sink` Kamelet as a Kafka sink by binding it t
 .salesforce-update-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: salesforce-update-sink-binding
@@ -117,14 +120,12 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: salesforce-update-sink
     properties:
       clientId: "The Consumer Key"
       clientSecret: "The Consumer Secret"
       password: "The Password"
-      sObjectId: "The Object Id"
-      sObjectName: "Contact"
       userName: "The Username"
   
 ----
@@ -151,7 +152,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic salesforce-update-sink -p "sink.clientId=The Consumer Key" -p "sink.clientSecret=The Consumer Secret" -p "sink.password=The Password" -p "sink.sObjectId=The Object Id" -p "sink.sObjectName=Contact" -p "sink.userName=The Username"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic salesforce-update-sink -p "sink.clientId=The Consumer Key" -p "sink.clientSecret=The Consumer Secret" -p "sink.password=The Password" -p "sink.userName=The Username"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

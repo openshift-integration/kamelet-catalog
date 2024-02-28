@@ -4,15 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Send Messages to Azure Storage queues.
+Send events to Azure Storage queues.
 
-The Kamelet is able to understand the following headers to be set:
-
-- `expiration` / `ce-expiration`: as the time to live of the message in the queue.
-
-If the header won't be set the default of 7 days will be used.
-
-The format should be in this form: PnDTnHnMn.nS., e.g: PT20.345S — parses as 20.345 seconds, P2D — parses as 2 days.
+In the header, you can set the `partition` / `ce-partition` property to determine how long an event remains in the Azure Storage queue. Use `PnDTnHnMn.nS.` format. For example, `PT20.345S` parses as 20.345 seconds and `P2D` parses as 2 days. If you not set the property in the header, the Kamelet uses the default of `P27D` (7 days).
 
 == Configuration Options
 
@@ -20,7 +14,7 @@ The following table summarizes the configuration options available for the `azur
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *accessKey {empty}* *| Access Key| The Azure Storage Queue access Key.| string| | 
+| *accessKey {empty}* *| Access Key| The Azure Storage Queue access key.| string| | 
 | *accountName {empty}* *| Account Name| The Azure Storage Queue account name.| string| | 
 | *queueName {empty}* *| Queue Name| The Azure Storage Queue container name.| string| | 
 |===
@@ -47,7 +41,7 @@ You can use the `azure-storage-queue-sink` Kamelet as a Knative sink by binding 
 .azure-storage-queue-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-queue-sink-binding
@@ -60,7 +54,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-queue-sink
     properties:
       accessKey: "The Access Key"
@@ -102,7 +96,7 @@ You can use the `azure-storage-queue-sink` Kamelet as a Kafka sink by binding it
 .azure-storage-queue-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: azure-storage-queue-sink-binding
@@ -115,7 +109,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: azure-storage-queue-sink
     properties:
       accessKey: "The Access Key"

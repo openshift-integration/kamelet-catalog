@@ -4,7 +4,7 @@
 
 *Provided by: "Red Hat"*
 
-Adds an header with a constant value to the message in transit
+Adds an header with a simple language parsed expression to the message in transit
 
 == Configuration Options
 
@@ -12,8 +12,8 @@ The following table summarizes the configuration options available for the `inse
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *name {empty}* *| Name| The name of the header to be added. For Knative only, the name of the header requires a CloudEvent (ce-) prefix.| string| | 
-| *value {empty}* *| Value| The value of the header| string| | 
+| *name {empty}* *| Name| The name of the header to be added. For Knative only, the name of the header requires a CloudEvent (ce-) prefix.| string| | `"headername"`
+| *value {empty}* *| Value| The value of the header to be added| string| | 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -37,7 +37,7 @@ You can use the `insert-header-action` Kamelet as an intermediate step in a Knat
 .insert-header-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: insert-header-action-binding
@@ -45,17 +45,17 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
-      name: "The Name"
+      name: "headername"
       value: "The Value"
   sink:
     ref:
@@ -86,7 +86,7 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step insert-header-action -p "step-0.name=The Name" -p "step-0.value=The Value" channel:mychannel
+kamel bind timer-source?message=Hello --step insert-header-action -p "step-0.name=headername" -p "step-0.value=The Value" channel:mychannel
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -98,7 +98,7 @@ You can use the `insert-header-action` Kamelet as an intermediate step in a Kafk
 .insert-header-action-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: insert-header-action-binding
@@ -106,17 +106,17 @@ spec:
   source:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: timer-source
     properties:
       message: "Hello"
   steps:
   - ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: insert-header-action
     properties:
-      name: "The Name"
+      name: "headername"
       value: "The Value"
   sink:
     ref:
@@ -148,7 +148,7 @@ Configure and run the action by using the following command:
 
 [source,shell]
 ----
-kamel bind timer-source?message=Hello --step insert-header-action -p "step-0.name=The Name" -p "step-0.value=The Value" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
+kamel bind timer-source?message=Hello --step insert-header-action -p "step-0.name=headername" -p "step-0.value=The Value" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

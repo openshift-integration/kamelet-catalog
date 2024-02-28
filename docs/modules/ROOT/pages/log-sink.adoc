@@ -12,8 +12,19 @@ The following table summarizes the configuration options available for the `log-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
+| level| Log Level| Logging level to use| string| `"INFO"`| 
+| logMask| Log Mask| Mask sensitive information like password or passphrase in the log| boolean| `false`| 
+| loggerName| Logger Name| Name of the logging category to use| string| `"log-sink"`| 
+| marker| Marker| An optional Marker name to use| string| | 
+| multiline| Multiline| If enabled then each information is outputted on a newline| boolean| `false`| 
+| showAllProperties| Show All Properties| Show all of the exchange properties (both internal and custom)| boolean| `false`| 
+| showBody| Show Body| Show the message body| boolean| `true`| 
+| showBodyType| Show Body Type| Show the body Java type| boolean| `true`| 
+| showCachedStreams| Show Cached Streams| Whether Camel should show cached stream bodies or not.| boolean| `true`| 
+| showExchangePattern| Show Exchange Pattern| Shows the Message Exchange Pattern (or MEP for short)| boolean| `true`| 
 | showHeaders| Show Headers| Show the headers received| boolean| `false`| 
-| showStreams| Show Streams| Show the stream bodies (they may not be available in following steps)| boolean| `true`| 
+| showProperties| Show Properties| Show the exchange properties (only custom). Use showAllProperties to show both internal and custom properties.| boolean| `false`| 
+| showStreams| Show Streams| Show the stream bodies (they may not be available in following steps)| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -37,7 +48,7 @@ You can use the `log-sink` Kamelet as a Knative sink by binding it to a Knative 
 .log-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: log-sink-binding
@@ -50,7 +61,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: log-sink
   
 ----
@@ -88,7 +99,7 @@ You can use the `log-sink` Kamelet as a Kafka sink by binding it to a Kafka topi
 .log-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: log-sink-binding
@@ -101,7 +112,7 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: log-sink
   
 ----

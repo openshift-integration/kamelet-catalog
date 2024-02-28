@@ -4,17 +4,23 @@
 
 *Provided by: "Red Hat"*
 
-Send data to AWS DynamoDB service. The sent data will insert/update/delete an item on the given AWS DynamoDB table.
+Send data to Amazon DynamoDB. The sent data inserts, updates, or deletes an item on the specified AWS DynamoDB table.
 
-Access Key/Secret Key are the basic method for authenticating to the AWS DynamoDB service. These parameters are optional, because the Kamelet provide also the 'useDefaultCredentialsProvider'.
+The basic authentication method for the AWS DynamoDB service is to specify an access key and a secret key. These parameters are optional because the Kamelet provides a default credentials provider.
 
-When using a default Credentials Provider the AWS DynamoDB client will load the credentials through this provider and won't use the static credential. This is reason for not having the access key and secret key as mandatory parameter for this Kamelet.
+If you use the default credentials provider, the DynamoDB client loads the credentials through this provider and doesn't use the basic authentication method.
 
-This Kamelet expects a JSON as body. The mapping between the JSON fields and table attribute values is done by key, so if you have the input:
+This Kamelet expects a JSON-formatted body and it must include the primary key values that define the DynamoDB item. The mapping between the JSON fields and table attribute values is done by key. For example, for  '{"username":"oscerd", "city":"Rome"}' input, the Kamelet inserts or update an item in the specified AWS DynamoDB table and sets the values for the 'username' and 'city' attributes. 
 
-'{"username":"oscerd", "city":"Rome"}'
+For PutItem operation the Json body defines all item attributes.
+For DeleteItem operation the Json body defines only the primary key attributes that identify the item to delete.
+For UpdateItem operation the Json body defines both key attributes to identify the item to be updated and all item attributes tht get updated on the item.
 
-The Kamelet will insert/update an item in the given AWS DynamoDB table and set the attributes 'username' and 'city' respectively. Please note that the JSON object must include the primary key values that define the item.
+The given Json body can use "key" and "item" as top level properties. Both define a Json object that will be mapped to respective attribute value maps
+{
+    "key": {},
+    "item": {}
+}
 
 == Configuration Options
 
@@ -22,15 +28,14 @@ The following table summarizes the configuration options available for the `aws-
 [width="100%",cols="2,^2,3,^2,^2,^3",options="header"]
 |===
 | Property| Name| Description| Type| Default| Example
-| *region {empty}* *| AWS Region| The AWS region to connect to| string| | `"eu-west-1"`
-| *table {empty}* *| Table| Name of the DynamoDB table to look at| string| | 
-| accessKey| Access Key| The access key obtained from AWS| string| | 
-| operation| Operation| The operation to perform (one of PutItem, UpdateItem, DeleteItem)| string| `"PutItem"`| `"PutItem"`
-| overrideEndpoint| Endpoint Overwrite| Set the need for overiding the endpoint URI. This option needs to be used in combination with uriEndpointOverride setting.| boolean| `false`| 
-| secretKey| Secret Key| The secret key obtained from AWS| string| | 
-| uriEndpointOverride| Overwrite Endpoint URI| Set the overriding endpoint URI. This option needs to be used in combination with overrideEndpoint option.| string| | 
-| useDefaultCredentialsProvider| Default Credentials Provider| Set whether the DynamoDB client should expect to load credentials through a default credentials provider or to expect static credentials to be passed in.| boolean| `false`| 
-| writeCapacity| Write Capacity| The provisioned throughput to reserved for writing resources to your table| integer| `1`| 
+| *region {empty}* *| AWS Region| The AWS region to access.| string| | 
+| *table {empty}* *| Table| The name of the DynamoDB table.| string| | 
+| accessKey| Access Key| The access key obtained from AWS.| string| | 
+| operation| Operation| The operation to perform.| string| `"PutItem"`| `"PutItem"`
+| overrideEndpoint| Endpoint Overwrite| Select this option to override the endpoint URI. To use this option, you must also provide a URI for the `uriEndpointOverride` option.| boolean| `false`| 
+| secretKey| Secret Key| The secret key obtained from AWS.| string| | 
+| uriEndpointOverride| Overwrite Endpoint URI| The overriding endpoint URI. To use this option, you must also select the `overrideEndpoint` option.| string| | 
+| useDefaultCredentialsProvider| Default Credentials Provider| If true, the DynamoDB client loads credentials through a default credentials provider. If false, it uses the basic authentication method (access key and secret key).| boolean| `false`| 
 |===
 
 NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
@@ -40,7 +45,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `aws-ddb-sink` Kamelet relies upon the presence of the following dependencies:
 
-- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.0.0
+- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
 - camel:core
 - camel:jackson
 - camel:aws2-ddb
@@ -57,7 +62,7 @@ You can use the `aws-ddb-sink` Kamelet as a Knative sink by binding it to a Knat
 .aws-ddb-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-ddb-sink-binding
@@ -70,10 +75,10 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-ddb-sink
     properties:
-      region: "eu-west-1"
+      region: "The AWS Region"
       table: "The Table"
   
 ----
@@ -99,7 +104,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind channel:mychannel aws-ddb-sink -p "sink.region=eu-west-1" -p "sink.table=The Table"
+kamel bind channel:mychannel aws-ddb-sink -p "sink.region=The AWS Region" -p "sink.table=The Table"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.
@@ -111,7 +116,7 @@ You can use the `aws-ddb-sink` Kamelet as a Kafka sink by binding it to a Kafka 
 .aws-ddb-sink-binding.yaml
 [source,yaml]
 ----
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: KameletBinding
 metadata:
   name: aws-ddb-sink-binding
@@ -124,10 +129,10 @@ spec:
   sink:
     ref:
       kind: Kamelet
-      apiVersion: camel.apache.org/v1alpha1
+      apiVersion: camel.apache.org/v1
       name: aws-ddb-sink
     properties:
-      region: "eu-west-1"
+      region: "The AWS Region"
       table: "The Table"
   
 ----
@@ -154,7 +159,7 @@ Configure and run the sink by using the following command:
 
 [source,shell]
 ----
-kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-ddb-sink -p "sink.region=eu-west-1" -p "sink.table=The Table"
+kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-ddb-sink -p "sink.region=The AWS Region" -p "sink.table=The Table"
 ----
 
 This command creates the KameletBinding in the current namespace on the cluster.

@@ -3,8 +3,6 @@
       uri: "kamelet:jira-source"
       parameters:
         jiraUrl: "http://my_jira.com:8081"
-        password: "The Password"
-        username: "The Username"
     steps:
       - to:
           uri: "log:info"
