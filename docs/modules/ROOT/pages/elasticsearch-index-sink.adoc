@@ -6,7 +6,7 @@
 
 Stores JSON-formatted data into ElasticSearch.
 
-The input data must be formatted in JSON according to the requirements of the index. 
+The input data must be formatted in JSON according to the requirements of the index.
 
 If you specify the `certificate` property, you must base64 encode it before you pass it as a parameter.
 

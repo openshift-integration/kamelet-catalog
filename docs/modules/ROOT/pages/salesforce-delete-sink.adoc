@@ -4,7 +4,7 @@
 
 *Provided by: "Red Hat"*
 
-Remove an object from Salesforce. 
+Remove an object from Salesforce.
 
 The data body must be JSON-formatted and it must
 contain two keys: `sObjectId` and `sObjectName`. For example: `{ "sObjectId": "XXXXX0", "sObjectName": "Contact" }`

@@ -4,9 +4,9 @@
 
 *Provided by: "Red Hat"*
 
-Update an object in Salesforce. 
+Update an object in Salesforce.
 
-The body received must contain a JSON key-value pair for each property to update inside the payload attribute, for example: 
+The body received must contain a JSON key-value pair for each property to update inside the payload attribute, for example:
 
 `{ "payload": { "Phone": "1234567890", "Name": "Antonia" } }`
 
