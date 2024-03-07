@@ -43,6 +43,8 @@
 * xref:ROOT:jslt-action.adoc[image:kamelets/jslt-action.svg[] JSLT Action]
 * xref:ROOT:json-deserialize-action.adoc[image:kamelets/json-deserialize-action.svg[] Json Deserialize Action]
 * xref:ROOT:json-serialize-action.adoc[image:kamelets/json-serialize-action.svg[] Json Serialize Action]
+* xref:ROOT:kafka-batch-manual-commit-action.adoc[image:kamelets/kafka-batch-manual-commit-action.svg[] Kafka Batch Manual Commit Action]
+* xref:ROOT:kafka-batch-source.adoc[image:kamelets/kafka-batch-source.svg[] Kafka Batch Source]
 * xref:ROOT:kafka-sink.adoc[image:kamelets/kafka-sink.svg[] Kafka Sink]
 * xref:ROOT:kafka-source.adoc[image:kamelets/kafka-source.svg[] Kafka Source]
 * xref:ROOT:log-sink.adoc[image:kamelets/log-sink.svg[] Log Sink]

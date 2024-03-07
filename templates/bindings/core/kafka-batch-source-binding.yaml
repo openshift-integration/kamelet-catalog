@@ -1,0 +1,12 @@
+- route:
+    from:
+      uri: "kamelet:kafka-batch-source"
+      parameters:
+        bootstrapServers: "The Bootstrap Servers"
+        password: "The Password"
+        topic: "The Topic Names"
+        user: "The Username"
+    steps:
+      - to:
+          uri: "log:info"
+    
