@@ -1,0 +1,15 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:google-bigquery-sink"
+          parameters:
+            dataset: "The Big Query Dataset Id"
+            projectId: "The Google Cloud Project Id"
+            serviceAccountKey: "The Service Account Key"
+            table: "The Big Query Table Id"
+    

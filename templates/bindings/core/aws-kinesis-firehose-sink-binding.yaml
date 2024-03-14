@@ -1,0 +1,13 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:aws-kinesis-firehose-sink"
+          parameters:
+            region: "The AWS Region"
+            streamName: "The Stream Name"
+    

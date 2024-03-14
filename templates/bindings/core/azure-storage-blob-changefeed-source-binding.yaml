@@ -1,0 +1,10 @@
+- route:
+    from:
+      uri: "kamelet:azure-storage-blob-changefeed-source"
+      parameters:
+        accessKey: "The Access Key"
+        accountName: "The Account Name"
+    steps:
+      - to:
+          uri: "log:info"
+    

@@ -1,0 +1,19 @@
+apiVersion: camel.apache.org/v1
+kind: KameletBinding
+metadata:
+  name: aws-cloudwatch-sink-binding
+spec:
+  source:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: aws-cloudwatch-sink
+    properties:
+      cwNamespace: "The Cloud Watch Namespace"
+      region: "The AWS Region"
+  

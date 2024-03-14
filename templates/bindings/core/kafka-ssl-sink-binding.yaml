@@ -1,0 +1,17 @@
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        period: 1000
+        message: "Hello Camel JBang"
+    steps:
+      - to:
+          uri: "kamelet:kafka-ssl-sink"
+          parameters:
+            bootstrapServers: "The Brokers"
+            sslKeyPassword: "The SSL Key Password"
+            sslKeystoreLocation: "The SSL Keystore Location"
+            sslKeystorePassword: "The SSL Keystore Password"
+            sslTruststoreLocation: "The SSL Truststore Location"
+            topic: "The Topic Names"
+    

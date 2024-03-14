@@ -1,0 +1,19 @@
+apiVersion: camel.apache.org/v1
+kind: KameletBinding
+metadata:
+  name: kafka-batch-not-secured-source-binding
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: kafka-batch-not-secured-source
+    properties:
+      bootstrapServers: "The Bootstrap Servers"
+      topic: "The Topic Names"
+  sink:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  
