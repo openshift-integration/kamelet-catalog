@@ -1,0 +1,19 @@
+apiVersion: camel.apache.org/v1
+kind: KameletBinding
+metadata:
+  name: aws-kinesis-firehose-sink-binding
+spec:
+  source:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: aws-kinesis-firehose-sink
+    properties:
+      region: "The AWS Region"
+      streamName: "The Stream Name"
+  

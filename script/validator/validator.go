@@ -141,25 +141,9 @@ func verifyDescriptors(kamelets []KameletInfo) (errors []error) {
 			continue
 		}
 		for k, p := range kamelet.Spec.Definition.Properties {
-			pwdDescriptor := "urn:alm:descriptor:com.tectonic.ui:password"
-			if hasXDescriptor(p, pwdDescriptor) && p.Format != "password" {
-				errors = append(errors, fmt.Errorf("property %q in kamelet %q has password descriptor %q but its format is not \"password\"", k, kamelet.Name, pwdDescriptor))
-			} else if !hasXDescriptor(p, pwdDescriptor) && p.Format == "password" {
-				errors = append(errors, fmt.Errorf("property %q in kamelet %q has \"password\" format but misses descriptor %q (for better compatibility with tectonic UIs)", k, kamelet.Name, pwdDescriptor))
-			}
-		}
-		for k, p := range kamelet.Spec.Definition.Properties {
 			credDescriptor := "urn:camel:group:credentials"
 			if p.Format == "password" && !hasXDescriptor(p, credDescriptor) {
 				errors = append(errors, fmt.Errorf("property %q in kamelet %q has \"password\" format but misses descriptor %q", k, kamelet.Name, credDescriptor))
-			}
-		}
-		for k, p := range kamelet.Spec.Definition.Properties {
-			checkboxDescriptor := "urn:alm:descriptor:com.tectonic.ui:checkbox"
-			if hasXDescriptor(p, checkboxDescriptor) && p.Type != "boolean" {
-				errors = append(errors, fmt.Errorf("property %q in kamelet %q has checkbox descriptor %q but its type is not \"boolean\"", k, kamelet.Name, checkboxDescriptor))
-			} else if !hasXDescriptor(p, checkboxDescriptor) && p.Type == "boolean" {
-				errors = append(errors, fmt.Errorf("property %q in kamelet %q has \"boolean\" type but misses descriptor %q (for better compatibility with tectonic UIs)", k, kamelet.Name, checkboxDescriptor))
 			}
 		}
 	}
@@ -398,10 +382,7 @@ func listKamelets(dir string) []KameletInfo {
 
 func verifyUsedParams(kamelets []KameletInfo) (errors []error) {
 	for _, k := range kamelets {
-		if k.FileName != "../../azure-storage-blob-source.kamelet.yaml" && k.FileName != "../../aws-s3-cdc-source.kamelet.yaml" &&
-			k.FileName != "../../set-kafka-key-action.kamelet.yaml" && k.FileName != "../../azure-storage-blob-cdc-source.kamelet.yaml" &&
-			k.FileName != "../../google-storage-cdc-source.kamelet.yaml" && k.FileName != "../../elasticsearch-search-source.kamelet.yaml" &&
-			k.FileName != "../../opensearch-search-source.kamelet.yaml" {
+		if k.FileName != "../../azure-storage-blob-source.kamelet.yaml" && k.FileName != "../../kafka-batch-azure-schema-registry-source.kamelet.yaml" {
 			used := getUsedParams(k.Kamelet)
 			declared := getDeclaredParams(k.Kamelet)
 			for p := range used {

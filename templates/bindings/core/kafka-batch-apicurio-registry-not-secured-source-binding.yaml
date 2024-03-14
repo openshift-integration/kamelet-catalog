@@ -1,0 +1,11 @@
+- route:
+    from:
+      uri: "kamelet:kafka-batch-apicurio-registry-not-secured-source"
+      parameters:
+        apicurioRegistryUrl: "The Apicurio Registry URL"
+        bootstrapServers: "The Bootstrap Servers"
+        topic: "The Topic Names"
+    steps:
+      - to:
+          uri: "log:info"
+    

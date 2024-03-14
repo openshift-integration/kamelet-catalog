@@ -1,0 +1,12 @@
+- route:
+    from:
+      uri: "kamelet:kafka-batch-ssl-source"
+      parameters:
+        bootstrapServers: "The Bootstrap Servers"
+        sslKeyPassword: "The SSL Key Password"
+        sslTruststoreLocation: "The SSL Truststore Location"
+        topic: "The Topic Names"
+    steps:
+      - to:
+          uri: "log:info"
+    

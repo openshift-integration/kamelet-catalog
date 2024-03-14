@@ -1,0 +1,21 @@
+apiVersion: camel.apache.org/v1
+kind: KameletBinding
+metadata:
+  name: kafka-batch-ssl-source-binding
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: kafka-batch-ssl-source
+    properties:
+      bootstrapServers: "The Bootstrap Servers"
+      sslKeyPassword: "The SSL Key Password"
+      sslTruststoreLocation: "The SSL Truststore Location"
+      topic: "The Topic Names"
+  sink:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  

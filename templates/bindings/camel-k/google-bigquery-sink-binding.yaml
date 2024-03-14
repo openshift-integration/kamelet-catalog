@@ -1,0 +1,21 @@
+apiVersion: camel.apache.org/v1
+kind: KameletBinding
+metadata:
+  name: google-bigquery-sink-binding
+spec:
+  source:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: google-bigquery-sink
+    properties:
+      dataset: "The Big Query Dataset Id"
+      projectId: "The Google Cloud Project Id"
+      serviceAccountKey: "The Service Account Key"
+      table: "The Big Query Table Id"
+  

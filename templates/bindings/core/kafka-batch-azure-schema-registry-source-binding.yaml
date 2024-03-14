@@ -1,0 +1,12 @@
+- route:
+    from:
+      uri: "kamelet:kafka-batch-azure-schema-registry-source"
+      parameters:
+        azureRegistryUrl: "The Azure Schema Registry URL"
+        bootstrapServers: "The Bootstrap Servers"
+        password: "The Password"
+        topic: "The Topic Names"
+    steps:
+      - to:
+          uri: "log:info"
+    

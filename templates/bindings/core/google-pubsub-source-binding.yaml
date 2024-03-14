@@ -1,0 +1,10 @@
+- route:
+    from:
+      uri: "kamelet:google-pubsub-source"
+      parameters:
+        projectId: "The Project Id"
+        subscriptionName: "The Subscription Name"
+    steps:
+      - to:
+          uri: "log:info"
+    
