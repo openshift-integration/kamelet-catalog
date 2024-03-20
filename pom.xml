@@ -58,8 +58,8 @@
         <camel.version>4.0.3</camel.version>
         <camel.k.crd.version>2.2.0</camel.k.crd.version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <!-- ENTESB-20660 rely on quakrus-camel-bom for native builds -->
-        <quarkus-platform-version>3.2.9.Final</quarkus-platform-version>
+        <!-- quarkus-camel-bom must drive the CEQ version, maintain the same version as in camel-k-runtime -->
+        <quarkus-platform-version>3.2.10.Final</quarkus-platform-version>
 
         <!-- Versions used inside Kamelets (add them also to the dependencyManagement section and the groovy script below) -->
         <!-- These properties must keep this same format "version.<groupId>.<artifactId>" -->
