@@ -146,7 +146,7 @@ public class KameletsCatalogTest {
         verifyHeaders("azure-storage-queue-source", 6);
         verifyHeaders("cassandra-sink", 1);
         verifyHeaders("cassandra-source", 1);
-        verifyHeaders("elasticsearch-index-sink", 10);
+        verifyHeaders("elasticsearch-index-sink", 9);
         verifyHeaders("ftp-source", 10);
         verifyHeaders("ftp-sink", 8);
         verifyHeaders("http-sink", 14);

@@ -57,7 +57,7 @@
         <!-- don't forget to change the version in the parent declaration -->
         <camel.version>4.0.0</camel.version>
         <camel.k.crd.version>2.2.0</camel.k.crd.version>
-        <quarkus-platform-group>com.redhat.quarkus.platform</quarkus-platform-group>
+        <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <!-- quarkus-camel-bom must drive the CEQ version, maintain the same version as in camel-k-runtime -->
         <quarkus-platform-version>3.2.11.Final</quarkus-platform-version>
 
