@@ -79,18 +79,6 @@
             <artifactId>camel-quarkus-kafka</artifactId>
         </dependency>
 
-        <!-- Optional dependencies for data type conversion -->
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws2-ddb</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws2-s3</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Dependencies for mongodb connection configuration -->
         <dependency>
             <groupId>org.apache.camel</groupId>

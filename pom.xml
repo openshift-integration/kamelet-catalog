@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.0.0</version>
+        <version>4.4.1</version>
     </parent>
 
     <groupId>org.apache.camel.kamelets</groupId>
@@ -55,8 +55,8 @@
         <maven-checksum-maven-plugin.version>1.11</maven-checksum-maven-plugin.version>
 
         <!-- don't forget to change the version in the parent declaration -->
-        <camel.version>4.0.0</camel.version>
-        <camel.k.crd.version>2.2.0</camel.k.crd.version>
+        <camel.version>4.4.1</camel.version>
+        <camel.k.crd.version>2.3.0</camel.k.crd.version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <!-- quarkus-camel-bom must drive the CEQ version, maintain the same version as in camel-k-runtime -->
         <quarkus-platform-version>3.2.11.Final</quarkus-platform-version>
