@@ -59,7 +59,7 @@
         <camel.k.crd.version>2.3.0</camel.k.crd.version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <!-- quarkus-camel-bom must drive the CEQ version, maintain the same version as in camel-k-runtime -->
-        <quarkus-platform-version>3.2.11.Final</quarkus-platform-version>
+        <quarkus-platform-version>3.8.3</quarkus-platform-version>
 
         <!-- Versions used inside Kamelets (add them also to the dependencyManagement section and the groovy script below) -->
         <!-- These properties must keep this same format "version.<groupId>.<artifactId>" -->
