@@ -66,7 +66,7 @@
         <version.com.microsoft.sqlserver.mssql-jdbc>11.2.3.jre17</version.com.microsoft.sqlserver.mssql-jdbc>
         <version.org.apache.commons.commons-dbcp2>2.10.0</version.org.apache.commons.commons-dbcp2>
         <version.org.apache.qpid.qpid-jms-client>2.4.0</version.org.apache.qpid.qpid-jms-client>
-        <version.org.postgresql.postgresql>42.6.0</version.org.postgresql.postgresql>
+        <version.org.postgresql.postgresql>42.6.1</version.org.postgresql.postgresql>
         <version.com.amazon.redshift.redshift-jdbc42>2.1.0.18</version.com.amazon.redshift.redshift-jdbc42>
         <version.com.ibm.mq.com.ibm.mq.allclient>9.3.4.1</version.com.ibm.mq.com.ibm.mq.allclient>
     </properties>

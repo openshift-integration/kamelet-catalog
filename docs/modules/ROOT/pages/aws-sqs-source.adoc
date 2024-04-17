@@ -43,7 +43,7 @@ At runtime, the `aws-sqs-source` Kamelet relies upon the presence of the followi
 
 - camel:core
 - camel:aws2-sqs
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.3.0
 - camel:kamelet 
 
 == Usage

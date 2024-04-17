@@ -15,7 +15,7 @@ The `json-deserialize-action` Kamelet does not specify any configuration option.
 
 At runtime, the `json-deserialize-action` Kamelet relies upon the presence of the following dependencies:
 
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.3.0
 - camel:kamelet
 - camel:core
 - camel:jackson 

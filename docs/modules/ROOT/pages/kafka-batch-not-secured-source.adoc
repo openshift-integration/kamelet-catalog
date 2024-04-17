@@ -32,7 +32,7 @@ NOTE: Fields marked with an asterisk ({empty}*) are mandatory.
 
 At runtime, the `kafka-batch-not-secured-source` Kamelet relies upon the presence of the following dependencies:
 
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.3.0
 - camel:kafka
 - camel:core
 - camel:kamelet 

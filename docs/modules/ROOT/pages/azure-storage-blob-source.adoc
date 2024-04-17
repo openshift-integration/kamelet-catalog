@@ -34,7 +34,7 @@ At runtime, the `azure-storage-blob-source` Kamelet relies upon the presence of 
 - camel:core
 - camel:jsonpath
 - camel:timer
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT 
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.3.0 
 
 == Usage
 

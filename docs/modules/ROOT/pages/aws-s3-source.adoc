@@ -42,7 +42,7 @@ At runtime, the `aws-s3-source` Kamelet relies upon the presence of the followin
 
 - camel:core
 - camel:aws2-s3
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.3.0
 - camel:kamelet 
 
 == Usage

@@ -38,7 +38,7 @@ At runtime, the `mongodb-sink` Kamelet relies upon the presence of the following
 - camel:kamelet
 - camel:mongodb
 - camel:jackson
-- github:openshift-integration.kamelet-catalog:camel-kamelets-utils:2.2.0-SNAPSHOT 
+- mvn:org.apache.camel.kamelets:camel-kamelets-utils:2.3.0 
 
 == Usage
 

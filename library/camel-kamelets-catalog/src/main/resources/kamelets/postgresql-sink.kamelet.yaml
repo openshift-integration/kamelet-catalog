@@ -72,7 +72,7 @@ spec:
   - "camel:jackson"
   - "camel:kamelet"
   - "camel:sql"
-  - "mvn:org.postgresql:postgresql:42.6.0"
+  - "mvn:org.postgresql:postgresql:42.6.1"
   - "mvn:org.apache.commons:commons-dbcp2:2.10.0"
   template:
     beans:
