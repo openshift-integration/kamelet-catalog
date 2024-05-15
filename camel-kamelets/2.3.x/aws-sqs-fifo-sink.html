@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title> AWS SQS FIFO Sink :: Kamelet Catalog</title>
+    <meta name="generator" content="Antora 3.0.0-alpha.6">
+    <link rel="stylesheet" href="../../_/css/site-a192e92461.css">
+<meta name="application-name" content="Apache Camel">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="../../apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="../../apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="../../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="../../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../apple-touch-icon-152x152.png">
+<link rel="icon" type="image/png" href="../../favicon-196x196.png" sizes="196x196">
+<link rel="icon" type="image/png" href="../../favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="../../favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="../../favicon-128.png" sizes="128x128">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="nav-logo" href="../.."></a>
+      <div id="topbar-nav" class="navbar-menu">
+        <div class="navbar-end">
+                <a class="navbar-item-section navbar-item navbar-topics" href="../../">
+                  <img alt="Kamelet Catalog" src="/_/img/documentation.svg">
+                  Kamelet Catalog
+                </a>
+        </div>
+      </div>
+      <div class="navbar-fill"></div>
+      <div class="break-row"></div>
+      <div class="navbar-search results-hidden">
+        <input id="search" class="search" placeholder="Search" autocomplete="off">
+        <img src= "/_/img/cancel.svg" alt="Clear" id="search-cancel">
+        <div id="search_results"></div>
+      </div>
+      <div class="navbar-tools">
+        <a rel="noopener noreferrer nofollow" href="https://github.com/apache/camel/" title="Collaborate on GitHub"><svg focusable="false" class="brand-icon"><use xlink:href="../../_/img/brand-logos.svg#github" /></svg></a>
+        <a rel="noopener noreferrer nofollow" href="https://camel.zulipchat.com" title="Chat on Zulip"><svg focusable="false" class="brand-icon"><use xlink:href="../../_/img/brand-logos.svg#zulip" /></svg></a>
+        <a rel="noopener noreferrer nofollow" href="https://twitter.com/ApacheCamel" title="Follow Apache Camel on Twitter"><svg focusable="false" class="brand-icon"><use xlink:href="../../_/img/brand-logos.svg#twitter" /></svg></a>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav" type="button" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<a id="top"></a>
+<div class="body">
+<div class="nav-container" data-component="camel-kamelets" data-version="2.3.x">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active">
+  <nav class="nav-menu" data-panel="menu">
+    <h3 class="title"><a href="index.html">Kamelet Catalog</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="avro-deserialize-action.html"><span class="image"><img src="_images/kamelets/avro-deserialize-action.svg" alt="avro deserialize action"></span> Avro Deserialize Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="avro-serialize-action.html"><span class="image"><img src="_images/kamelets/avro-serialize-action.svg" alt="avro serialize action"></span> Avro Serialize Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-cloudwatch-sink.html"><span class="image"><img src="_images/kamelets/aws-cloudwatch-sink.svg" alt="aws cloudwatch sink"></span> AWS CloudWatch Metrics Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-ddb-sink.html"><span class="image"><img src="_images/kamelets/aws-ddb-sink.svg" alt="aws ddb sink"></span> AWS DynamoDB Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-ddb-streams-source.html"><span class="image"><img src="_images/kamelets/aws-ddb-streams-source.svg" alt="aws ddb streams source"></span> AWS DynamoDB Streams Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-kinesis-firehose-sink.html"><span class="image"><img src="_images/kamelets/aws-kinesis-firehose-sink.svg" alt="aws kinesis firehose sink"></span> AWS Kinesis Firehose Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-kinesis-sink.html"><span class="image"><img src="_images/kamelets/aws-kinesis-sink.svg" alt="aws kinesis sink"></span> AWS Kinesis Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-kinesis-source.html"><span class="image"><img src="_images/kamelets/aws-kinesis-source.svg" alt="aws kinesis source"></span> AWS Kinesis Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-lambda-sink.html"><span class="image"><img src="_images/kamelets/aws-lambda-sink.svg" alt="aws lambda sink"></span> AWS Lambda Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-redshift-sink.html"><span class="image"><img src="_images/kamelets/aws-redshift-sink.svg" alt="aws redshift sink"></span> AWS Redshift Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-redshift-source.html"><span class="image"><img src="_images/kamelets/aws-redshift-source.svg" alt="aws redshift source"></span> AWS Redshift Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-s3-sink.html"><span class="image"><img src="_images/kamelets/aws-s3-sink.svg" alt="aws s3 sink"></span> AWS S3 Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-s3-source.html"><span class="image"><img src="_images/kamelets/aws-s3-source.svg" alt="aws s3 source"></span> AWS S3 Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-s3-streaming-upload-sink.html"><span class="image"><img src="_images/kamelets/aws-s3-streaming-upload-sink.svg" alt="aws s3 streaming upload sink"></span> AWS S3 Streaming upload Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-ses-sink.html"><span class="image"><img src="_images/kamelets/aws-ses-sink.svg" alt="aws ses sink"></span> AWS SES Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-sns-sink.html"><span class="image"><img src="_images/kamelets/aws-sns-sink.svg" alt="aws sns sink"></span> AWS SNS Sink</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="aws-sqs-fifo-sink.html"><span class="image"><img src="_images/kamelets/aws-sqs-fifo-sink.svg" alt="aws sqs fifo sink"></span> AWS SQS FIFO Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-sqs-sink.html"><span class="image"><img src="_images/kamelets/aws-sqs-sink.svg" alt="aws sqs sink"></span> AWS SQS Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="aws-sqs-source.html"><span class="image"><img src="_images/kamelets/aws-sqs-source.svg" alt="aws sqs source"></span> AWS SQS Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-eventhubs-sink.html"><span class="image"><img src="_images/kamelets/azure-eventhubs-sink.svg" alt="azure eventhubs sink"></span> Azure Eventhubs Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-eventhubs-source.html"><span class="image"><img src="_images/kamelets/azure-eventhubs-source.svg" alt="azure eventhubs source"></span> Azure Eventhubs Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-functions-sink.html"><span class="image"><img src="_images/kamelets/azure-functions-sink.svg" alt="azure functions sink"></span> Azure Function Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-storage-blob-append-sink.html"><span class="image"><img src="_images/kamelets/azure-storage-blob-append-sink.svg" alt="azure storage blob append sink"></span> Azure Storage Blob Append Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-storage-blob-changefeed-source.html"><span class="image"><img src="_images/kamelets/azure-storage-blob-changefeed-source.svg" alt="azure storage blob changefeed source"></span> Azure Storage Blob Changefeed Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-storage-blob-sink.html"><span class="image"><img src="_images/kamelets/azure-storage-blob-sink.svg" alt="azure storage blob sink"></span> Azure Storage Blob Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-storage-blob-source.html"><span class="image"><img src="_images/kamelets/azure-storage-blob-source.svg" alt="azure storage blob source"></span> Azure Storage Blob Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-storage-queue-sink.html"><span class="image"><img src="_images/kamelets/azure-storage-queue-sink.svg" alt="azure storage queue sink"></span> Azure Storage Queue Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="azure-storage-queue-source.html"><span class="image"><img src="_images/kamelets/azure-storage-queue-source.svg" alt="azure storage queue source"></span> Azure Storage Queue Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="cassandra-sink.html"><span class="image"><img src="_images/kamelets/cassandra-sink.svg" alt="cassandra sink"></span> Cassandra Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="cassandra-source.html"><span class="image"><img src="_images/kamelets/cassandra-source.svg" alt="cassandra source"></span> Cassandra Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ceph-sink.html"><span class="image"><img src="_images/kamelets/ceph-sink.svg" alt="ceph sink"></span> Ceph Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ceph-source.html"><span class="image"><img src="_images/kamelets/ceph-source.svg" alt="ceph source"></span> Ceph Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="data-type-action.html"><span class="image"><img src="_images/kamelets/data-type-action.svg" alt="data type action"></span> Data Type Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="drop-header-action.html"><span class="image"><img src="_images/kamelets/drop-header-action.svg" alt="drop header action"></span> Drop Header Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="drop-headers-action.html"><span class="image"><img src="_images/kamelets/drop-headers-action.svg" alt="drop headers action"></span> Drop Headers Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="elasticsearch-index-sink.html"><span class="image"><img src="_images/kamelets/elasticsearch-index-sink.svg" alt="elasticsearch index sink"></span> ElasticSearch Index Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="extract-field-action.html"><span class="image"><img src="_images/kamelets/extract-field-action.svg" alt="extract field action"></span> Extract Field Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ftp-sink.html"><span class="image"><img src="_images/kamelets/ftp-sink.svg" alt="ftp sink"></span> FTP Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ftp-source.html"><span class="image"><img src="_images/kamelets/ftp-source.svg" alt="ftp source"></span> FTP Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ftps-sink.html"><span class="image"><img src="_images/kamelets/ftps-sink.svg" alt="ftps sink"></span> FTPS Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="ftps-source.html"><span class="image"><img src="_images/kamelets/ftps-source.svg" alt="ftps source"></span> FTPS Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="google-bigquery-sink.html"><span class="image"><img src="_images/kamelets/google-bigquery-sink.svg" alt="google bigquery sink"></span> Google Big Query Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="google-pubsub-sink.html"><span class="image"><img src="_images/kamelets/google-pubsub-sink.svg" alt="google pubsub sink"></span> Google Pubsub Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="google-pubsub-source.html"><span class="image"><img src="_images/kamelets/google-pubsub-source.svg" alt="google pubsub source"></span> Google Pubsub Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="has-header-filter-action.html"><span class="image"><img src="_images/kamelets/has-header-filter-action.svg" alt="has header filter action"></span> Has Header Filter Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="hoist-field-action.html"><span class="image"><img src="_images/kamelets/hoist-field-action.svg" alt="hoist field action"></span> Hoist Field Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="http-secured-sink.html"><span class="image"><img src="_images/kamelets/http-secured-sink.svg" alt="http secured sink"></span> Secured HTTP Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="http-secured-source.html"><span class="image"><img src="_images/kamelets/http-secured-source.svg" alt="http secured source"></span> HTTP Secured Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="http-sink.html"><span class="image"><img src="_images/kamelets/http-sink.svg" alt="http sink"></span> HTTP Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="http-source.html"><span class="image"><img src="_images/kamelets/http-source.svg" alt="http source"></span> HTTP Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="insert-field-action.html"><span class="image"><img src="_images/kamelets/insert-field-action.svg" alt="insert field action"></span> Insert Field Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="insert-header-action.html"><span class="image"><img src="_images/kamelets/insert-header-action.svg" alt="insert header action"></span> Insert Header Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="is-tombstone-filter-action.html"><span class="image"><img src="_images/kamelets/is-tombstone-filter-action.svg" alt="is tombstone filter action"></span> Is Tombstone Filter Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jira-add-comment-sink.html"><span class="image"><img src="_images/kamelets/jira-add-comment-sink.svg" alt="jira add comment sink"></span> Jira Add Comment Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jira-add-issue-sink.html"><span class="image"><img src="_images/kamelets/jira-add-issue-sink.svg" alt="jira add issue sink"></span> Jira Add Issue Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jira-source.html"><span class="image"><img src="_images/kamelets/jira-source.svg" alt="jira source"></span> Jira Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jira-transition-issue-sink.html"><span class="image"><img src="_images/kamelets/jira-transition-issue-sink.svg" alt="jira transition issue sink"></span> Jira Transition Issue Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jira-update-issue-sink.html"><span class="image"><img src="_images/kamelets/jira-update-issue-sink.svg" alt="jira update issue sink"></span> Jira Update Issue Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-amqp-10-sink.html"><span class="image"><img src="_images/kamelets/jms-amqp-10-sink.svg" alt="jms amqp 10 sink"></span> JMS - AMQP 1.0 Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-amqp-10-source.html"><span class="image"><img src="_images/kamelets/jms-amqp-10-source.svg" alt="jms amqp 10 source"></span> JMS - AMQP 1.0 Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-apache-artemis-sink.html"><span class="image"><img src="_images/kamelets/jms-apache-artemis-sink.svg" alt="jms apache artemis sink"></span> JMS - Apache Artemis Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-apache-artemis-source.html"><span class="image"><img src="_images/kamelets/jms-apache-artemis-source.svg" alt="jms apache artemis source"></span> JMS - Apache Artemis Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-ibm-mq-sink.html"><span class="image"><img src="_images/kamelets/jms-ibm-mq-sink.svg" alt="jms ibm mq sink"></span> JMS - IBM MQ Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jms-ibm-mq-source.html"><span class="image"><img src="_images/kamelets/jms-ibm-mq-source.svg" alt="jms ibm mq source"></span> JMS - IBM MQ Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="jslt-action.html"><span class="image"><img src="_images/kamelets/jslt-action.svg" alt="jslt action"></span> JSLT Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="json-deserialize-action.html"><span class="image"><img src="_images/kamelets/json-deserialize-action.svg" alt="json deserialize action"></span> Json Deserialize Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="json-serialize-action.html"><span class="image"><img src="_images/kamelets/json-serialize-action.svg" alt="json serialize action"></span> Json Serialize Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-apicurio-registry-not-secured-source.html"><span class="image"><img src="_images/kamelets/kafka-batch-apicurio-registry-not-secured-source.svg" alt="kafka batch apicurio registry not secured source"></span> Kafka Batch Not Secured with Apicurio Registry Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-azure-schema-registry-source.html"><span class="image"><img src="_images/kamelets/kafka-batch-azure-schema-registry-source.svg" alt="kafka batch azure schema registry source"></span> Azure Kafka Batch through Eventhubs with Azure Schema Registry Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-manual-commit-action.html"><span class="image"><img src="_images/kamelets/kafka-batch-manual-commit-action.svg" alt="kafka batch manual commit action"></span> Kafka Batch Manual Commit Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-not-secured-source.html"><span class="image"><img src="_images/kamelets/kafka-batch-not-secured-source.svg" alt="kafka batch not secured source"></span> Kafka Batch Not Secured Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-scram-source.html"><span class="image"><img src="_images/kamelets/kafka-batch-scram-source.svg" alt="kafka batch scram source"></span> Kafka Batch Scram Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-source.html"><span class="image"><img src="_images/kamelets/kafka-batch-source.svg" alt="kafka batch source"></span> Kafka Batch Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-batch-ssl-source.html"><span class="image"><img src="_images/kamelets/kafka-batch-ssl-source.svg" alt="kafka batch ssl source"></span> Kafka Batch SSL Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-sink.html"><span class="image"><img src="_images/kamelets/kafka-sink.svg" alt="kafka sink"></span> Kafka Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-source.html"><span class="image"><img src="_images/kamelets/kafka-source.svg" alt="kafka source"></span> Kafka Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-ssl-sink.html"><span class="image"><img src="_images/kamelets/kafka-ssl-sink.svg" alt="kafka ssl sink"></span> Kafka SSL Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="kafka-ssl-source.html"><span class="image"><img src="_images/kamelets/kafka-ssl-source.svg" alt="kafka ssl source"></span> Kafka SSL Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="log-action.html"><span class="image"><img src="_images/kamelets/log-action.svg" alt="log action"></span> Log Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="log-sink.html"><span class="image"><img src="_images/kamelets/log-sink.svg" alt="log sink"></span> Log Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mariadb-sink.html"><span class="image"><img src="_images/kamelets/mariadb-sink.svg" alt="mariadb sink"></span> MariaDB Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mariadb-source.html"><span class="image"><img src="_images/kamelets/mariadb-source.svg" alt="mariadb source"></span> MariaDB Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mask-field-action.html"><span class="image"><img src="_images/kamelets/mask-field-action.svg" alt="mask field action"></span> Mask Fields Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="message-timestamp-router-action.html"><span class="image"><img src="_images/kamelets/message-timestamp-router-action.svg" alt="message timestamp router action"></span> Message Timestamp Router Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="minio-sink.html"><span class="image"><img src="_images/kamelets/minio-sink.svg" alt="minio sink"></span> Minio Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="minio-source.html"><span class="image"><img src="_images/kamelets/minio-source.svg" alt="minio source"></span> Minio Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mongodb-sink.html"><span class="image"><img src="_images/kamelets/mongodb-sink.svg" alt="mongodb sink"></span> MongoDB Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mongodb-source.html"><span class="image"><img src="_images/kamelets/mongodb-source.svg" alt="mongodb source"></span> MongoDB Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mysql-sink.html"><span class="image"><img src="_images/kamelets/mysql-sink.svg" alt="mysql sink"></span> MySQL Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="mysql-source.html"><span class="image"><img src="_images/kamelets/mysql-source.svg" alt="mysql source"></span> MySQL Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="postgresql-sink.html"><span class="image"><img src="_images/kamelets/postgresql-sink.svg" alt="postgresql sink"></span> PostgreSQL Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="postgresql-source.html"><span class="image"><img src="_images/kamelets/postgresql-source.svg" alt="postgresql source"></span> PostgreSQL Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="predicate-filter-action.html"><span class="image"><img src="_images/kamelets/predicate-filter-action.svg" alt="predicate filter action"></span> Predicate Filter Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="protobuf-deserialize-action.html"><span class="image"><img src="_images/kamelets/protobuf-deserialize-action.svg" alt="protobuf deserialize action"></span> Protobuf Deserialize Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="protobuf-serialize-action.html"><span class="image"><img src="_images/kamelets/protobuf-serialize-action.svg" alt="protobuf serialize action"></span> Protobuf Serialize Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="regex-router-action.html"><span class="image"><img src="_images/kamelets/regex-router-action.svg" alt="regex router action"></span> Regex Router Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="replace-field-action.html"><span class="image"><img src="_images/kamelets/replace-field-action.svg" alt="replace field action"></span> Replace Field Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="resolve-pojo-schema-action.html"><span class="image"><img src="_images/kamelets/resolve-pojo-schema-action.svg" alt="resolve pojo schema action"></span> Resolve Schema Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="salesforce-create-sink.html"><span class="image"><img src="_images/kamelets/salesforce-create-sink.svg" alt="salesforce create sink"></span> Salesforce Create Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="salesforce-delete-sink.html"><span class="image"><img src="_images/kamelets/salesforce-delete-sink.svg" alt="salesforce delete sink"></span> Salesforce Delete Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="salesforce-source.html"><span class="image"><img src="_images/kamelets/salesforce-source.svg" alt="salesforce source"></span> Salesforce Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="salesforce-update-sink.html"><span class="image"><img src="_images/kamelets/salesforce-update-sink.svg" alt="salesforce update sink"></span> Salesforce Update Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="set-body-action.html"><span class="image"><img src="_images/kamelets/set-body-action.svg" alt="set body action"></span> Set Body Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="sftp-sink.html"><span class="image"><img src="_images/kamelets/sftp-sink.svg" alt="sftp sink"></span> SFTP Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="sftp-source.html"><span class="image"><img src="_images/kamelets/sftp-source.svg" alt="sftp source"></span> SFTP Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="slack-sink.html"><span class="image"><img src="_images/kamelets/slack-sink.svg" alt="slack sink"></span> Slack Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="slack-source.html"><span class="image"><img src="_images/kamelets/slack-source.svg" alt="slack source"></span> Slack Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="splunk-sink.html"><span class="image"><img src="_images/kamelets/splunk-sink.svg" alt="splunk sink"></span> Splunk Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="splunk-source.html"><span class="image"><img src="_images/kamelets/splunk-source.svg" alt="splunk source"></span> Splunk Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="sqlserver-sink.html"><span class="image"><img src="_images/kamelets/sqlserver-sink.svg" alt="sqlserver sink"></span> Microsoft SQL Server Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="sqlserver-source.html"><span class="image"><img src="_images/kamelets/sqlserver-source.svg" alt="sqlserver source"></span> Microsoft SQL Server Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="telegram-sink.html"><span class="image"><img src="_images/kamelets/telegram-sink.svg" alt="telegram sink"></span> Telegram Sink</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="telegram-source.html"><span class="image"><img src="_images/kamelets/telegram-source.svg" alt="telegram source"></span> Telegram Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="throttle-action.html"><span class="image"><img src="_images/kamelets/throttle-action.svg" alt="throttle action"></span> Throttle Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="timer-source.html"><span class="image"><img src="_images/kamelets/timer-source.svg" alt="timer source"></span> Timer Source</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="timestamp-router-action.html"><span class="image"><img src="_images/kamelets/timestamp-router-action.svg" alt="timestamp router action"></span> Timestamp Router Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="topic-name-matches-filter-action.html"><span class="image"><img src="_images/kamelets/topic-name-matches-filter-action.svg" alt="topic name matches filter action"></span> Kafka Topic Name Matches Filter Action</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="value-to-key-action.html"><span class="image"><img src="_images/kamelets/value-to-key-action.svg" alt="value to key action"></span> Value to Key Action</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Kamelet Catalog</span>
+    <span class="version">2.3.x (Red Hat)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Kamelet Catalog</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">2.3.x (Red Hat)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<nav class="toolbar">
+<button class="nav-toggle" aria-label="Toggle submenu"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Kamelet Catalog</a></li>
+    <li><a href="aws-sqs-fifo-sink.html"><span class="image"><img src="_images/kamelets/aws-sqs-fifo-sink.svg" alt="aws sqs fifo sink"></span> AWS SQS FIFO Sink</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/release-2.3.x/docs/modules/ROOT/pages/aws-sqs-fifo-sink.adoc">Edit this Page</a></div>
+  </nav>
+  <div class="content">
+<article class="doc">
+<h1 class="page"><span class="image"><img src="_images/kamelets/aws-sqs-fifo-sink.svg" alt="aws sqs fifo sink"></span> AWS SQS FIFO Sink</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Provided by: "Red Hat"</strong></p>
+</div>
+<div class="paragraph">
+<p>Send message to an AWS SQS FIFO Queue.</p>
+</div>
+<div class="paragraph">
+<p>Access Key/Secret Key are the basic method for authenticating to the AWS SQS Service. These parameters are optional because the Kamelet provides the 'useDefaultCredentialsProvider'.</p>
+</div>
+<div class="paragraph">
+<p>When using a default Credentials Provider the SQS client will load the credentials through this provider and won&#8217;t use the static credential. This is reason for not having the access key and secret key as mandatory parameter for this Kamelet.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following table summarizes the configuration options available for the <code>aws-sqs-fifo-sink</code> Kamelet:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 21.4285%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 21.4287%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-center valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-center valign-top">Type</th>
+<th class="tableblock halign-center valign-top">Default</th>
+<th class="tableblock halign-center valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>queueNameOrArn </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Queue Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The SQS Queue name or ARN</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>region </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">AWS Region</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS region to access.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">accessKey</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Access Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The access key obtained from AWS.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amazonAWSHost</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">AWS Host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of the Amazon AWS cloud.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"amazonaws.com"</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">autoCreateQueue</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Autocreate Queue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Setting the autocreation of the SQS queue.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">contentBasedDeduplication</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Content-Based Deduplication</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use content-based deduplication (should be enabled in the SQS FIFO queue first)</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">overrideEndpoint</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Endpoint Overwrite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select this option to override the endpoint URI. To use this option, you must also provide a URI for the <code>uriEndpointOverride</code> option.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">protocol</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The underlying protocol used to communicate with SQS</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"https"</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"http or https"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">secretKey</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Secret Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The secret key obtained from AWS.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uriEndpointOverride</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Overwrite Endpoint URI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The overriding endpoint URI. To use this option, you must also select the <code>overrideEndpoint</code> option.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">useDefaultCredentialsProvider</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Default Credentials Provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set whether the SQS client should expect to load credentials through a default credentials provider or to expect static credentials to be passed in.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Fields marked with an asterisk (*) are mandatory.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At runtime, the <code>aws-sqs-fifo-sink</code> Kamelet relies upon the presence of the following dependencies:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>camel:aws2-sqs</p>
+</li>
+<li>
+<p>camel:core</p>
+</li>
+<li>
+<p>camel:kamelet</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how you can use the <code>aws-sqs-fifo-sink</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_knative_sink"><a class="anchor" href="#_knative_sink"></a>Knative Sink</h3>
+<div class="paragraph">
+<p>You can use the <code>aws-sqs-fifo-sink</code> Kamelet as a Knative sink by binding it to a Knative object.</p>
+</div>
+<div class="listingblock">
+<div class="title">aws-sqs-fifo-sink-binding.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1
+kind: Pipe
+metadata:
+  name: aws-sqs-fifo-sink-pipe
+spec:
+  source:
+    ref:
+      kind: Channel
+      apiVersion: messaging.knative.dev/v1
+      name: mychannel
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: aws-sqs-fifo-sink
+    properties:
+      queueNameOrArn: "The Queue Name"
+      region: "The AWS Region"</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prerequisite"><a class="anchor" href="#_prerequisite"></a><strong>Prerequisite</strong></h4>
+<div class="paragraph">
+<p>Make sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_procedure_for_using_the_cluster_cli"><a class="anchor" href="#_procedure_for_using_the_cluster_cli"></a><strong>Procedure for using the cluster CLI</strong></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the <code>aws-sqs-fifo-sink-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+</li>
+<li>
+<p>Run the sink by using the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f aws-sqs-fifo-sink-binding.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_procedure_for_using_the_kamel_cli"><a class="anchor" href="#_procedure_for_using_the_kamel_cli"></a><strong>Procedure for using the Kamel CLI</strong></h4>
+<div class="paragraph">
+<p>Configure and run the sink by using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind channel:mychannel aws-sqs-fifo-sink -p "sink.queueNameOrArn=The Queue Name" -p "sink.region=The AWS Region"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command creates the Pipe in the current namespace on the cluster.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kafka_sink"><a class="anchor" href="#_kafka_sink"></a>Kafka Sink</h3>
+<div class="paragraph">
+<p>You can use the <code>aws-sqs-fifo-sink</code> Kamelet as a Kafka sink by binding it to a Kafka topic.</p>
+</div>
+<div class="listingblock">
+<div class="title">aws-sqs-fifo-sink-binding.yaml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1
+kind: Pipe
+metadata:
+  name: aws-sqs-fifo-sink-pipe
+spec:
+  source:
+    ref:
+      kind: KafkaTopic
+      apiVersion: kafka.strimzi.io/v1beta1
+      name: my-topic
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: aws-sqs-fifo-sink
+    properties:
+      queueNameOrArn: "The Queue Name"
+      region: "The AWS Region"</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><strong>Prerequisites</strong></h4>
+<div class="paragraph">
+<p>Ensure that you&#8217;ve installed the <strong>AMQ Streams</strong> operator in your OpenShift cluster and created a topic named <code>my-topic</code> in the current namespace.
+Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> installed into the OpenShift cluster you&#8217;re connected to.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_procedure_for_using_the_cluster_cli_2"><a class="anchor" href="#_procedure_for_using_the_cluster_cli_2"></a><strong>Procedure for using the cluster CLI</strong></h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Save the <code>aws-sqs-fifo-sink-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+</li>
+<li>
+<p>Run the sink by using the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f aws-sqs-fifo-sink-binding.yaml</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_procedure_for_using_the_kamel_cli_2"><a class="anchor" href="#_procedure_for_using_the_kamel_cli_2"></a><strong>Procedure for using the Kamel CLI</strong></h4>
+<div class="paragraph">
+<p>Configure and run the sink by using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind kafka.strimzi.io/v1beta1:KafkaTopic:my-topic aws-sqs-fifo-sink -p "sink.queueNameOrArn=The Queue Name" -p "sink.region=The AWS Region"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command creates the Pipe in the current namespace on the cluster.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kamelet_source_file"><a class="anchor" href="#_kamelet_source_file"></a>Kamelet source file</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/openshift-integration/kamelet-catalog/blob/main/aws-sqs-fifo-sink.kamelet.yaml" class="bare">https://github.com/openshift-integration/kamelet-catalog/blob/main/aws-sqs-fifo-sink.kamelet.yaml</a></p>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+    <div class="footer-tools">
+        <a href="#top" title="Reach the top of the page">Back to top</a>
+    </div>
+    <footer>
+        <div class="footer">
+            <figure class="logo">
+                <img src="../../_/img/logo-redhat.svg" class="logo-small mt-60" alt="Apache Camel Logo"
+                    aria-label="white silhouette of a camel in front of a sand dune">
+            </figure>
+            <input id="footer-toggle-overview" type="checkbox" title="Show/Hide Overview section" />
+            <dl>
+                <dt><label for="footer-toggle-overview">Overview</label><label for="footer-toggle-overview">&#65291;</label></dt>
+                <dd><a href="../../blog/">Blog</a></dd>
+                <dd><a href="../../docs/">Documentation</a></dd>
+                <dd><a href="../../community/support/">Community</a></dd>
+                <dd><a href="../../download/">Download</a></dd>
+            </dl>
+            <input id="footer-toggle-documentation" type="checkbox" title="Show/Hide Documentation section" />
+            <dl>
+                <dt><label for="footer-toggle-documentation">Documentation</label><label for="footer-toggle-documentation">&#65291;</label></dt>
+                <dd><a href="../../manual/latest/">User Manual</a></dd>
+                <dd><a href="../../components/latest/index.html">Components</a></dd>
+                <dd><a href="../../camel-k/latest/">Camel-K</a></dd>
+                <dd><a href="../../camel-kafka-connector/latest/">Camel Kafka Connector</a></dd>
+                <dd><a href="../../camel-quarkus/latest/">Camel Quarkus</a></dd>
+                <dd><a href="../../camel-spring-boot/latest/">Camel Spring Boot</a></dd>
+                <dd><a href="../../camel-karaf/latest/">Camel Karaf</a></dd>
+                <dd><a href="../../manual/latest/faq/index.html">FAQ</a></dd>
+            </dl>
+            <input id="footer-toggle-community" type="checkbox" title="Show/Hide Community section" />
+            <dl>
+                <dt><label for="footer-toggle-community">Community</label><label for="footer-toggle-community">&#65291;</label></dt>
+                <dd><a href="../../community/support/">Support</a></dd>
+                <dd><a href="../../community/contributing/">Contributing</a></dd>
+                <dd><a href="../../community/mailing-list/">Mailing Lists</a></dd>
+                <dd><a href="../../community/user-stories/">User stories</a></dd>
+                <dd><a href="../../community/articles/">Articles</a></dd>
+                <dd><a href="../../community/books/">Books</a></dd>
+                <dd><a href="../../community/team/">Team</a></dd>
+            </dl>
+            <input id="footer-toggle-about" type="checkbox" title="Show/Hide Acknowledgements section" />
+            <dl>
+                <dt><label for="footer-toggle-about">About</label><label for="footer-toggle-about">&#65291;</label></dt>
+                <dd><a href="../../acknowledgments/">Acknowledgments</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer nofollow" href="https://www.apache.org/events/current-event.html" title="Apache Events">Apache Events</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer nofollow" href="https://www.apache.org/licenses/" title="License">License</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer nofollow" href="https://www.apache.org/security/" title="Security">Security</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer nofollow" href="https://www.apache.org/foundation/sponsorship.html" title="Sponsorship">Sponsorship</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer nofollow" href="https://www.apache.org/foundation/thanks.html" title="Thanks">Thanks</a></dd>
+            </dl>
+            <p class="remark">
+                &copy; 2004-2024 The <a href="https://apache.org">Apache Software Foundation</a>.<br>
+                Apache Camel, Camel, Apache, the Apache feather logo, and the Apache Camel project logo are trademarks of
+                The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of
+                their respective owners.
+            </p>
+            <div class="resources">
+                <div class="context">
+                    <a href="../../privacy-policy/">Privacy Policy</a>
+                </div>
+                <div class="context">
+                    <a target="_blank" rel="noopener noreferrer nofollow" href="https://www.apache.org/foundation/policies/conduct">Code of Conduct</a>
+                </div>
+                <div class="context">
+                    <a href="../../sitemap/">Sitemap</a>
+                </div>
+            </div>
+            <div class="footer-icons">
+                <a rel="noopener noreferrer nofollow" href="https://github.com/apache/camel/" title="Collaborate on GitHub"><svg class="brand-icon" focusable="false"><use xlink:href="../../_/img/brand-logos.svg#github" /></svg></a>
+                <a rel="noopener noreferrer nofollow" href="https://camel.zulipchat.com" title="Chat on Zulip"><svg class="brand-icon" focusable="false"><use xlink:href="../../_/img/brand-logos.svg#zulip" /></svg></a>
+                <a rel="noopener noreferrer nofollow" href="https://twitter.com/ApacheCamel" title="Follow Apache Camel on Twitter"><svg class="brand-icon" focusable="false"><use xlink:href="../../_/img/brand-logos.svg#twitter" /></svg></a>
+            </div>
+        </div>
+    </footer>
+<script src="../../_/js/vendor/algoliasearch-8fe81df376.js"></script>
+<script src="../../_/js/site-0d18f68ee9.js"></script>
+<script async src="../../_/js/vendor/highlight-a988c6fdd9.js"></script>
+<script async src="../../_/js/vendor/svg4everybody-195d47ce7d.js"></script>
+        <script type='application/ld+json'>
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "Kamelet Catalog",
+  "url": "/",
+  "sameAs": [
+     "https://twitter.com/ApacheCamel"
+  ],
+  "logo": "../../_/img/logo-redhat.svg",
+  "description": "Apache Camel ™ is a versatile open-source integration framework based on known Enterprise Integration Patterns. Camel empowers you to define routing and mediation rules in a variety of domain-specific languages, including a Java-based Fluent API, Spring or Blueprint XML Configuration files, and a Scala DSL."
+}
+</script>
+    <script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Kamelet Catalog",
+        "item": "https://camel.apache.org/"
+        },
+        {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Kamelet Catalog",
+        "item": "https://camel.apache.org/camel-kamelets/2.3.x/index.html"
+        },
+        {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "2.3.x (Red Hat)",
+        "item": "https://camel.apache.org/camel-kamelets/2.3.x/index.html"
+        }
+        ,
+        {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "AWS SQS FIFO Sink","item": "https://camel.apache.org/camel-kamelets/2.3.x/aws-sqs-fifo-sink.html"}
+        ]
+    }
+</script>
+
+  </body>
+</html>
