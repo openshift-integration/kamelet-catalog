@@ -104,6 +104,7 @@
 * xref:ROOT:set-body-action.adoc[image:kamelets/set-body-action.svg[] Set Body Action]
 * xref:ROOT:sftp-sink.adoc[image:kamelets/sftp-sink.svg[] SFTP Sink]
 * xref:ROOT:sftp-source.adoc[image:kamelets/sftp-source.svg[] SFTP Source]
+* xref:ROOT:simple-filter-action.adoc[image:kamelets/simple-filter-action.svg[] Simple Filter Action]
 * xref:ROOT:slack-sink.adoc[image:kamelets/slack-sink.svg[] Slack Sink]
 * xref:ROOT:slack-source.adoc[image:kamelets/slack-source.svg[] Slack Source]
 * xref:ROOT:splunk-sink.adoc[image:kamelets/splunk-sink.svg[] Splunk Sink]
