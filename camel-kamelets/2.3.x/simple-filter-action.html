@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title> PostgreSQL Source :: Kamelet Catalog</title>
+    <title> Simple Filter Action :: Kamelet Catalog</title>
     <meta name="generator" content="Antora 3.0.0-alpha.6">
     <link rel="stylesheet" href="../../_/css/site-a192e92461.css">
 <meta name="application-name" content="Apache Camel">
@@ -339,7 +339,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="postgresql-sink.html"><span class="image"><img src="_images/kamelets/postgresql-sink.svg" alt="postgresql sink"></span> PostgreSQL Sink</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="postgresql-source.html"><span class="image"><img src="_images/kamelets/postgresql-source.svg" alt="postgresql source"></span> PostgreSQL Source</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -381,7 +381,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sftp-source.html"><span class="image"><img src="_images/kamelets/sftp-source.svg" alt="sftp source"></span> SFTP Source</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="simple-filter-action.html"><span class="image"><img src="_images/kamelets/simple-filter-action.svg" alt="simple filter action"></span> Simple Filter Action</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -454,21 +454,21 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Kamelet Catalog</a></li>
-    <li><a href="postgresql-source.html"><span class="image"><img src="_images/kamelets/postgresql-source.svg" alt="postgresql source"></span> PostgreSQL Source</a></li>
+    <li><a href="simple-filter-action.html"><span class="image"><img src="_images/kamelets/simple-filter-action.svg" alt="simple filter action"></span> Simple Filter Action</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/release-2.3.x/docs/modules/ROOT/pages/postgresql-source.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/openshift-integration/kamelet-catalog/edit/release-2.3.x/docs/modules/ROOT/pages/simple-filter-action.adoc">Edit this Page</a></div>
   </nav>
   <div class="content">
 <article class="doc">
-<h1 class="page"><span class="image"><img src="_images/kamelets/postgresql-source.svg" alt="postgresql source"></span> PostgreSQL Source</h1>
+<h1 class="page"><span class="image"><img src="_images/kamelets/simple-filter-action.svg" alt="simple filter action"></span> Simple Filter Action</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Provided by: "Red Hat"</strong></p>
 </div>
 <div class="paragraph">
-<p>Query data from a PostgreSQL Database.</p>
+<p>Filter based on simple expression</p>
 </div>
 </div>
 </div>
@@ -476,7 +476,7 @@
 <h2 id="_configuration_options"><a class="anchor" href="#_configuration_options"></a>Configuration Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following table summarizes the configuration options available for the <code>postgresql-source</code> Kamelet:</p>
+<p>The following table summarizes the configuration options available for the <code>simple-filter-action</code> Kamelet:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -499,67 +499,11 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>databaseName </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Database Name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the PostgreSQL Database.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>expression </strong> *</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Simple Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A simple expression to apply on the exchange to filter out some exchange</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>password </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Password</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The password to access a secured PostgreSQL Database.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>query </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Query</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The query to execute against the PostgreSQL Database.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"INSERT INTO accounts (username,city) VALUES (:#username,:#city)"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>serverName </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Server Name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The server name for the data source.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"localhost"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>username </strong> *</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Username</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The username to access a secured PostgreSQL Database.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">consumedQuery</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Consumed Query</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A query to run on a tuple consumed.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>"DELETE FROM accounts where user_id = :#user_id"</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">delay</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Delay</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds before the next poll</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">integer</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>500</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">serverPort</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Server Port</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The server port for the data source.</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>5432</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -582,24 +526,15 @@ Fields marked with an asterisk (*) are mandatory.
 <h2 id="_dependencies"><a class="anchor" href="#_dependencies"></a>Dependencies</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>At runtime, the <code>postgresql-source</code> Kamelet relies upon the presence of the following dependencies:</p>
+<p>At runtime, the <code>simple-filter-action</code> Kamelet relies upon the presence of the following dependencies:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>camel:jackson</p>
+<p>camel:core</p>
 </li>
 <li>
 <p>camel:kamelet</p>
-</li>
-<li>
-<p>camel:sql</p>
-</li>
-<li>
-<p>mvn:org.postgresql:postgresql:42.6.1</p>
-</li>
-<li>
-<p>mvn:org.apache.commons:commons-dbcp2:2.10.0</p>
 </li>
 </ul>
 </div>
@@ -609,32 +544,35 @@ Fields marked with an asterisk (*) are mandatory.
 <h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section describes how you can use the <code>postgresql-source</code>.</p>
+<p>This section describes how you can use the <code>simple-filter-action</code>.</p>
 </div>
 <div class="sect2">
-<h3 id="_knative_source"><a class="anchor" href="#_knative_source"></a>Knative Source</h3>
+<h3 id="_knative_action"><a class="anchor" href="#_knative_action"></a>Knative Action</h3>
 <div class="paragraph">
-<p>You can use the <code>postgresql-source</code> Kamelet as a Knative source by binding it to a Knative object.</p>
+<p>You can use the <code>simple-filter-action</code> Kamelet as an intermediate step in a Knative binding.</p>
 </div>
 <div class="listingblock">
-<div class="title">postgresql-source-binding.yaml</div>
+<div class="title">simple-filter-action-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1
 kind: Pipe
 metadata:
-  name: postgresql-source-pipe
+  name: simple-filter-action-pipe
 spec:
   source:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1
-      name: postgresql-source
+      name: timer-source
     properties:
-      databaseName: "The Database Name"
-      password: "The Password"
-      query: "INSERT INTO accounts (username,city) VALUES (:#username,:#city)"
-      serverName: "localhost"
-      username: "The Username"
+      message: "Hello"
+  steps:
+  - ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: simple-filter-action
+    properties:
+      expression: "The Simple Expression"
   sink:
     ref:
       kind: Channel
@@ -653,13 +591,13 @@ spec:
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Save the <code>postgresql-source-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+<p>Save the <code>simple-filter-action-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
 </li>
 <li>
-<p>Run the source by using the following command:</p>
+<p>Run the action by using the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f postgresql-source-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f simple-filter-action-binding.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -669,11 +607,11 @@ spec:
 <div class="sect3">
 <h4 id="_procedure_for_using_the_kamel_cli"><a class="anchor" href="#_procedure_for_using_the_kamel_cli"></a><strong>Procedure for using the Kamel CLI</strong></h4>
 <div class="paragraph">
-<p>Configure and run the source by using the following command:</p>
+<p>Configure and run the action by using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind postgresql-source -p "source.databaseName=The Database Name" -p "source.password=The Password" -p "source.query=INSERT INTO accounts (username,city) VALUES (:#username,:#city)" -p "source.serverName=localhost" -p "source.username=The Username" channel:mychannel</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step simple-filter-action -p "step-0.expression=The Simple Expression" channel:mychannel</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -682,29 +620,32 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="_kafka_source"><a class="anchor" href="#_kafka_source"></a>Kafka Source</h3>
+<h3 id="_kafka_action"><a class="anchor" href="#_kafka_action"></a>Kafka Action</h3>
 <div class="paragraph">
-<p>You can use the <code>postgresql-source</code> Kamelet as a Kafka source by binding it to a Kafka topic.</p>
+<p>You can use the <code>simple-filter-action</code> Kamelet as an intermediate step in a Kafka binding.</p>
 </div>
 <div class="listingblock">
-<div class="title">postgresql-source-binding.yaml</div>
+<div class="title">simple-filter-action-binding.yaml</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: camel.apache.org/v1
 kind: Pipe
 metadata:
-  name: postgresql-source-pipe
+  name: simple-filter-action-pipe
 spec:
   source:
     ref:
       kind: Kamelet
       apiVersion: camel.apache.org/v1
-      name: postgresql-source
+      name: timer-source
     properties:
-      databaseName: "The Database Name"
-      password: "The Password"
-      query: "INSERT INTO accounts (username,city) VALUES (:#username,:#city)"
-      serverName: "localhost"
-      username: "The Username"
+      message: "Hello"
+  steps:
+  - ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1
+      name: simple-filter-action
+    properties:
+      expression: "The Simple Expression"
   sink:
     ref:
       kind: KafkaTopic
@@ -724,13 +665,13 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Save the <code>postgresql-source-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
+<p>Save the <code>simple-filter-action-binding.yaml</code> file to your local drive, and then edit it as needed for your configuration.</p>
 </li>
 <li>
-<p>Run the source by using the following command:</p>
+<p>Run the action by using the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f postgresql-source-binding.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc apply -f simple-filter-action-binding.yaml</code></pre>
 </div>
 </div>
 </li>
@@ -740,11 +681,11 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 <div class="sect3">
 <h4 id="_procedure_for_using_the_kamel_cli_2"><a class="anchor" href="#_procedure_for_using_the_kamel_cli_2"></a><strong>Procedure for using the Kamel CLI</strong></h4>
 <div class="paragraph">
-<p>Configure and run the source by using the following command:</p>
+<p>Configure and run the action by using the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind postgresql-source -p "source.databaseName=The Database Name" -p "source.password=The Password" -p "source.query=INSERT INTO accounts (username,city) VALUES (:#username,:#city)" -p "source.serverName=localhost" -p "source.username=The Username" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">kamel bind timer-source?message=Hello --step simple-filter-action -p "step-0.expression=The Simple Expression" kafka.strimzi.io/v1beta1:KafkaTopic:my-topic</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -758,7 +699,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
 <h2 id="_kamelet_source_file"><a class="anchor" href="#_kamelet_source_file"></a>Kamelet source file</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/openshift-integration/kamelet-catalog/blob/main/postgresql-source.kamelet.yaml" class="bare">https://github.com/openshift-integration/kamelet-catalog/blob/main/postgresql-source.kamelet.yaml</a></p>
+<p><a href="https://github.com/openshift-integration/kamelet-catalog/blob/main/simple-filter-action.kamelet.yaml" class="bare">https://github.com/openshift-integration/kamelet-catalog/blob/main/simple-filter-action.kamelet.yaml</a></p>
 </div>
 </div>
 </div>
@@ -886,7 +827,7 @@ Make also sure you have <strong>"Red Hat Integration - Camel K"</strong> install
         {
         "@type": "ListItem",
         "position": 4,
-        "name": "PostgreSQL Source","item": "https://camel.apache.org/camel-kamelets/2.3.x/postgresql-source.html"}
+        "name": "Simple Filter Action","item": "https://camel.apache.org/camel-kamelets/2.3.x/simple-filter-action.html"}
         ]
     }
 </script>
