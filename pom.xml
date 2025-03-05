@@ -152,6 +152,7 @@
     </pluginRepositories>
 
     <build>
+
         <defaultGoal>install</defaultGoal>
 
         <pluginManagement>
@@ -307,6 +308,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Added here to avoid full Camel release train -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>4.1.115.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <profiles>
         <profile>
             <id>release</id>
